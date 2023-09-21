@@ -19,4 +19,4 @@ Reactを利用するためには、Node.jsのバージョン18以降が必要に
 Node.jsの環境構築は別のPDFを参照してください。
 
 # Next.jsアプリを作成する
-## [1-1 | セットアップ](#1-1--セットアップ)
+## [1-1 | セットアップ](https://nextjs.org/learn/basics/create-nextjs-app/setup)
