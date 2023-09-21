@@ -48,6 +48,9 @@ npm run dev - Next.jsの開発サーバーをポート3000で起動していま�
 npm run devで開発サーバーを立ち上げたのでアクセスしてみましょう。
 [ここを押してアクセス](http://localhost:3000/)
 
+開発サーバーはコードが変更されると即時に処理が更新されます。
+そのため、開発中にサーバーを再起動する必要があまりなく、開発効率が上がります。
+
 これまでで、Webサイトを作成するための準備が整いました。次はページの編集を行っていきます。
 
 ## [1-2 | ページを編集する](#)
@@ -57,7 +60,7 @@ npm run devで開発サーバーを立ち上げたのでアクセスしてみま
 
 index.jsの中から、以下のような\<h1>タグの部分を探してください。
 
-``` javascript
+```js
 <h1 className={styles.title}>
     Welcome to <a href="https://nextjs.org">Next.js!</a>
 </h1>
@@ -65,7 +68,7 @@ index.jsの中から、以下のような\<h1>タグの部分を探してくだ�
 
 この部分を以下のように変更してください。
 
-``` javascript
+```js
 <h1 className={styles.title}>
     Read <Link href="/posts/first-post">this page!</Link>
 </h1>
@@ -88,4 +91,12 @@ postsディレクトリにfirst-post.jsを作成してください。
 ディレクト構成は以下のようになります。
 ```
 pages/posts/first-post.js
+```
+
+first-post.jsの中身は以下のようにしてください。
+
+```js
+export default function FirstPost() {
+  return <h1>First Post</h1>;
+}
 ```
