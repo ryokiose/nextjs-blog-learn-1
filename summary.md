@@ -1,4 +1,4 @@
-# Next.jsチュートリアル 簡易まとめ  [Next.js](https://nextjs.org/learn/foundations/about-nextjs,チュートリアル)
+# Next.jsチュートリアル 簡易まとめ  [Next.js](https://nextjs.org/learn/foundations/about-nextjs)
 
 ## 目次
 - [はじめに](#はじめに)
