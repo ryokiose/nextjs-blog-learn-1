@@ -9,6 +9,7 @@
     - [1-2 | ページを編集する](#1-2--ページを編集する)
 - [ページ間の移動・パス](#2--ページ間の移動・パス)
     - [2-1 | ページ間を移動する](#2-1--ページ間を移動する)
+    - [2-2 | ページを移動する](#2-2--ページを移動する)
 
 # [0 | はじめに](#)
 ## [0-1 | Next.jsとは](#)
@@ -19,7 +20,7 @@ Next.jsはReactのライブラリです。
 そのため、Next.jsを利用するためにReactを利用する環境が必要です。
 
 Reactを利用するためには、Node.jsのバージョン18以降が必要になります。
-Node.jsの環境構築は別のPDFを参照してください。
+Node.jsの環境構築はPDFがあるため、そちらを参照してください。
 
 # [1 | Next.jsアプリを作成する](#)
 ## [1-1 | セットアップ](https://nextjs.org/learn/basics/create-nextjs-app/setup)
@@ -53,14 +54,14 @@ npm run devで開発サーバーを立ち上げたのでアクセスしてみま
 
 これまでで、Webサイトを作成するための準備が整いました。次はページの編集を行っていきます。
 
-## [1-2 | ページを編集する](#)
+## [1-2 | ページを編集する](https://nextjs.org/learn/basics/create-nextjs-app/editing-the-page)
 次はnextjs-blog-learning配下のpagesディレクトリにあるindex.jsを編集していきます。
 
 まずはpages/index.jsを開いてください。
 
 index.jsの中から、以下のような\<h1>タグの部分を探してください。
 
-```js
+```html
 <h1 className={styles.title}>
     Welcome to <a href="https://nextjs.org">Next.js!</a>
 </h1>
@@ -68,20 +69,17 @@ index.jsの中から、以下のような\<h1>タグの部分を探してくだ�
 
 この部分を以下のように変更してください。
 
-```js
+```html
 <h1 className={styles.title}>
-    Read <Link href="/posts/first-post">this page!</Link>
+    Learn <a href="https://nextjs.org">Next.js!</a>
 </h1>
 ```
-
-この変更では、Welcome to Next.js!という文字列をRead this page!に変更しています。
-
-また、aタグをLinkコンポーネントに変更しています。(Linkコンポーネントについては後述します。)
+ここでは、Welcome toをLearnに変更しています。
 
 変更が完了したら、ブラウザ開きリロードしてください。文章が変更されているのを確認できます。
 
 # [2 | ページ間の移動・パス](#)
-## [2-1 | ページ間を移動する](#)
+## [2-1 | ページを作成する](https://nextjs.org/learn/basics/navigate-between-pages/pages-in-nextjs)
 次はページ間を移動する方法を学びます。
 
 まず、pagesディレクトリにpostsディレクトリを作成してください。
@@ -100,3 +98,105 @@ export default function FirstPost() {
   return <h1>First Post</h1>;
 }
 ```
+
+保存したら、このページにアクセスしてみましょう！
+[ここを押してアクセス](http://localhost:3000/posts/first-post)
+
+URLを見ると、http://localhost:3000/posts/first-postとなっています。
+
+Next.jsでは、pagesディレクトリにあるファイルは、URLのパスとして認識されます。
+
+このようにして簡単にページを作成することができます。
+
+次にコードの説明をします。
+
+```js
+export default function FirstPost()
+```
+export defaultは、このファイルを他のファイルからimportする際に、この関数をデフォルトで使用することを意味します。つまり、ページが開かれた際に、この関数が実行されます。
+
+```js
+return <h1>First Post</h1>;
+```
+上のコードでexport defaultが起動したときに、returnでHTMLのコードが返却されます。
+
+HTMLをJavaScriptで先に読み込んで置くことで、ページの読み込みを高速化しています。
+
+
+## [2-2 | ページを移動する](https://nextjs.org/learn/basics/navigate-between-pages/client-side)
+次はページを移動する方法を学びます。
+
+Next.jsではページを移動する際に、HTMLの\<a>タグではなく、Next.jsが提供するLinkコンポーネントを使用します。
+
+\<a>タグとLinkコンポーネントの違いは、\<a>タグはページを移動する際に、ページをリロードしますが、Linkコンポーネントはページを移動する際に、ページをリロードしません。
+
+なぜ再読み込みしないかというと、Next.jsではページを事前に読み込んでおくことで、ページの移動を高速化しているためです。詳しくは[公式ドキュメント(ENG)]を参照してください(https://nextjs.org/learn/basics/navigate-between-pages/client-side)
+
+### しかし、外部のページに移動する際にはLinkコンポーネントではなく、\<a>タグを使用する必要があるので注意してください。
+
+実際にLinkコンポーネントを使用してみましょう。
+
+まずは、pages/index.jsを開いてください。
+
+一番上の行に以下のようなimport文を追加してください。
+
+```js
+import Link from 'next/link';
+```
+これは、Linkコンポーネントを使用するために必要なimport文です。
+
+次に、index.jsの中から、以下のような\<h1>タグの部分を探してください。
+
+```html
+<h1 className={styles.title}>
+    Learn <a href="https://nextjs.org">Next.js!</a>
+</h1>
+```
+この部分を以下のように変更してください。
+```html
+<h1 className={styles.title}>
+    Read <Link href="/posts/first-post">this page!</Link>
+</h1>
+```
+
+変更が完了したら、[http://localhost:3000](http://localhost:3000)にアクセスしてください。
+
+ページの一番上にあるthis page!という文字をクリックすると、/posts/first-postのリンクに飛べるはずです。
+
+次に、pages/posts/first-post.jsを開いてください。
+
+first-post.jsを以下のように変更してください。
+
+```js
+import Link from 'next/link';
+
+export default function FirstPost() {
+  return (
+    <>
+      <h1>First Post</h1>
+      <h2>
+        <Link href="/">Back to home</Link>
+      </h2>
+    </>
+  );
+}
+```
+
+変更が完了したら、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
+
+ページの一番上にあるBack to homeという文字をクリックすると、/のリンクに飛べるはずです。
+
+これで、ページ間を相互に移動できるようになりました。Webサイトではこの機能を使用してページ間を移動していきます。必ず使うのでしっかり覚えておきましょう！
+
+次にコードの解説をします。
+```js
+return(
+    <>
+        // any code
+    </>
+)
+```
+以前のコードでは、returnの中に\<h1>タグのみがありましたが、今回は\<h1>タグと\<h2>タグがあります。
+このようにreturnに複数行記述する場合は、return()の中に\<>と\</>で囲んでから記述します。
+
+こうすることで、return()の中に複数行記述することができます。
