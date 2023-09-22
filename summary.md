@@ -10,6 +10,10 @@
 - [2 | ページ間の移動・パス](#2--ページ間の移動・パス)
     - [2-1 | ページ間を移動する](#2-1--ページ間を移動する)
     - [2-2 | ページを移動する](#2-2--ページを移動する)
+- [3 | アセット、メタデータ、css](#3--アセットメタデータcss)
+    - [3-1 | アセット](#3-1--アセット)
+    - [3-2 | メタデータ](#3-2--メタデータ)
+    - [3-3 | サードパーティーJavaScript](#3-3--サードパーティーjavascript)
 
 # [0 | はじめに](#)
 ## [0-1 | Next.jsとは](#)
@@ -130,7 +134,7 @@ Next.jsではページを移動する際に、HTMLの\<a>タグではなく、Ne
 
 \<a>タグとLinkコンポーネントの違いは、\<a>タグはページを移動する際に、ページをリロードしますが、Linkコンポーネントはページを移動する際に、ページをリロードしません。
 
-なぜ再読み込みしないかというと、Next.jsではページを事前に読み込んでおくことで、ページの移動を高速化しているためです。詳しくは[公式ドキュメント(ENG)]を参照してください(https://nextjs.org/learn/basics/navigate-between-pages/client-side)
+なぜ再読み込みしないかというと、Next.jsではページを事前に読み込んでおくことで、ページの移動を高速化しているためです。詳しくは[公式ドキュメント(ENG)](https://nextjs.org/learn/basics/navigate-between-pages/client-side)を参照してください
 
 ### しかし、外部のページに移動する際にはLinkコンポーネントではなく、\<a>タグを使用する必要があるので注意してください。
 
@@ -200,3 +204,66 @@ return(
 このようにreturnに複数行記述する場合は、return()の中に\<>と\</>で囲んでから記述します。
 
 こうすることで、return()の中に複数行記述することができます。
+
+# [3 | アセット、メタデータ、css](https://nextjs.org/learn/basics/assets-metadata-css/assets)
+## [3-1 | アセット](https://nextjs.org/learn/basics/assets-metadata-css/assets)
+
+まずは[このリンクにアクセス](https://github.com/vercel/next-learn/blob/main/basics/basics-final/public/images/profile.jpg)してprofile.jpgをダウンロードし、/publicにprofile.jpgを配置してください。
+
+次に、pages/index.jsを開いてください。
+
+index.jsの中から<footer>を探し、以下のように変更してください。
+
+```html
+<img src="/profile.jpg" alt="Vercel" className={styles.logo} />
+```
+このようにすることで静的ファイルを読み込むことができます。(ただし、これは最適化されていないので、後ほど最適化する方法を学びます。)
+
+変更が完了したら、[http://localhost:3000](http://localhost:3000)にアクセスしてください。
+
+ページの一番下にあるVercelのロゴが変更されているはずです。
+
+## [3-2 | メタデータ](https://nextjs.org/learn/basics/assets-metadata-css/metadata)
+次はメタデータを変更していきます。
+
+まずはpages/index.jsを開いてください。
+
+index.jsの中の\<Head>タグを探してください。これがメタデータを設定するためのタグです。
+\<Head>タグを使うためには、import文を追加する必要があります。
+
+**HTMLにある\<head>タグとNext.jsで使用される\<Head>は別のものです。*H*の大文字と小文字に注意しましょう！**
+
+以下がその例です。
+
+```js
+import Head from 'next/head';
+```
+```html
+<Head>
+    <title>Create Next App</title>
+    <link rel="icon" href="/favicon.ico" />
+</Head>
+```
+ここでは、タイトルをCreate Next Appに設定し、アイコンをfavicon.icoに設定しています。
+
+実際にメタデータを設定してみましょう。
+
+まずは、pages/posts/first-post.jsを開いてください。
+
+メタデータを設定するための\<Head>[^1]タグを使用するには、import文を追加する必要があります。追加しましょう。
+```js
+import Head from 'next/head';
+```
+
+次にメタデータを設定していきます。
+```html
+<Head>
+    <title>First Post</title>
+</Head>
+```
+
+変更が完了したら、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
+
+ページのタイトルが変更されているのを確認できます。
+
+## [3-3 | サードパーティーJavaScript](https://nextjs.org/learn/basics/assets-metadata-css/third-party-javascript)
