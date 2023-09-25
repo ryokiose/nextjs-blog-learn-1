@@ -338,3 +338,8 @@ srcで指定した外部Scriptを読み込むタイミングを指定します�
 外部Scriptの読み込みが完了した際に実行する関数を指定します。
 
 今回は"script loaded correctly, window.FB has been populated"というメッセージをコンソールに表示し、外部Scriptの読み込みが完了したことを確認できるようにしています。
+
+
+変更が完了したらコードを保存し、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
+
+開発者コンソールを開き、consoleにメッセージが表示されているのを確認できます。
