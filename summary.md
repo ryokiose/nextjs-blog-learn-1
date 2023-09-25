@@ -15,6 +15,7 @@
     - [3-2 | メタデータ](#3-2--メタデータ)
     - [3-3 | サードパーティーJavaScript](#3-3--サードパーティーjavascript)
     - [3-4 | CSS](#3-4--css)
+    - [3-5 | Layoutを進化させる](#3-5--layoutを進化させる)
 
 # [0 | はじめに](#)
 ## [0-1 | Next.jsとは](#)
@@ -100,7 +101,7 @@ first-post.jsの中身は以下のようにしてください。
 
 ```js
 export default function FirstPost() {
-  return <h1>First Post</h1>;
+    return <h1>First Post</h1>;
 }
 ```
 
@@ -176,14 +177,14 @@ first-post.jsを以下のように変更してください。
 import Link from 'next/link';
 
 export default function FirstPost() {
-  return (
-    <>
-      <h1>First Post</h1>
-      <h2>
-        <Link href="/">Back to home</Link>
-      </h2>
-    </>
-  );
+    return (
+        <>
+            <h1>First Post</h1>
+            <h2>
+                <Link href="/">Back to home</Link>
+            </h2>
+        </>
+    );
 }
 ```
 
@@ -301,24 +302,24 @@ import Script from 'next/script';
 
 ```js
 export default function FirstPost() {
-  return (
-    <>
-      <Head>
-        <title>Fist Post</title>
-      </Head>
-      <Script
-        src="https://connect.facebook.net/en_US/sdk.js"
-        strategy="lazyOnload"
-        onLoad={() =>
-          console.log(`script loaded correctly, window.FB has been populated`)
-        }
-      />
-      <h1>First Post</h1>
-      <h2>
-        <Link href="/">Back to home</Link>
-      </h2>
-    </>
-  );
+    return (
+        <>
+            <Head>
+                <title>Fist Post</title>
+            </Head>
+            <Script
+                src="https://connect.facebook.net/en_US/sdk.js"
+                strategy="lazyOnload"
+                onLoad={() =>
+                console.log(`script loaded correctly, window.FB has been populated`)
+                }
+            />
+            <h1>First Post</h1>
+            <h2>
+                <Link href="/">Back to home</Link>
+            </h2>
+        </>
+    );
 }
 ```
 
@@ -363,16 +364,16 @@ layout.js
 import styles from './layout.module.css';
 
 export default function Layout({ children }) {
-  return <div className={styles.container}>{children}</div>;
+    return <div className={styles.container}>{children}</div>;
 }
 ```
 
 layout.module.css
 ```css
 .container {
-  max-width: 36rem;
-  padding: 0 1rem;
-  margin: 3rem auto 6rem;
+    max-width: 36rem;
+    padding: 0 1rem;
+    margin: 3rem auto 6rem;
 }
 ```
 /pages/posts/first-post.js
@@ -383,24 +384,24 @@ import Script from 'next/script';
 import Layout from '../../components/layout'; // 相対パスでlayout.jsをimportする
 
 export default function FirstPost() {
-  return (
-    <Layout> <!-- <>から<Layout>に変更 -->
-      <Head>
-        <title>Fist Post</title>
-      </Head>
-      <Script
-        src="https://connect.facebook.net/en_US/sdk.js"
-        strategy="lazyOnload"
-        onLoad={() =>
-          console.log(`script loaded correctly, window.FB has been populated`)
-        }
-      />
-      <h1>First Post</h1>
-      <h2>
-        <Link href="/">Back to home</Link>
-      </h2>
-    </Layout> <!-- <>から変更 -->
-  );
+    return (
+        <Layout> <!-- <>から<Layout>に変更 -->
+        <Head>
+            <title>Fist Post</title>
+        </Head>
+        <Script
+            src="https://connect.facebook.net/en_US/sdk.js"
+            strategy="lazyOnload"
+            onLoad={() =>
+            console.log(`script loaded correctly, window.FB has been populated`)
+            }
+        />
+        <h1>First Post</h1>
+        <h2>
+            <Link href="/">Back to home</Link>
+        </h2>
+        </Layout> <!-- <>から変更 -->
+    );
 }
 ```
 
@@ -426,37 +427,37 @@ _app.jsには、以下のように記述してください。
 import '../styles/global.css';
 
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+    return <Component {...pageProps} />;
 }
 ```
 次にここでimportしているglobal.cssを作成します。最初からあるglobals.cssでは無いので注意してください。
 ```css
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  line-height: 1.6;
-  font-size: 18px;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+        Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    line-height: 1.6;
+    font-size: 18px;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 a {
-  color: #0070f3;
-  text-decoration: none;
+    color: #0070f3;
+    text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 img {
-  max-width: 100%;
-  display: block;
+    max-width: 100%;
+    display: block;
 }
 ```
 
@@ -467,3 +468,244 @@ _app.jsは、pagesディレクトリにある全てのページで使用され�
 
 
 ここまで出来たら、サーバーを再起動し、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
+
+## [3-5 | Layoutを進化させる](https://nextjs.org/learn/basics/assets-metadata-css/polishing-layout)
+これまでは最小限のReactとCSSのコードでした。次のステップに進む前にページを少し改善します。それぞれのファイルを以下のものに書き換えてください。
+
+components/layout.module.css
+```css
+.container {
+    max-width: 36rem;
+    padding: 0 1rem;
+    margin: 3rem auto 6rem;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.backToHome {
+    margin: 3rem 0 0;
+}
+```
+次に新しいファイルを作成します。stylesにutils.module.cssというファイルを作成し、以下のように記述してください。
+
+styles/utils.module.css
+```css
+.heading2Xl {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.05rem;
+    margin: 1rem 0;
+}
+
+.headingXl {
+    font-size: 2rem;
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: -0.05rem;
+    margin: 1rem 0;
+}
+
+.headingLg {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    margin: 1rem 0;
+}
+
+.headingMd {
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.borderCircle {
+    border-radius: 9999px;
+}
+
+.colorInherit {
+    color: inherit;
+}
+
+.padding1px {
+    padding-top: 1px;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.listItem {
+    margin: 0 0 1.25rem;
+}
+
+.lightText {
+    color: #666;
+}
+```
+
+components/layout.js
+```js
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from './layout.module.css';
+import utilStyles from '../styles/utils.module.css';
+import Link from 'next/link';
+
+const name = 'Your Name'; // ここに自分の名前を入れてください
+export const siteTitle = 'Next.js Sample Website';
+
+export default function Layout({ children, home }) {
+    return (
+        <div className={styles.container}>
+        <Head>
+            <link rel="icon" href="/favicon.ico" />
+            <meta
+            name="description"
+            content="Learn how to build a personal website using Next.js"
+            />
+            <meta
+            property="og:image"
+            content={`https://og-image.vercel.app/${encodeURI(
+                siteTitle,
+            )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+            />
+            <meta name="og:title" content={siteTitle} />
+            <meta name="twitter:card" content="summary_large_image" />
+        </Head>
+        <header className={styles.header}>
+            {home ? (
+            <>
+                <Image
+                priority
+                src="/images/profile.jpg"
+                className={utilStyles.borderCircle}
+                height={144}
+                width={144}
+                alt=""
+                />
+                <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            </>
+            ) : (
+            <>
+                <Link href="/">
+                <Image
+                    priority
+                    src="/images/profile.jpg"
+                    className={utilStyles.borderCircle}
+                    height={108}
+                    width={108}
+                    alt=""
+                />
+                </Link>
+                <h2 className={utilStyles.headingLg}>
+                <Link href="/" className={utilStyles.colorInherit}>
+                    {name}
+                </Link>
+                </h2>
+            </>
+            )}
+        </header>
+        <main>{children}</main>
+        {!home && (
+            <div className={styles.backToHome}>
+            <Link href="/">← Back to home</Link>
+            </div>
+        )}
+        </div>
+    );
+}
+```
+それぞれの変更点などを説明します。
+
+### components/layout.module.css
+ここでは後ほど使用するheaderとbackToHomeのスタイルを定義しています。
+cssの内容については省略します。
+
+### styles/utils.module.css
+utils.module.cssはglobalを含む全てのファイルから再利用できるスタイルを定義しています。
+
+### components/layout.js
+ここではheaderや戻るボタンなどのコンポーネントを定義しています。
+
+詳しく説明します。
+
+```js
+const name = 'Manato Miura';
+export const siteTitle = 'Next.js Sample Website';
+```
+ここでは、サイトのタイトルと名前を定義しています。
+
+exportが付かない場合は、このファイル内でしか使用できませんが、exportを付けることで、他のファイルから使用することができます。
+
+次に\<header>タグの記述について説明します。
+```js
+export default function Layout({ children, home }) {
+    // ...省略
+    <header className={styles.header}>
+        {home ? (
+            <>
+                <Image
+                    priority
+                    src="/images/profile.jpg"
+                    className={utilStyles.borderCircle}
+                    height={144}
+                    width={144}
+                    alt=""
+                />
+                <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            </>
+        ) : (
+            <>
+                <Link href="/">
+                    <Image
+                    priority
+                    src="/images/profile.jpg"
+                    className={utilStyles.borderCircle}
+                    height={108}
+                    width={108}
+                    alt=""
+                />
+                </Link>
+                <h2 className={utilStyles.headingLg}>
+                <Link href="/" className={utilStyles.colorInherit}>
+                    {name}
+                </Link>
+            </h2>
+        </>
+        )}
+    </header>
+}
+```
+
+ここでは、homeかどうかを判断して表示を変えています。
+```js
+{home ? (
+    // homeが開かれているときの処理
+) : (
+    // home以外が開かれているときの処理
+)}
+```
+
+\<main>タグの中にchildrenを表示しています。childrenは、呼び出し元のコンポーネントの中身を表示するためのものです。
+
+```js
+<main>{children}</main>
+```
+
+ここでは、home以外のページが開かれている時に表示する戻るボタンを定義しています。
+```js
+{!home && (
+<div className={styles.backToHome}>
+    <Link href="/">← Back to home</Link>
+</div>
+)}
+```
+
+これらのものを簡潔にまとめると、\<header>、\<main>(呼び出し元)、戻るボタンを表示できます。
+
+これらを使用することでheaderやfooter、など複数の場所で使用することができるコンポーネントを作成、使用することができます。
