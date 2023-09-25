@@ -14,6 +14,7 @@
     - [3-1 | アセット](#3-1--アセット)
     - [3-2 | メタデータ](#3-2--メタデータ)
     - [3-3 | サードパーティーJavaScript](#3-3--サードパーティーjavascript)
+    - [3-4 | CSS](#3-4--css)
 
 # [0 | はじめに](#)
 ## [0-1 | Next.jsとは](#)
@@ -343,3 +344,126 @@ srcで指定した外部Scriptを読み込むタイミングを指定します�
 変更が完了したらコードを保存し、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
 
 開発者コンソールを開き、consoleにメッセージが表示されているのを確認できます。
+
+## [3-4 | CSS](https://nextjs.org/learn/basics/assets-metadata-css/css-styling)
+Next.jsでは通常の.cssファイルの他、cssモジュールやTailwand CSSのようなライブラリを使用することができます。
+
+
+### コンポーネントにCSSを適用する
+First-post.jsにcssを適用させてみます。
+
+まずは以下のフォルダとファイルを作成してください。
+```
+/components/layout.js
+/components/layout.module.css
+```
+
+layout.js
+```js
+import styles from './layout.module.css';
+
+export default function Layout({ children }) {
+  return <div className={styles.container}>{children}</div>;
+}
+```
+
+layout.module.css
+```css
+.container {
+  max-width: 36rem;
+  padding: 0 1rem;
+  margin: 3rem auto 6rem;
+}
+```
+/pages/posts/first-post.js
+```js
+import Link from 'next/link';
+import Head from 'next/head';
+import Script from 'next/script';
+import Layout from '../../components/layout'; // 相対パスでlayout.jsをimportする
+
+export default function FirstPost() {
+  return (
+    <Layout> <!-- <>から<Layout>に変更 -->
+      <Head>
+        <title>Fist Post</title>
+      </Head>
+      <Script
+        src="https://connect.facebook.net/en_US/sdk.js"
+        strategy="lazyOnload"
+        onLoad={() =>
+          console.log(`script loaded correctly, window.FB has been populated`)
+        }
+      />
+      <h1>First Post</h1>
+      <h2>
+        <Link href="/">Back to home</Link>
+      </h2>
+    </Layout> <!-- <>から変更 -->
+  );
+}
+```
+
+変更が完了したらコードを保存し、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
+
+ここではどのような動作をしているかを説明します。
+
+まず、layout.jsをimportしています。これは、\<Layout>タグを使用するために必要なimport文です。
+
+次に、\<Layout>で囲んだ理由を説明します。
+
+\<Layout>タグで囲うと、layout.jsで指定されたlayout.module.cssの.containerのスタイルが適用されます。
+
+この方法はコンポーネントごとにcssを適用するのに役立ちます
+
+### グローバルCSSを作成する
+グローバルCSSを作成するには、pages/_app.jsを作成します。
+```
+pages/_app.js
+```
+_app.jsには、以下のように記述してください。
+```js
+import '../styles/global.css';
+
+export default function App({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
+```
+次にここでimportしているglobal.cssを作成します。最初からあるglobals.cssでは無いので注意してください。
+```css
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+```
+
+**[重要]**
+_app.jsは、pagesディレクトリにある全てのページで使用されるコンポーネントです。このファイルを作成したときには、Ctrl + cを押してサーバーを停止し、再度サーバーを起動してください。
+
+グローバルCSSは全てのファイルに影響を及ぼします。そのため、外にimport出来ません。そのため、グローバルCSSを作成するには、pagesディレクトリにある_app.jsを使用します。
+
+
+ここまで出来たら、サーバーを再起動し、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
