@@ -250,7 +250,7 @@ import Head from 'next/head';
 
 まずは、pages/posts/first-post.jsを開いてください。
 
-メタデータを設定するための\<Head>[^1]タグを使用するには、import文を追加する必要があります。追加しましょう。
+メタデータを設定するための\<Head>タグを使用するには、import文を追加する必要があります。追加しましょう。
 ```js
 import Head from 'next/head';
 ```
@@ -267,3 +267,74 @@ import Head from 'next/head';
 ページのタイトルが変更されているのを確認できます。
 
 ## [3-3 | サードパーティーJavaScript](https://nextjs.org/learn/basics/assets-metadata-css/third-party-javascript)
+
+通常のアプリケーションでは以下のように\<head>タグの中に記述して外部Scriptを読み込みます。
+```html
+<head>
+    <script src="https://www.sample.api/"></script>
+</head>
+```
+
+Next.jsでは、タイトルなどと同様に\<Head>タグを使用して外部Scriptを読み込みむことができます。
+```html
+<!-- 非推奨 -->
+<Head>
+    <script src="https://www.sample.api/"></script>
+</Head>
+```
+しかし、この方法では、外部Scriptが読み込まれるまでページが表示されないため、パフォーマンスが低下します。
+
+したがって、\<Head>タグにScriptを記述することは<u>**推奨されていません。**</u>
+
+そこで、Next.jsでは\<Script>タグというものが用意されています。
+
+First-post.jsを編集してみましょう。
+
+\<Script>タグを使用するにはimportをする必要があります。まずはimport文を追加しましょう。
+```js
+import Script from 'next/script';
+```
+
+次に\<Script>タグを使用して外部Scriptを読み込んでみましょう。
+ここでは、FacebookのSDKを読み込んでみます。
+
+```js
+export default function FirstPost() {
+  return (
+    <>
+      <Head>
+        <title>Fist Post</title>
+      </Head>
+      <Script
+        src="https://connect.facebook.net/en_US/sdk.js"
+        strategy="lazyOnload"
+        onLoad={() =>
+          console.log(`script loaded correctly, window.FB has been populated`)
+        }
+      />
+      <h1>First Post</h1>
+      <h2>
+        <Link href="/">Back to home</Link>
+      </h2>
+    </>
+  );
+}
+```
+
+\<Script>タグとそのプロパティについて解説します。詳しく知りたい方は[公式ドキュメント](https://nextjs.org/docs/pages/api-reference/components/script)を参照してください。
+
+### src(必須)
+読み込む外部ScriptのURLを指定します。
+
+### strategy(任意)
+srcで指定した外部Scriptを読み込むタイミングを指定します。
+ここではよく使用される2つを紹介します。
+
+**・ afterInteractive(デフォルト)** - ページが開かれ、ある程度ページが読み込まれた後に。
+
+**・ lazyOnload** - ページが読み込まれた後に読み込みます。
+
+### onLoad(任意)
+外部Scriptの読み込みが完了した際に実行する関数を指定します。
+
+今回は"script loaded correctly, window.FB has been populated"というメッセージをコンソールに表示し、外部Scriptの読み込みが完了したことを確認できるようにしています。
