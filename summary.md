@@ -210,14 +210,14 @@ return(
 # [3 | アセット、メタデータ、css](https://nextjs.org/learn/basics/assets-metadata-css/assets)
 ## [3-1 | アセット](https://nextjs.org/learn/basics/assets-metadata-css/assets)
 
-まずは[このリンクにアクセス](https://github.com/vercel/next-learn/blob/main/basics/basics-final/public/images/profile.jpg)してprofile.jpgをダウンロードし、/publicにprofile.jpgを配置してください。
+まずは[このリンクにアクセス](https://github.com/vercel/next-learn/blob/main/basics/basics-final/public/images/profile.jpg)してprofile.jpgをダウンロードし、/public/images/にprofile.jpgを配置してください。
 
 次に、pages/index.jsを開いてください。
 
 index.jsの中から<footer>を探し、以下のように変更してください。
 
 ```html
-<img src="/profile.jpg" alt="Vercel" className={styles.logo} />
+<img src="/images/profile.jpg" alt="Vercel" className={styles.logo} />
 ```
 このようにすることで静的ファイルを読み込むことができます。(ただし、これは最適化されていないので、後ほど最適化する方法を学びます。)
 
