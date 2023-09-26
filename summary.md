@@ -16,8 +16,9 @@
     - [3-3 | サードパーティーJavaScript](#3-3--サードパーティーjavascript)
     - [3-4 | CSS](#3-4--css)
     - [3-5 | Layoutを進化させる](#3-5--layoutを進化させる)
-- [4 | プレレンダリング・データフェッチ](#4--プレレンダリング・データフェッチ)
-    - [4-1 | プレレンダリング](#4-1--プレレンダリング)
+- [4 | プリレンダリング・データフェッチ](#4--プリレンダリング・データフェッチ)
+    - [4-1 | プリレンダリング](#4-1--プリレンダリング)
+    - [4-2 | データあり、無しの静的生成](#4-2--データあり無しの静的生成)
 
 # [0 | はじめに](#)
 ## [0-1 | Next.jsとは](#)
@@ -712,14 +713,270 @@ export default function Layout({ children, home }) {
 
 これらを使用することでheaderやfooter、など複数の場所で使用することができるコンポーネントを作成、使用することができます。
 
-# [4 | プレレンダリング・データフェッチ](https://nextjs.org/learn/basics/data-fetching)
+# [4 | プリレンダリング・データフェッチ](https://nextjs.org/learn/basics/data-fetching)
 
-## [4-1 | プレレンダリング](https://nextjs.org/learn/basics/data-fetching/pre-rendering)
+## [4-1 | プリレンダリング](https://nextjs.org/learn/basics/data-fetching/pre-rendering)
 
-Next.jsでは、ページをプレレンダリング(事前にHTMLを生成)することができます。
+Next.jsでは、ページをプリレンダリング(事前にHTMLを生成)することができます。
 
 日本語で詳しく解説しているものがあるので[こちら](https://zenn.dev/luvmini511/articles/1523113e0dec58)をご覧ください。
 
 簡単にまとめると、ページごとにSSRとSSGの2つを使い分けて高速化しよう！ということです。
 
 ## [4-2 | データあり、無しの静的生成](https://nextjs.org/learn/basics/data-fetching/with-data)
+ここからは実際のアプリケーションのようにデータを取得していきます。
+
+まずは、mdファイルの解析で使う**gray-matter**というライブラリをインストールします。
+
+../nextjs-blog>まで移動して以下のコマンドを実行してください。
+```cmd
+npm install gray-matter
+```
+これでgray-matterがインストールされました。
+
+他のライブラリのインストールも同じ方法で行います。
+
+次に、ルートディレクトリにpostsというディレクトリを作成してください。(/pages/postsとは別です)
+
+次に以下2つのファイルを作成してください。
+```cmd
+/posts/pre-rendering.md
+/posts/ssg-ssr.md
+```
+
+それぞれ以下のように記述してください。
+
+pre-rendering.md
+```md
+---
+title: 'Two Forms of Pre-rendering'
+date: '2020-01-01'
+---
+
+Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+
+- **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
+- **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+
+Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+```
+
+ssg-ssr.md
+```md
+---
+title: 'When to Use Static Generation v.s. Server-side Rendering'
+date: '2020-01-02'
+---
+
+We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
+
+You can use Static Generation for many types of pages, including:
+
+- Marketing pages
+- Blog posts
+- E-commerce product listings
+- Help and documentation
+
+You should ask yourself: "Can I pre-render this page **ahead** of a user's request?" If the answer is yes, then you should choose Static Generation.
+
+On the other hand, Static Generation is **not** a good idea if you cannot pre-render a page ahead of a user's request. Maybe your page shows frequently updated data, and the page content changes on every request.
+
+In that case, you can use **Server-Side Rendering**. It will be slower, but the pre-rendered page will always be up-to-date. Or you can skip pre-rendering and use client-side JavaScript to populate data.
+```
+
+これらのmarkdownファイルは、ブログの記事としています。
+
+実際のアプリケーションでは、これらがデータベースなどから取得したデータになります。
+
+次に、ルートディレクトリにlibディレクトリ、その下にposts.jsを作成してください。
+
+posts.jsには以下のように記述してください。
+```js
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+
+const postsDirectory = path.join(process.cwd(), 'posts');
+
+export function getSortedPostsData() {
+    // Get file names under /posts
+    const fileNames = fs.readdirSync(postsDirectory);
+    const allPostsData = fileNames.map((fileName) => {
+        // Remove ".md" from file name to get id
+        const id = fileName.replace(/\.md$/, '');
+
+        // Read markdown file as string
+        const fullPath = path.join(postsDirectory, fileName);
+        const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+        // Use gray-matter to parse the post metadata section
+        const matterResult = matter(fileContents);
+
+        // Combine the data with the id
+        return {
+            id,
+            ...matterResult.data,
+        };
+    });
+    // Sort posts by date
+    return allPostsData.sort((a, b) => {
+        if (a.date < b.date) {
+            return 1;
+        } else {
+            return -1;
+        }
+    });
+}
+```
+
+posts.jsのフローを説明します。
+
+```js
+const postsDirectory = path.join(process.cwd(), 'posts');
+```
+process.cwd()は現在のディレクトリを取得する関数です。ここでは、/nextjs-blogを取得しています。
+
+path.join()は、引数に指定した文字列を結合する関数です。ここでは、/nextjs-blog/postsを取得しています。
+
+```js
+const fileNames = fs.readdirSync(postsDirectory);
+```
+上記で取得したパス(/nextjs-blog/posts/)にあるファイル名を配列で取得しています。
+
+ここでは、pre-rendering.mdとssg-ssr.mdを取得しています。
+
+```js
+const allPostsData = fileNames.map((fileName) => {
+    // Remove ".md" from file name to get id
+    const id = fileName.replace(/\.md$/, '');
+
+    // Read markdown file as string
+    const fullPath = path.join(postsDirectory, fileName);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+    // Use gray-matter to parse the post metadata section
+    const matterResult = matter(fileContents);
+
+    // Combine the data with the id
+    return {
+        id,
+        ...matterResult.data,
+    };
+});
+// Sort posts by date
+return allPostsData.sort((a, b) => {
+    if (a.date < b.date) {
+        return 1;
+    } else {
+        return -1;
+    }
+});
+```
+map()は、配列の要素を順番に処理する関数です。ここではfileNamesの要素を順番に処理しています。
+
+mapでは以下のことをしています。
+
+1. ファイル名から.mdを削除
+2. これまでのパスとファイル名を結合しフルパスを取得
+3. フルパスからファイルの中身を取得
+4. gray-matterを使用してファイルのメタデータを取得
+5. idをファイル名、メタデータをデータとし、一つのオブジェクトとして返す
+
+これらのことを全てのファイル(ここではpre-rendering.mdとssg-ssr.md)に対して行っています。
+
+最後に、日付順に並び替えて呼び出し元に値を返却しています。
+
+今回のシステムではファイルからデータを取得していますが、実際のアプリケーションではデータベースからデータを取得します。その際にはこのファイルにデータベースからデータを取得する処理を記述することができます。
+
+posts.jsの解説は以上です。
+
+
+次に、pages/index.jsを編集していきます。
+```js
+import Head from 'next/head';
+import Layout, { name, siteTitle } from '../components/layout';
+import utilStyles from '../styles/utils.module.css';
+import { getSortedPostsData } from '../lib/posts';
+
+export async function getStaticProps() {
+    const allPostsData = getSortedPostsData();
+    return {
+        props: {
+            allPostsData,
+        },
+    };
+}
+
+export default function Home({ allPostsData }) {
+    return (
+        <Layout home>
+            <Head>
+                <title>Blog - {name}</title>
+            </Head>
+            <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+                <h2 className={utilStyles.headingLg}>Blog</h2>
+                <ul className={utilStyles.list}>
+                    {allPostsData.map(({ id, date, title }) => (
+                        <li className={utilStyles.listItem} key={id}>
+                            {title}
+                            <br />
+                            {id}
+                            <br />
+                            {date}
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        </Layout>
+    );
+}
+```
+
+更新されたindex.jsのフローを説明します。
+
+```js
+import { getSortedPostsData } from '../lib/posts';
+
+export async function getStaticProps() {
+    const allPostsData = getSortedPostsData();
+    return {
+        props: {
+            allPostsData,
+        },
+    };
+}
+```
+ここで先ほど作成したposts.jsを使用します。
+
+getStaticProps()は、ページをプリレンダリングするために使用される関数です。
+
+このgetStaticProps()は、同じファイル内の使用するコンポーネントより上に記述する必要があります。
+
+この関数が行っている処理は単純です。
+
+先ほど作成したposts.jsのgetSortedPostsData()を呼び出し、その値をpropsとして返却しています。
+
+
+
+```js
+export default function Home({ allPostsData }) {
+```
+ここでpropsから受け取る値を指定しています。
+
+```js
+{allPostsData.map(({ id, date, title }) => (
+    <li className={utilStyles.listItem} key={id}>
+        {title}
+        <br />
+        {id}
+        <br />
+        {date}
+    </li>
+))}
+```
+ここでは、allPostsDataの要素を順番に処理しています。
+
+idをkeyとして、title、id、dateを表示しています。
+
+変更が完了したら、サーバーを再起動し、[http://localhost:3000](http://localhost:3000)にアクセスしてください。
+
