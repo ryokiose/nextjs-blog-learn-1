@@ -702,9 +702,9 @@ export default function Layout({ children, home }) {
 ここでは、home以外のページが開かれている時に表示する戻るボタンを定義しています。
 ```js
 {!home && (
-<div className={styles.backToHome}>
-    <Link href="/">← Back to home</Link>
-</div>
+    <div className={styles.backToHome}>
+        <Link href="/">← Back to home</Link>
+    </div>
 )}
 ```
 
