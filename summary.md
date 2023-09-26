@@ -16,6 +16,8 @@
     - [3-3 | サードパーティーJavaScript](#3-3--サードパーティーjavascript)
     - [3-4 | CSS](#3-4--css)
     - [3-5 | Layoutを進化させる](#3-5--layoutを進化させる)
+- [4 | プレレンダリング・データフェッチ](#4--プレレンダリング・データフェッチ)
+    - [4-1 | プレレンダリング](#4-1--プレレンダリング)
 
 # [0 | はじめに](#)
 ## [0-1 | Next.jsとは](#)
@@ -709,3 +711,15 @@ export default function Layout({ children, home }) {
 これらのものを簡潔にまとめると、\<header>、\<main>(呼び出し元)、戻るボタンを表示できます。
 
 これらを使用することでheaderやfooter、など複数の場所で使用することができるコンポーネントを作成、使用することができます。
+
+# [4 | プレレンダリング・データフェッチ](https://nextjs.org/learn/basics/data-fetching)
+
+## [4-1 | プレレンダリング](https://nextjs.org/learn/basics/data-fetching/pre-rendering)
+
+Next.jsでは、ページをプレレンダリング(事前にHTMLを生成)することができます。
+
+日本語で詳しく解説しているものがあるので[こちら](https://zenn.dev/luvmini511/articles/1523113e0dec58)をご覧ください。
+
+簡単にまとめると、ページごとにSSRとSSGの2つを使い分けて高速化しよう！ということです。
+
+## [4-2 | データあり、無しの静的生成](https://nextjs.org/learn/basics/data-fetching/with-data)
