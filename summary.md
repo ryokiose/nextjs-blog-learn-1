@@ -986,3 +986,17 @@ idをkeyとして、title、id、dateを表示しています。
 変更が完了したら、サーバーを再起動し、[http://localhost:3000](http://localhost:3000)にアクセスしてください。
 
 # [5 | 動的ルーティング](https://nextjs.org/learn/basics/dynamic-routes)
+
+## [5-1 | 外部データに依存するパス](https://nextjs.org/learn/basics/dynamic-routes/page-path-external-data)
+ここからは、動的ルーティングを使用していきます。
+
+### そもそも動的ルーティングとは？
+動的ルーティングとは、URLのパスを動的に変更することです。
+
+例えば、とあるブログサイトで、記事のURLが以下のようになっているとします。
+```
+https://example.com/posts/first-post
+```
+このURLのfirst-postの部分をプログラムに書いておくのではなく、記事のタイトルなどを使用して自動的にパスにすることを動的ルーティングと言います。
+
+では、実際に動的ルーティングを使用していきます。
