@@ -1,5 +1,6 @@
 ---
-title: Next.jsチュートリアル 簡易まとめ
+title: 'Next.jsチュートリアル 簡易まとめ'
+date: '2023-09-29'
 ---
 
 # Next.jsチュートリアル 簡易まとめ  [Next.js](https://nextjs.org/learn/foundations/about-nextjs)
