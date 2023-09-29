@@ -24,6 +24,8 @@ title: Next.jsチュートリアル 簡易まとめ
     - [4-1 | プリレンダリング](#4-1--プリレンダリング)
     - [4-2 | データあり、無しの静的生成](#4-2--データあり無しの静的生成)
 - [5 | 動的ルーティング](#5--動的ルーティング)
+    - [5-1 | 外部データに依存するパス](#5-1--外部データに依存するパス)
+    - [5-2 | マークダウンのレンダリング](#5-2--マークダウンのレンダリング)
 
 # [0 | はじめに](#)
 ## [0-1 | Next.jsとは](#)
@@ -986,3 +988,189 @@ idをkeyとして、title、id、dateを表示しています。
 変更が完了したら、サーバーを再起動し、[http://localhost:3000](http://localhost:3000)にアクセスしてください。
 
 # [5 | 動的ルーティング](https://nextjs.org/learn/basics/dynamic-routes)
+
+## [5-1 | 外部データに依存するパス](https://nextjs.org/learn/basics/dynamic-routes/page-path-external-data)
+ここからは、動的ルーティングを使用していきます。
+
+### そもそも動的ルーティングとは？
+動的ルーティングとは、URLのパスを動的に変更することです。
+
+例えば、とあるブログサイトで、記事のURLが以下のようになっているとします。
+```
+https://example.com/posts/first-post
+```
+このURLのfirst-postの部分をプログラムに書いておくのではなく、記事のタイトルなどを使用して自動的にパスにすることを動的ルーティングと言います。Next.jsでは、"["で始まり、"]"で終わるものが動的ルートとなります。
+
+では、実際に動的ルーティングを使用していきます。
+
+これまでのアプリケーションでは、ルートにアクセスすると、全ての記事のタイトルが表示されていました。
+
+今回は、記事のタイトルをクリックすると、その記事の内容が表示されるようにします。
+
+まずは、pages/posts/の配下に[id].jsを作成してください。(ファイル名に[]が含まれているので違和感があるかもしれませんが慣れてください)
+```
+pages/posts/[id].js
+```
+[id].js
+```js
+import Layout from '../../components/layout';
+
+export default function Post() {
+  return <Layout>...</Layout>;
+}
+```
+今は\<Layout>の中身が空ですが、後ほど変更します。
+
+[id].jsの下に以下のコードを追加してください。
+```js
+export async function getStaticPaths() {
+  // Return a list of possible value for id
+}
+```
+このgetStaticPathsという関数では、idに指定できる値のリストを返す必要があります。
+
+さらに下に追加していきます。
+```js
+export async function getStaticProps({ params }) {
+  // Fetch necessary data for the blog post using params.id
+}
+```
+次に、getStaticPropsという関数を作成しています。詳しくは後ほど解説しますが、この関数では、getStaticPathsで返した値を使用して、記事の内容を取得します。
+
+次に、getStaticPathsを実装していきます。コードを以下のように変更してください。
+```js
+import { getAllPostIds } from '../../lib/posts';
+```
+```js
+export async function getStaticPaths() {
+    const paths = getAllPostIds();
+    return {
+        paths,
+        fallback: false,
+    };
+}
+```
+getStaticPathsの中身を説明します。
+```js
+const paths = getAllPostIds();
+```
+ここでは、getAllPostIds()という関数を呼び出しています。この関数は、先ほど作成したposts.jsに記述しています。(後ほど作成します)
+
+```js
+return {
+    paths,
+    fallback: false,
+};
+```
+returnで返している値について説明します。
+pathsは、先ほど作成したgetAllPostIds()の返り値を指定しています。つまり、idのリストを返却しています。
+
+fallbackは、falseを指定しています。これは、getStaticPathsで指定したid以外のパスにアクセスした場合、404ページを表示するという意味です。
+
+次に、getStaticPathsの中で使用しているgetAllPostIds()を作成します。
+
+lib/posts.jsに記述してください
+```js
+export function getAllPostIds() {
+  const fileNames = fs.readdirSync(postsDirectory);
+  return fileNames.map((fileName) => {
+    return {
+      params: {
+        id: fileName.replace(/\.md$/, ''),
+      },
+    };
+  });
+}
+```
+この関数では以下のことをしています。
+
+1. mdファイルがあるディレクトリのファイル名をリストで取得
+2. mapを使い、リストの要素を順番に処理
+3. ファイル名から拡張子(.md)を削除し、idとして返却
+
+結果の例を以下に示します。
+```js
+  // getAllPostIdsの返却値は以下のようになります
+  // [
+  //   {
+  //     params: {
+  //       id: 'ssg-ssr'
+  //     }
+  //   },
+  //   {
+  //     params: {
+  //       id: 'pre-rendering'
+  //     }
+  //   }
+  // ]
+```
+
+次に、getStaticPropsを実装します。以下のように記述してください。
+```js
+// import { getAllPostIds } from '../../lib/posts';
+// 編集 ↓
+import { getAllPostIds, getPostData } from '../../lib/posts';
+```
+```js
+export async function getStaticProps({ params }) {
+    const postData = getPostData(params.id);
+    return {
+        props: {
+            postData,
+        },
+    };
+}
+```
+getStaticProps()という関数ではpostDataという値を返却しています。
+
+postDataはgetPostData()という関数を使用して取得しています。lib/posts.jsに記述してください。
+```js
+export function getPostData(id) {
+    const fullPath = path.join(postsDirectory, `${id}.md`);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+    // Use gray-matter to parse the post metadata section
+    const matterResult = matter(fileContents);
+
+    // Combine the data with the id
+    return {
+        id,
+        ...matterResult.data,
+    };
+}
+```
+getPostData()の流れを解説します。
+
+1. id(ファイル)を使用してファイルのフルパスを取得
+2. フルパスからファイルの中身を取得
+3. gray-matterを使用してファイルのメタデータを取得
+4. idをファイル名、メタデータをデータとし、一つのオブジェクトとして返す
+
+getStaticPropsはここで返却された値をpropsとして返却します。
+
+最後に、[id].jsの中身を作成します。
+
+[id].jsのPost関数を以下のように編集してください。
+```js
+export default function Post({ postData }) {
+    return (
+        <Layout>
+            {postData.title}
+            <br />
+            {postData.id}
+            <br />
+            {postData.date}
+        </Layout>
+    );
+}
+```
+
+ここではPropsから受け取ったpostDataを表示しています。
+
+変更が完了したら、サーバーを再起動し以下のURLにアクセスしてみてください。
+1. [http://localhost:3000/posts/ssg-ssr](http://localhost:3000/posts/ssg-ssr)
+2. [http://localhost:3000/posts/pre-rendering](http://localhost:3000/posts/pre-rendering)
+
+それぞれアクセスでいるようになっていると思います。
+
+## [5-2 | マークダウンのレンダリング](https://nextjs.org/learn/basics/dynamic-routes/render-markdown)
