@@ -1172,6 +1172,6 @@ export default function Post({ postData }) {
 1. [http://localhost:3000/posts/ssg-ssr](http://localhost:3000/posts/ssg-ssr)
 2. [http://localhost:3000/posts/pre-rendering](http://localhost:3000/posts/pre-rendering)
 
-それぞれアクセスでいるようになっていると思います。
+それぞれアクセスできるようになっていると思います。
 
 ## [5-2 | マークダウンのレンダリング](https://nextjs.org/learn/basics/dynamic-routes/render-markdown)
