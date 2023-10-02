@@ -1388,6 +1388,25 @@ import Date from '../components/date';
 
 # [6 | APIルート](https://nextjs.org/learn/basics/api-routes)
 
-## [6-1 | APIルートの作成・使用](https://nextjs.org/learn/basics/api-routes/api-routes-details)
+## [6-1 | APIルートの作成・使用](https://nextjs.org/learn/basics/api-routes/creating-api-routes)
 
 ここからは、APIルートを作成していきます。APIに関しては、公式のチュートリアルには詳しく乗っていなかったので自作で作成したフォームをサンプルとして作成します。
+
+まずは、公式チュートリアルに載っているAPIルートを作成していきます。
+
+pages/api/hello.jsを作成してください。
+
+hello.js
+```js
+export default function handler(req, res) {
+    res.status(200).json({ text: "Hello" })
+}
+```
+この関数は、/api/helloにアクセスすると、{ text: "Hello" }を返却します。
+
+今回作成したAPIルートは、サーバーサイドで実行される関数です。
+
+reqは、HTTPのリクエストオブジェクトで、resは、HTTPのレスポンスオブジェクトです。
+
+試しに、サーバーを再起動し、[http://localhost:3000/api/hello](http://localhost:3000/api/hello)にアクセスしてみてください。
+
