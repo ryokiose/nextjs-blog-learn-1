@@ -1408,5 +1408,6 @@ export default function handler(req, res) {
 
 reqは、HTTPのリクエストオブジェクトで、resは、HTTPのレスポンスオブジェクトです。
 
-試しに、サーバーを再起動し、[http://localhost:3000/api/hello](http://localhost:3000/api/hello)にアクセスしてみてください。
+この関数は、サーバーサイドで実行されるため、クライアント側からはアクセスできません。したがって、APIルートは、DBへのアクセスや、認証などの処理を行うのに適しています。
 
+試しに、サーバーを再起動し、[http://localhost:3000/api/hello](http://localhost:3000/api/hello)にアクセスしてみてください。
