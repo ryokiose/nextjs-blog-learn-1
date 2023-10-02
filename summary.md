@@ -27,6 +27,7 @@ date: '2023-09-29'
 - [5 | 動的ルーティング](#5--動的ルーティング)
     - [5-1 | 外部データに依存するパス](#5-1--外部データに依存するパス)
     - [5-2 | マークダウンのレンダリング](#5-2--マークダウンのレンダリング)
+    - [5-3 | ページの仕上げ](#5-3--ページの仕上げ)
 
 # [0 | はじめに](#)
 ## [0-1 | Next.jsとは](#)
@@ -1175,3 +1176,210 @@ export default function Post({ postData }) {
 それぞれアクセスできるようになっていると思います。
 
 ## [5-2 | マークダウンのレンダリング](https://nextjs.org/learn/basics/dynamic-routes/render-markdown)
+
+これまでのアプリケーションでは、記事のタイトルや日付を表示することができました。
+
+次は、記事の内容を表示していきます。
+
+mdの内容を表示するにはライブラリを使用するのでインストールします。
+```cmd
+npm install remark remark-html
+```
+ここでは、remark,remark-htmlという2つのライブラリをインストールしています。
+
+remarkというライブラリでは、mdファイルを解析することができ、remark-htmlというライブラリでは、解析したmdファイルをHTMLに変換することができます。
+
+次に、lib/posts.jsを編集します。importを追加してください。
+```js
+import { remark } from 'remark';
+import html from 'remark-html';
+```
+
+次に、lib/posts.js内のgetPostData()を以下のように編集してください。
+```js
+export async function getPostData(id) {
+    const fullPath = path.join(postsDirectory, `${id}.md`);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+
+    // Use gray-matter to parse the post metadata section
+    const matterResult = matter(fileContents);
+
+    // Use remark to convert markdown into HTML string
+    const processedContent = await remark()
+        .use(html)
+        .process(matterResult.content);
+    const contentHtml = processedContent.toString();
+
+    // Combine the data with the id and contentHtml
+    return {
+        id,
+        contentHtml,
+        ...matterResult.data,
+    };
+}
+```
+追加されたのは以下の部分です。
+```js
+    // Use remark to convert markdown into HTML string
+    const processedContent = await remark()
+        .use(html)
+        .process(matterResult.content);
+    const contentHtml = processedContent.toString();
+
+    return {
+        id, // Not changed
+        contentHtml,
+        ...matterResult.data, // Not changed
+    };
+```
+
+ここでは、remarkを使用してmdファイルを解析し、HTMLに変換しています。
+更新部分の流れを簡単に説明します。
+1. await remark()でmdファイルを解析するための関数を呼び出しインスタンスを作成ています。
+2. .use(html)は、remark-htmlのプラグインで、mdファイルをHTMLに変換するために使用します。
+3. .process(matterResult.content)は、mdファイルを解析するための関数にmdファイルの内容を渡しています。
+4. processedContent.toString()は、解析されたHTMLを文字列に変換しています。
+
+また、1.で使用されているawaitは、非同期処理を行うものです。awaitを使用することで、非同期処理が完了するまで次の処理に移らないようにすることができます。
+
+次に受け取り部分を編集します。
+
+pages/posts/[id].jsのgetStaticPropsを以下のように編集してください。
+```js
+export async function getStaticProps({ params }) {
+    // Add the "await" keyword like this:
+    const postData = await getPostData(params.id);
+
+    return {
+        props: {
+            postData,
+        },
+    };
+}
+```
+一見変更点がないように見えますが、getPostData()の前にawaitを追加しています。
+
+先ほど編集したgetPostData()は処理の中でawaitを使用しています。処理内でawaitを使用している場合、呼び出し元の関数にもawaitを追加する必要があります。
+
+ここまでの変更で、コンテンツを含む記事を取得することが出来ました。
+
+次は表示される部分を編集します。
+```js
+export default function Post({ postData }) {
+    return (
+        <Layout>
+            {postData.title}
+            <br />
+            {postData.id}
+            <br />
+            {postData.date}
+            <br />
+            <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        </Layout>
+    );
+}
+```
+以下の関数ではReactでHTMLをレンダリングしています。
+```js
+<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+```
+
+変更が完了したら、サーバーを再起動し以下のURLに再度アクセスしてみてください。
+1. [http://localhost:3000/posts/ssg-ssr](http://localhost:3000/posts/ssg-ssr)
+2. [http://localhost:3000/posts/pre-rendering](http://localhost:3000/posts/pre-rendering)
+
+ここまでで、記事の内容を表示することができました。次はページを仕上げていきます。
+
+## [5-3 | ページの仕上げ](https://nextjs.org/learn/basics/dynamic-routes/polishing-post-page)
+まずは、それぞれの投稿ページを編集していきます。
+
+pages/posts/[id].js
+```js
+import Head from 'next/head';
+```
+```js
+export default function Post({ postData }) {
+    return (
+        <Layout>
+            <Head>
+                <title>{postData.title}</title>
+            </Head>
+
+            {/* これまでのコード */}
+        </Layout>
+    );
+}
+```
+タイトルタグを追加しています。
+
+次に日付の表示を変更します。
+
+日付の変更はライブラリを使用します。インストールしてください
+```cmd
+npm install date-fns
+```
+
+インストールが完了したら、components/date.jsを作成し、以下のようにしてください。
+```js
+import { parseISO, format } from 'date-fns';
+
+export default function Date({ dateString }) {
+    const date = parseISO(dateString);
+    return <time dateTime={dateString}>{format(date, 'LLLL d, yyyy')}</time>;
+}
+```
+この関数では、日付を文字列で受け取り、parseISO()で日付型に変換しています。
+
+このcomponentを作成することで、\<Date dateString="日付" />で呼び出すことにより日付を表示することができます。
+
+早速使用します。日付を表示している部分を変更します。
+
+pages/posts/[id].js
+```js
+// {postData.date}　置き換え
+<Date dateString={postData.date} />
+```
+
+次にCSSを追加します。utilをインポートしてください。
+```js
+import utilStyles from '../../styles/utils.module.css';
+```
+Layoutの中身を編集してください。
+```js
+<Layout>
+    <Head>
+        <title>{postData.title}</title>
+    </Head>
+    <article>
+        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+        <div className={utilStyles.lightText}>
+            <Date dateString={postData.date} />
+        </div>
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+    </article>
+</Layout>
+```
+
+次に一覧ページを編集します。これまでは、全ての記事のタイトル、日付が表示されていました。
+
+タイトルをクリックすることで記事の詳細が見れるようにします。
+
+まずは必要なものをインポートします。
+
+pages/index.js
+```js
+import Link from 'next/link';
+import Date from '../components/date';
+```
+リストの部分を以下のように編集してください。
+```js
+<li className={utilStyles.listItem} key={id}>
+    <Link href={`/posts/${id}`}>{title}</Link>
+    <br />
+    <small className={utilStyles.lightText}>
+        <Date dateString={date} />
+    </small>
+</li>
+```
+
+これにて、動的ルーティングの説明は終了です。
