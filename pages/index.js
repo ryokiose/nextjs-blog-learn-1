@@ -45,6 +45,7 @@ export default function Home({ allPostsData }) {
             </small>
           </li>
           ))}
+          <Link href={`/apiForms`}>API Forms</Link>
         </ul>
       </section>
     </Layout>
