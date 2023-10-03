@@ -1,3 +1,6 @@
 export default function handler(req, res) {
-  res.status(200).json({ name: req.body.name, email: req.body.email })
+  const userName = req.body.name;
+  const userEmail = req.body.email;
+  console.log(userName, userEmail);
+  res.status(200).json({ name: userName, email: userEmail })
 }
