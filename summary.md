@@ -7,29 +7,29 @@ date: '2023-09-29'
 
 ## 目次
 - [0 | はじめに](#0--はじめに)
-    - [0-1 | Next.jsとは](#0-1--nextjsとは)
-    - [0-2 | 環境構築](#0-2--環境構築)
+  - [0-1 | Next.jsとは](#0-1--nextjsとは)
+  - [0-2 | 環境構築](#0-2--環境構築)
 - [1 | Next.jsアプリを作成する](#1--nextjsアプリを作成する)
-    - [1-1 | セットアップ](#1-1--セットアップ)
-    - [1-2 | ページを編集する](#1-2--ページを編集する)
+  - [1-1 | セットアップ](#1-1--セットアップ)
+  - [1-2 | ページを編集する](#1-2--ページを編集する)
 - [2 | ページ間の移動・パス](#2--ページ間の移動・パス)
-    - [2-1 | ページ間を移動する](#2-1--ページ間を移動する)
-    - [2-2 | ページを移動する](#2-2--ページを移動する)
+  - [2-1 | ページ間を移動する](#2-1--ページ間を移動する)
+  - [2-2 | ページを移動する](#2-2--ページを移動する)
 - [3 | アセット、メタデータ、css](#3--アセットメタデータcss)
-    - [3-1 | アセット](#3-1--アセット)
-    - [3-2 | メタデータ](#3-2--メタデータ)
-    - [3-3 | サードパーティーJavaScript](#3-3--サードパーティーjavascript)
-    - [3-4 | CSS](#3-4--css)
-    - [3-5 | Layoutを進化させる](#3-5--layoutを進化させる)
+  - [3-1 | アセット](#3-1--アセット)
+  - [3-2 | メタデータ](#3-2--メタデータ)
+  - [3-3 | サードパーティーJavaScript](#3-3--サードパーティーjavascript)
+  - [3-4 | CSS](#3-4--css)
+  - [3-5 | Layoutを進化させる](#3-5--layoutを進化させる)
 - [4 | プリレンダリング・データフェッチ](#4--プリレンダリング・データフェッチ)
-    - [4-1 | プリレンダリング](#4-1--プリレンダリング)
-    - [4-2 | データあり、無しの静的生成](#4-2--データあり無しの静的生成)
+  - [4-1 | プリレンダリング](#4-1--プリレンダリング)
+  - [4-2 | データあり、無しの静的生成](#4-2--データあり無しの静的生成)
 - [5 | 動的ルーティング](#5--動的ルーティング)
-    - [5-1 | 外部データに依存するパス](#5-1--外部データに依存するパス)
-    - [5-2 | マークダウンのレンダリング](#5-2--マークダウンのレンダリング)
-    - [5-3 | ページの仕上げ](#5-3--ページの仕上げ)
+  - [5-1 | 外部データに依存するパス](#5-1--外部データに依存するパス)
+  - [5-2 | マークダウンのレンダリング](#5-2--マークダウンのレンダリング)
+  - [5-3 | ページの仕上げ](#5-3--ページの仕上げ)
 - [6 | APIルート](#6--apiルート)
-    
+  - [6-1 | APIルートの作成・使用](#6-1--apiルートの作成・使用)
 
 # [0 | はじめに](#)
 ## [0-1 | Next.jsとは](#)
@@ -83,7 +83,7 @@ index.jsの中から、以下のような\<h1>タグの部分を探してくだ�
 
 ```html
 <h1 className={styles.title}>
-    Welcome to <a href="https://nextjs.org">Next.js!</a>
+  Welcome to <a href="https://nextjs.org">Next.js!</a>
 </h1>
 ```
 
@@ -91,7 +91,7 @@ index.jsの中から、以下のような\<h1>タグの部分を探してくだ�
 
 ```html
 <h1 className={styles.title}>
-    Learn <a href="https://nextjs.org">Next.js!</a>
+  Learn <a href="https://nextjs.org">Next.js!</a>
 </h1>
 ```
 ここでは、Welcome toをLearnに変更しています。
@@ -115,7 +115,7 @@ first-post.jsの中身は以下のようにしてください。
 
 ```js
 export default function FirstPost() {
-    return <h1>First Post</h1>;
+  return <h1>First Post</h1>;
 }
 ```
 
@@ -169,13 +169,13 @@ import Link from 'next/link';
 
 ```html
 <h1 className={styles.title}>
-    Learn <a href="https://nextjs.org">Next.js!</a>
+  Learn <a href="https://nextjs.org">Next.js!</a>
 </h1>
 ```
 この部分を以下のように変更してください。
 ```html
 <h1 className={styles.title}>
-    Read <Link href="/posts/first-post">this page!</Link>
+  Read <Link href="/posts/first-post">this page!</Link>
 </h1>
 ```
 
@@ -191,14 +191,14 @@ first-post.jsを以下のように変更してください。
 import Link from 'next/link';
 
 export default function FirstPost() {
-    return (
-        <>
-            <h1>First Post</h1>
-            <h2>
-                <Link href="/">Back to home</Link>
-            </h2>
-        </>
-    );
+  return (
+    <>
+      <h1>First Post</h1>
+      <h2>
+        <Link href="/">Back to home</Link>
+      </h2>
+    </>
+  );
 }
 ```
 
@@ -211,9 +211,9 @@ export default function FirstPost() {
 次にコードの解説をします。
 ```js
 return(
-    <>
-        // any code
-    </>
+  <>
+    // any code
+  </>
 );
 ```
 以前のコードでは、returnの中に\<h1>タグのみがありましたが、今回は\<h1>タグと\<h2>タグがあります。
@@ -256,8 +256,8 @@ import Head from 'next/head';
 ```
 ```html
 <Head>
-    <title>Create Next App</title>
-    <link rel="icon" href="/favicon.ico" />
+  <title>Create Next App</title>
+  <link rel="icon" href="/favicon.ico" />
 </Head>
 ```
 ここでは、タイトルをCreate Next Appに設定し、アイコンをfavicon.icoに設定しています。
@@ -274,7 +274,7 @@ import Head from 'next/head';
 次にメタデータを設定していきます。
 ```html
 <Head>
-    <title>First Post</title>
+  <title>First Post</title>
 </Head>
 ```
 
@@ -287,7 +287,7 @@ import Head from 'next/head';
 通常のアプリケーションでは以下のように\<head>タグの中に記述して外部Scriptを読み込みます。
 ```html
 <head>
-    <script src="https://www.sample.api/"></script>
+  <script src="https://www.sample.api/"></script>
 </head>
 ```
 
@@ -295,7 +295,7 @@ Next.jsでは、タイトルなどと同様に\<Head>タグを使用して外部
 ```html
 <!-- 非推奨 -->
 <Head>
-    <script src="https://www.sample.api/"></script>
+  <script src="https://www.sample.api/"></script>
 </Head>
 ```
 しかし、この方法では、外部Scriptが読み込まれるまでページが表示されないため、パフォーマンスが低下します。
@@ -316,24 +316,24 @@ import Script from 'next/script';
 
 ```js
 export default function FirstPost() {
-    return (
-        <>
-            <Head>
-                <title>Fist Post</title>
-            </Head>
-            <Script
-                src="https://connect.facebook.net/en_US/sdk.js"
-                strategy="lazyOnload"
-                onLoad={() =>
-                console.log(`script loaded correctly, window.FB has been populated`)
-                }
-            />
-            <h1>First Post</h1>
-            <h2>
-                <Link href="/">Back to home</Link>
-            </h2>
-        </>
-    );
+  return (
+    <>
+      <Head>
+        <title>Fist Post</title>
+      </Head>
+      <Script
+        src="https://connect.facebook.net/en_US/sdk.js"
+        strategy="lazyOnload"
+        onLoad={() =>
+          console.log(`script loaded correctly, window.FB has been populated`)
+        }
+      />
+      <h1>First Post</h1>
+      <h2>
+        <Link href="/">Back to home</Link>
+      </h2>
+    </>
+  );
 }
 ```
 
@@ -378,16 +378,16 @@ layout.js
 import styles from './layout.module.css';
 
 export default function Layout({ children }) {
-    return <div className={styles.container}>{children}</div>;
+  return <div className={styles.container}>{children}</div>;
 }
 ```
 
 layout.module.css
 ```css
 .container {
-    max-width: 36rem;
-    padding: 0 1rem;
-    margin: 3rem auto 6rem;
+  max-width: 36rem;
+  padding: 0 1rem;
+  margin: 3rem auto 6rem;
 }
 ```
 /pages/posts/first-post.js
@@ -398,24 +398,24 @@ import Script from 'next/script';
 import Layout from '../../components/layout'; // 相対パスでlayout.jsをimportする
 
 export default function FirstPost() {
-    return (
-        <Layout> <!-- <>から<Layout>に変更 -->
-        <Head>
-            <title>Fist Post</title>
-        </Head>
-        <Script
-            src="https://connect.facebook.net/en_US/sdk.js"
-            strategy="lazyOnload"
-            onLoad={() =>
-            console.log(`script loaded correctly, window.FB has been populated`)
-            }
-        />
-        <h1>First Post</h1>
-        <h2>
-            <Link href="/">Back to home</Link>
-        </h2>
-        </Layout> <!-- <>から変更 -->
-    );
+  return (
+    <Layout> <!-- <>から<Layout>に変更 -->
+    <Head>
+      <title>Fist Post</title>
+    </Head>
+    <Script
+      src="https://connect.facebook.net/en_US/sdk.js"
+      strategy="lazyOnload"
+      onLoad={() =>
+        console.log(`script loaded correctly, window.FB has been populated`)
+      }
+    />
+    <h1>First Post</h1>
+    <h2>
+      <Link href="/">Back to home</Link>
+    </h2>
+    </Layout> <!-- <>から変更 -->
+  );
 }
 ```
 
@@ -441,37 +441,37 @@ _app.jsには、以下のように記述してください。
 import '../styles/global.css';
 
 export default function App({ Component, pageProps }) {
-    return <Component {...pageProps} />;
+  return <Component {...pageProps} />;
 }
 ```
 次にここでimportしているglobal.cssを作成します。最初からあるglobals.cssでは無いので注意してください。
 ```css
 html,
 body {
-    padding: 0;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
-        Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    line-height: 1.6;
-    font-size: 18px;
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  line-height: 1.6;
+  font-size: 18px;
 }
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 a {
-    color: #0070f3;
-    text-decoration: none;
+  color: #0070f3;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 img {
-    max-width: 100%;
-    display: block;
+  max-width: 100%;
+  display: block;
 }
 ```
 
@@ -489,19 +489,19 @@ _app.jsは、pagesディレクトリにある全てのページで使用され�
 components/layout.module.css
 ```css
 .container {
-    max-width: 36rem;
-    padding: 0 1rem;
-    margin: 3rem auto 6rem;
+  max-width: 36rem;
+  padding: 0 1rem;
+  margin: 3rem auto 6rem;
 }
 
 .header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .backToHome {
-    margin: 3rem 0 0;
+  margin: 3rem 0 0;
 }
 ```
 次に新しいファイルを作成します。stylesにutils.module.cssというファイルを作成し、以下のように記述してください。
@@ -509,56 +509,56 @@ components/layout.module.css
 styles/utils.module.css
 ```css
 .heading2Xl {
-    font-size: 2.5rem;
-    line-height: 1.2;
-    font-weight: 800;
-    letter-spacing: -0.05rem;
-    margin: 1rem 0;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.05rem;
+  margin: 1rem 0;
 }
 
 .headingXl {
-    font-size: 2rem;
-    line-height: 1.3;
-    font-weight: 800;
-    letter-spacing: -0.05rem;
-    margin: 1rem 0;
+  font-size: 2rem;
+  line-height: 1.3;
+  font-weight: 800;
+  letter-spacing: -0.05rem;
+  margin: 1rem 0;
 }
 
 .headingLg {
-    font-size: 1.5rem;
-    line-height: 1.4;
-    margin: 1rem 0;
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin: 1rem 0;
 }
 
 .headingMd {
-    font-size: 1.2rem;
-    line-height: 1.5;
+  font-size: 1.2rem;
+  line-height: 1.5;
 }
 
 .borderCircle {
-    border-radius: 9999px;
+  border-radius: 9999px;
 }
 
 .colorInherit {
-    color: inherit;
+  color: inherit;
 }
 
 .padding1px {
-    padding-top: 1px;
+  padding-top: 1px;
 }
 
 .list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .listItem {
-    margin: 0 0 1.25rem;
+  margin: 0 0 1.25rem;
 }
 
 .lightText {
-    color: #666;
+  color: #666;
 }
 ```
 
@@ -574,64 +574,64 @@ const name = 'Your Name'; // ここに自分の名前を入れてください
 export const siteTitle = 'Next.js Sample Website';
 
 export default function Layout({ children, home }) {
-    return (
-        <div className={styles.container}>
-        <Head>
-            <link rel="icon" href="/favicon.ico" />
-            <meta
-            name="description"
-            content="Learn how to build a personal website using Next.js"
-            />
-            <meta
-            property="og:image"
-            content={`https://og-image.vercel.app/${encodeURI(
-                siteTitle,
-            )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-            />
-            <meta name="og:title" content={siteTitle} />
-            <meta name="twitter:card" content="summary_large_image" />
-        </Head>
-        <header className={styles.header}>
-            {home ? (
-            <>
-                <Image
-                priority
-                src="/images/profile.jpg"
-                className={utilStyles.borderCircle}
-                height={144}
-                width={144}
-                alt=""
-                />
-                <h1 className={utilStyles.heading2Xl}>{name}</h1>
-            </>
-            ) : (
-            <>
-                <Link href="/">
-                <Image
-                    priority
-                    src="/images/profile.jpg"
-                    className={utilStyles.borderCircle}
-                    height={108}
-                    width={108}
-                    alt=""
-                />
-                </Link>
-                <h2 className={utilStyles.headingLg}>
-                <Link href="/" className={utilStyles.colorInherit}>
-                    {name}
-                </Link>
-                </h2>
-            </>
-            )}
-        </header>
-        <main>{children}</main>
-        {!home && (
-            <div className={styles.backToHome}>
-            <Link href="/">← Back to home</Link>
-            </div>
-        )}
-        </div>
-    );
+  return (
+    <div className={styles.container}>
+    <Head>
+      <link rel="icon" href="/favicon.ico" />
+      <meta
+        name="description"
+        content="Learn how to build a personal website using Next.js"
+      />
+      <meta
+        property="og:image"
+        content={`https://og-image.vercel.app/${encodeURI(
+          siteTitle,
+        )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+      />
+      <meta name="og:title" content={siteTitle} />
+      <meta name="twitter:card" content="summary_large_image" />
+    </Head>
+    <header className={styles.header}>
+    {home ? (
+      <>
+        <Image
+          priority
+          src="/images/profile.jpg"
+          className={utilStyles.borderCircle}
+          height={144}
+          width={144}
+          alt=""
+        />
+      <h1 className={utilStyles.heading2Xl}>{name}</h1>
+      </>
+    ) : (
+      <>
+        <Link href="/">
+          <Image
+            priority
+            src="/images/profile.jpg"
+            className={utilStyles.borderCircle}
+            height={108}
+            width={108}
+            alt=""
+          />
+        </Link>
+        <h2 className={utilStyles.headingLg}>
+          <Link href="/" className={utilStyles.colorInherit}>
+            {name}
+          </Link>
+          </h2>
+        </>
+      )}
+    </header>
+    <main>{children}</main>
+    {!home && (
+      <div className={styles.backToHome}>
+        <Link href="/">← Back to home</Link>
+      </div>
+    )}
+    </div>
+  );
 }
 ```
 それぞれの変更点などを説明します。
@@ -659,49 +659,49 @@ exportが付かない場合は、このファイル内でしか使用できま�
 次に\<header>タグの記述について説明します。
 ```js
 export default function Layout({ children, home }) {
-    // ...省略
-    <header className={styles.header}>
-        {home ? (
-            <>
-                <Image
-                    priority
-                    src="/images/profile.jpg"
-                    className={utilStyles.borderCircle}
-                    height={144}
-                    width={144}
-                    alt=""
-                />
-                <h1 className={utilStyles.heading2Xl}>{name}</h1>
-            </>
-        ) : (
-            <>
-                <Link href="/">
-                    <Image
-                    priority
-                    src="/images/profile.jpg"
-                    className={utilStyles.borderCircle}
-                    height={108}
-                    width={108}
-                    alt=""
-                />
-                </Link>
-                <h2 className={utilStyles.headingLg}>
-                <Link href="/" className={utilStyles.colorInherit}>
-                    {name}
-                </Link>
-            </h2>
-        </>
-        )}
-    </header>
+  // ...省略
+  <header className={styles.header}>
+    {home ? (
+      <>
+        <Image
+          priority
+          src="/images/profile.jpg"
+          className={utilStyles.borderCircle}
+          height={144}
+          width={144}
+          alt=""
+        />
+        <h1 className={utilStyles.heading2Xl}>{name}</h1>
+      </>
+    ) : (
+      <>
+        <Link href="/">
+          <Image
+            priority
+            src="/images/profile.jpg"
+            className={utilStyles.borderCircle}
+            height={108}
+            width={108}
+            alt=""
+          />
+        </Link>
+        <h2 className={utilStyles.headingLg}>
+        <Link href="/" className={utilStyles.colorInherit}>
+          {name}
+        </Link>
+      </h2>
+      </>
+    )}
+  </header>
 }
 ```
 
 ここでは、homeかどうかを判断して表示を変えています。
 ```js
 {home ? (
-    // homeが開かれているときの処理
+  // homeが開かれているときの処理
 ) : (
-    // home以外が開かれているときの処理
+  // home以外が開かれているときの処理
 )}
 ```
 
@@ -714,9 +714,9 @@ export default function Layout({ children, home }) {
 ここでは、home以外のページが開かれている時に表示する戻るボタンを定義しています。
 ```js
 {!home && (
-    <div className={styles.backToHome}>
-        <Link href="/">← Back to home</Link>
-    </div>
+  <div className={styles.backToHome}>
+    <Link href="/">← Back to home</Link>
+  </div>
 )}
 ```
 
@@ -810,33 +810,33 @@ import matter from 'gray-matter';
 const postsDirectory = path.join(process.cwd(), 'posts');
 
 export function getSortedPostsData() {
-    // Get file names under /posts
-    const fileNames = fs.readdirSync(postsDirectory);
-    const allPostsData = fileNames.map((fileName) => {
-        // Remove ".md" from file name to get id
-        const id = fileName.replace(/\.md$/, '');
+  // Get file names under /posts
+  const fileNames = fs.readdirSync(postsDirectory);
+  const allPostsData = fileNames.map((fileName) => {
+    // Remove ".md" from file name to get id
+    const id = fileName.replace(/\.md$/, '');
 
-        // Read markdown file as string
-        const fullPath = path.join(postsDirectory, fileName);
-        const fileContents = fs.readFileSync(fullPath, 'utf8');
+    // Read markdown file as string
+    const fullPath = path.join(postsDirectory, fileName);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-        // Use gray-matter to parse the post metadata section
-        const matterResult = matter(fileContents);
+    // Use gray-matter to parse the post metadata section
+    const matterResult = matter(fileContents);
 
-        // Combine the data with the id
-        return {
-            id,
-            ...matterResult.data,
-        };
-    });
-    // Sort posts by date
-    return allPostsData.sort((a, b) => {
-        if (a.date < b.date) {
-            return 1;
-        } else {
-            return -1;
-        }
-    });
+    // Combine the data with the id
+    return {
+      id,
+      ...matterResult.data,
+    };
+  });
+  // Sort posts by date
+  return allPostsData.sort((a, b) => {
+    if (a.date < b.date) {
+      return 1;
+    } else {
+      return -1;
+    }
+  });
 }
 ```
 
@@ -858,30 +858,30 @@ const fileNames = fs.readdirSync(postsDirectory);
 
 ```js
 const allPostsData = fileNames.map((fileName) => {
-    // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '');
+  // Remove ".md" from file name to get id
+  const id = fileName.replace(/\.md$/, '');
 
-    // Read markdown file as string
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+  // Read markdown file as string
+  const fullPath = path.join(postsDirectory, fileName);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
+  // Use gray-matter to parse the post metadata section
+  const matterResult = matter(fileContents);
 
-    // Combine the data with the id
-    return {
-        id,
-        ...matterResult.data,
-    };
-});
-// Sort posts by date
-return allPostsData.sort((a, b) => {
+  // Combine the data with the id
+  return {
+    id,
+    ...matterResult.data,
+  };
+  });
+  // Sort posts by date
+  return allPostsData.sort((a, b) => {
     if (a.date < b.date) {
-        return 1;
+      return 1;
     } else {
-        return -1;
-    }
-});
+      return -1;
+  }}
+);
 ```
 map()は、配列の要素を順番に処理する関数です。ここではfileNamesの要素を順番に処理しています。
 
@@ -910,36 +910,36 @@ import utilStyles from '../styles/utils.module.css';
 import { getSortedPostsData } from '../lib/posts';
 
 export async function getStaticProps() {
-    const allPostsData = getSortedPostsData();
-    return {
-        props: {
-            allPostsData,
-        },
-    };
+  const allPostsData = getSortedPostsData();
+  return {
+    props: {
+      allPostsData,
+    },
+  };
 }
 
 export default function Home({ allPostsData }) {
-    return (
-        <Layout home>
-            <Head>
-                <title>Blog - {name}</title>
-            </Head>
-            <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-                <h2 className={utilStyles.headingLg}>Blog</h2>
-                <ul className={utilStyles.list}>
-                    {allPostsData.map(({ id, date, title }) => (
-                        <li className={utilStyles.listItem} key={id}>
-                            {title}
-                            <br />
-                            {id}
-                            <br />
-                            {date}
-                        </li>
-                    ))}
-                </ul>
-            </section>
-        </Layout>
-    );
+  return (
+    <Layout home>
+      <Head>
+        <title>Blog - {name}</title>
+      </Head>
+      <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+        <h2 className={utilStyles.headingLg}>Blog</h2>
+        <ul className={utilStyles.list}>
+          {allPostsData.map(({ id, date, title }) => (
+            <li className={utilStyles.listItem} key={id}>
+              {title}
+              <br />
+              {id}
+              <br />
+              {date}
+            </li>
+          ))}
+        </ul>
+      </section>
+    </Layout>
+  );
 }
 ```
 
@@ -949,12 +949,12 @@ export default function Home({ allPostsData }) {
 import { getSortedPostsData } from '../lib/posts';
 
 export async function getStaticProps() {
-    const allPostsData = getSortedPostsData();
-    return {
-        props: {
-            allPostsData,
-        },
-    };
+  const allPostsData = getSortedPostsData();
+  return {
+    props: {
+      allPostsData,
+    },
+  };
 }
 ```
 ここで先ほど作成したposts.jsを使用します。
@@ -976,13 +976,13 @@ export default function Home({ allPostsData }) {
 
 ```js
 {allPostsData.map(({ id, date, title }) => (
-    <li className={utilStyles.listItem} key={id}>
-        {title}
-        <br />
-        {id}
-        <br />
-        {date}
-    </li>
+  <li className={utilStyles.listItem} key={id}>
+    {title}
+    <br />
+    {id}
+    <br />
+    {date}
+  </li>
 ))}
 ```
 ここでは、allPostsDataの要素を順番に処理しています。
@@ -1047,11 +1047,11 @@ import { getAllPostIds } from '../../lib/posts';
 ```
 ```js
 export async function getStaticPaths() {
-    const paths = getAllPostIds();
-    return {
-        paths,
-        fallback: false,
-    };
+  const paths = getAllPostIds();
+  return {
+    paths,
+    fallback: false,
+  };
 }
 ```
 getStaticPathsの中身を説明します。
@@ -1062,8 +1062,8 @@ const paths = getAllPostIds();
 
 ```js
 return {
-    paths,
-    fallback: false,
+  paths,
+  fallback: false,
 };
 ```
 returnで返している値について説明します。
@@ -1117,12 +1117,12 @@ import { getAllPostIds, getPostData } from '../../lib/posts';
 ```
 ```js
 export async function getStaticProps({ params }) {
-    const postData = getPostData(params.id);
-    return {
-        props: {
-            postData,
-        },
-    };
+  const postData = getPostData(params.id);
+  return {
+    props: {
+      postData,
+    },
+  };
 }
 ```
 getStaticProps()という関数ではpostDataという値を返却しています。
@@ -1130,17 +1130,17 @@ getStaticProps()という関数ではpostDataという値を返却していま�
 postDataはgetPostData()という関数を使用して取得しています。lib/posts.jsに記述してください。
 ```js
 export function getPostData(id) {
-    const fullPath = path.join(postsDirectory, `${id}.md`);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fullPath = path.join(postsDirectory, `${id}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
+  // Use gray-matter to parse the post metadata section
+  const matterResult = matter(fileContents);
 
-    // Combine the data with the id
-    return {
-        id,
-        ...matterResult.data,
-    };
+  // Combine the data with the id
+  return {
+    id,
+    ...matterResult.data,
+  };
 }
 ```
 getPostData()の流れを解説します。
@@ -1157,15 +1157,15 @@ getStaticPropsはここで返却された値をpropsとして返却します。
 [id].jsのPost関数を以下のように編集してください。
 ```js
 export default function Post({ postData }) {
-    return (
-        <Layout>
-            {postData.title}
-            <br />
-            {postData.id}
-            <br />
-            {postData.date}
-        </Layout>
-    );
+  return (
+    <Layout>
+      {postData.title}
+      <br />
+      {postData.id}
+      <br />
+      {postData.date}
+    </Layout>
+  );
 }
 ```
 
@@ -1200,39 +1200,39 @@ import html from 'remark-html';
 次に、lib/posts.js内のgetPostData()を以下のように編集してください。
 ```js
 export async function getPostData(id) {
-    const fullPath = path.join(postsDirectory, `${id}.md`);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fullPath = path.join(postsDirectory, `${id}.md`);
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
 
-    // Use gray-matter to parse the post metadata section
-    const matterResult = matter(fileContents);
+  // Use gray-matter to parse the post metadata section
+  const matterResult = matter(fileContents);
 
-    // Use remark to convert markdown into HTML string
-    const processedContent = await remark()
-        .use(html)
-        .process(matterResult.content);
-    const contentHtml = processedContent.toString();
+  // Use remark to convert markdown into HTML string
+  const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
+  const contentHtml = processedContent.toString();
 
-    // Combine the data with the id and contentHtml
-    return {
-        id,
-        contentHtml,
-        ...matterResult.data,
-    };
+  // Combine the data with the id and contentHtml
+  return {
+    id,
+    contentHtml,
+    ...matterResult.data,
+  };
 }
 ```
 追加されたのは以下の部分です。
 ```js
-    // Use remark to convert markdown into HTML string
-    const processedContent = await remark()
-        .use(html)
-        .process(matterResult.content);
-    const contentHtml = processedContent.toString();
+  // Use remark to convert markdown into HTML string
+  const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
+  const contentHtml = processedContent.toString();
 
-    return {
-        id, // Not changed
-        contentHtml,
-        ...matterResult.data, // Not changed
-    };
+  return {
+    id, // Not changed
+    contentHtml,
+    ...matterResult.data, // Not changed
+  };
 ```
 
 ここでは、remarkを使用してmdファイルを解析し、HTMLに変換しています。
@@ -1249,14 +1249,14 @@ export async function getPostData(id) {
 pages/posts/[id].jsのgetStaticPropsを以下のように編集してください。
 ```js
 export async function getStaticProps({ params }) {
-    // Add the "await" keyword like this:
-    const postData = await getPostData(params.id);
+  // Add the "await" keyword like this:
+  const postData = await getPostData(params.id);
 
-    return {
-        props: {
-            postData,
-        },
-    };
+  return {
+    props: {
+      postData,
+    },
+  };
 }
 ```
 一見変更点がないように見えますが、getPostData()の前にawaitを追加しています。
@@ -1268,17 +1268,17 @@ export async function getStaticProps({ params }) {
 次は表示される部分を編集します。
 ```js
 export default function Post({ postData }) {
-    return (
-        <Layout>
-            {postData.title}
-            <br />
-            {postData.id}
-            <br />
-            {postData.date}
-            <br />
-            <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-        </Layout>
-    );
+  return (
+    <Layout>
+      {postData.title}
+      <br />
+      {postData.id}
+      <br />
+      {postData.date}
+      <br />
+      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+    </Layout>
+  );
 }
 ```
 以下の関数ではReactでHTMLをレンダリングしています。
@@ -1301,15 +1301,15 @@ import Head from 'next/head';
 ```
 ```js
 export default function Post({ postData }) {
-    return (
-        <Layout>
-            <Head>
-                <title>{postData.title}</title>
-            </Head>
+  return (
+    <Layout>
+      <Head>
+        <title>{postData.title}</title>
+      </Head>
 
-            {/* これまでのコード */}
-        </Layout>
-    );
+      {/* これまでのコード */}
+    </Layout>
+  );
 }
 ```
 タイトルタグを追加しています。
@@ -1326,8 +1326,8 @@ npm install date-fns
 import { parseISO, format } from 'date-fns';
 
 export default function Date({ dateString }) {
-    const date = parseISO(dateString);
-    return <time dateTime={dateString}>{format(date, 'LLLL d, yyyy')}</time>;
+  const date = parseISO(dateString);
+  return <time dateTime={dateString}>{format(date, 'LLLL d, yyyy')}</time>;
 }
 ```
 この関数では、日付を文字列で受け取り、parseISO()で日付型に変換しています。
@@ -1349,16 +1349,16 @@ import utilStyles from '../../styles/utils.module.css';
 Layoutの中身を編集してください。
 ```js
 <Layout>
-    <Head>
-        <title>{postData.title}</title>
-    </Head>
-    <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
-            <Date dateString={postData.date} />
-        </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-    </article>
+  <Head>
+    <title>{postData.title}</title>
+  </Head>
+  <article>
+    <h1 className={utilStyles.headingXl}>{postData.title}</h1>
+    <div className={utilStyles.lightText}>
+      <Date dateString={postData.date} />
+    </div>
+    <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+  </article>
 </Layout>
 ```
 
@@ -1376,11 +1376,11 @@ import Date from '../components/date';
 リストの部分を以下のように編集してください。
 ```js
 <li className={utilStyles.listItem} key={id}>
-    <Link href={`/posts/${id}`}>{title}</Link>
-    <br />
-    <small className={utilStyles.lightText}>
-        <Date dateString={date} />
-    </small>
+  <Link href={`/posts/${id}`}>{title}</Link>
+  <br />
+  <small className={utilStyles.lightText}>
+    <Date dateString={date} />
+  </small>
 </li>
 ```
 
@@ -1399,7 +1399,7 @@ pages/api/hello.jsを作成してください。
 hello.js
 ```js
 export default function handler(req, res) {
-    res.status(200).json({ text: "Hello" })
+  res.status(200).json({ text: "Hello" })
 }
 ```
 この関数は、/api/helloにアクセスすると、{ text: "Hello" }を返却します。
