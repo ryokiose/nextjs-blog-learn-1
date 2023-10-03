@@ -1421,5 +1421,169 @@ pages/apiForms.jsを作成してください。
 
 apiForms.js
 ```js
+import Head from 'next/head';
+import Layout from '../components/layout';
 
+export default function apiForms() {
+  const data = {
+    name: '',
+    email: '',
+  };
+
+  async function sendApi() {
+    const response = await fetch(`api/api-forms`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const responseData = await response.json();
+    alert(JSON.stringify(responseData));
+  }
+
+  return (
+    <Layout>
+      <Head>
+        <title>API Forms</title>
+      </Head>
+      <section>
+        <form>
+          <label htmlFor="name">
+            Name
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            required
+            onChange={(e) => (data.name = e.target.value)}
+          />
+          <label>
+            Email
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            required
+            onChange={(e) => (data.email = e.target.value)}
+          />
+          <button type="button" onClick={sendApi}>
+            Submit
+          </button>
+        </form>
+      </section>
+    </Layout>
+  );
+}
 ```
+コードを分割して説明します。
+```js
+export default function apiForms() {
+  const data = {
+    name: '',
+    email: '',
+  };
+  // ...
+}
+```
+ここでは、フォームに入力された値を格納するためのオブジェクトを作成しています。
+今回は、nameとemailの2つを定義しています。
+
+```js
+<form>
+  <label htmlFor="name">
+    Name
+  </label>
+  <input
+    id="name"
+    name="name"
+    type="text"
+    autoComplete="name"
+    required
+    onChange={(e) => (data.name = e.target.value)}
+  />
+  <label>
+    Email
+  </label>
+  <input
+    id="email"
+    name="email"
+    type="email"
+    autoComplete="email"
+    required
+    onChange={(e) => (data.email = e.target.value)}
+  />
+  <button type="button" onClick={sendApi}>
+    Submit
+  </button>
+</form>
+```
+ここではフォームを作成しています。(フォームで送っているわけではないのでformタグを使う必要はないけど)
+
+labelではhtmlForを使用しています。htmlForをつけることで、idで紐づけられたinputタグなどにフォーカスを当てることができます。
+
+inputタグでは、onChangeを使用しています。onChangeは、入力された値が変更された時に呼び出される関数です。ここでは、入力された値をdataに格納しています。
+
+ここでは処理をしていませんが、バリデーションチェックなどをしたいときは以下のようにすることで、入力された値をチェックすることができます。
+```js
+onChange={(e) => {
+  const email = e.target.value;
+  if (email === '') {
+    // 空欄のときの処理
+  } else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    // メールアドレスの形式が正しいときの処理
+  } else {
+    // メールアドレスの形式が正しくないときの処理
+  }
+}}
+```
+このようにして、値ごとの入力に対した処理を行うことができます。
+
+```js
+async function sendApi() {
+  const response = await fetch(`api/api-forms`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  const responseData = await response.json();
+  alert(JSON.stringify(responseData));
+}
+```
+
+ここではfetchを使用しています。fetchは、サーバーにリクエストを送信するための関数です。
+
+fetchの第一引数には、リクエストを送信するURLを指定します。ここでは、pages/api/api-forms.jsにリクエストを送信するので、api/api-formsを指定しています。
+
+
+次にpages/api/api-forms.jsを作成してください。
+
+api-forms.js
+```js
+export default function handler(req, res) {
+  const userName = req.body.name;
+  const userEmail = req.body.email;
+  console.log(userName, userEmail);
+  res.status(200).json({ name: userName, email: userEmail })
+}
+```
+ここでは、値をreq.bodyから名前、Eメールを取得しています。
+
+次にconsole.logを使用し、コンソールに値を表示しています。apiはサーバーサイドで実行されるため、ユーザー側のコンソールには表示されず、サーバー側のコンソールに表示されます。
+
+最後に、ステータスコードと値をjsonで返却しています。
+
+データベースなどへ値を保存する場合は、ここに処理を記述することで、値を保存することができます。
+
+ここまで出来たら、コードを保存し、[http://localhost:3000/apiForms](http://localhost:3000/apiForms)にアクセスしてみてください。
+
+名前とEメールを入力し、Submitボタンを押すと、コンソール(サーバー側)に値が表示されます。
+
+### 画面の仕上げ
+最後にCSSを追加します。
