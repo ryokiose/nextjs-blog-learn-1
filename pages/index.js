@@ -46,6 +46,8 @@ export default function Home({ allPostsData }) {
           </li>
           ))}
           <Link href={`/apiForms`}>API Forms</Link>
+          <br />
+          <Link href={`/registered`}>Registered Users</Link>
         </ul>
       </section>
     </Layout>
