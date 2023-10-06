@@ -32,31 +32,20 @@ export default function registered({ userData }) {
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
-  try {
-    const userData = await prisma.post.findMany({
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        createdAt: true,
-      },
-    });
-    return {
-      props: {
-        userData: userData.map((user) => ({
-          ...user,
-          createdAt: user.createdAt.toISOString(),
-        })),
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        userData: [],
-      },
-    };
-  } finally {
-    await prisma.$disconnect();
-  }
+  const userData = await prisma.post.findMany({
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      createdAt: true,
+    },
+  });
+  return {
+    props: {
+      userData: userData.map((user) => ({
+        ...user,
+        createdAt: user.createdAt.toISOString(),
+      })),
+    },
+  };
 }
