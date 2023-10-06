@@ -30,7 +30,7 @@ export default function registered({ userData }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const prisma = new PrismaClient();
   const userData = await prisma.post.findMany({
     select: {
@@ -40,6 +40,7 @@ export async function getStaticProps() {
       createdAt: true,
     },
   });
+
   return {
     props: {
       userData: userData.map((user) => ({
