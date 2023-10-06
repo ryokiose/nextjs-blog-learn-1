@@ -37,6 +37,11 @@
   padding-top: 1px;
 }
 
+.padding5px {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .list {
   list-style: none;
   padding: 0;
@@ -88,4 +93,13 @@
 
 .button:hover {
   background-color: #0060df;
+}
+
+.box {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  background-color: #9999;
+  list-style: none;
+  border-color: #000;
+  margin-top: 1rem;
 }
