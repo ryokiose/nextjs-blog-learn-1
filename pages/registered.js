@@ -37,7 +37,7 @@ export default function registered({ userData }) {
                 {/* 作成日：{user.createdAt} */}
                 作成日：<Date dateString={user.createdAt} />
                 <button
-                  className={styles.delete-button}
+                  className={styles.deleteButton}
                   type="button"
                   onClick={() => deleteApi(user.id)}
                 >
