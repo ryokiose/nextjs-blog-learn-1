@@ -3,6 +3,23 @@ import Layout from '../components/layout';
 import styles from '../styles/utils.module.css';
 import Date from "../components/date";
 
+// 削除ボタン
+async function deleteApi(id) {
+  const response = await fetch(`api/delete-post`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const responseData = await response.json();
+  if (response.status == 200) {
+    alert("削除に成功しました。");
+  } else if (response.status !== 200) {
+    alert("削除に失敗しました。\n" + responseData.error);
+  }
+}
+
+
 export default function registered({ userData }) {
   return (
     <Layout>
@@ -22,6 +39,10 @@ export default function registered({ userData }) {
                 作成日：<Date dateString={user.createdAt} />
               </li>
             ))}
+            {/* 削除ボタン */}
+            <button className={styles.delete-button} type="button" onClick={deleteApi}>
+              削除
+            </button>
           </>
         )}
         {userData.length === 0 && <li className={styles.list}>登録ユーザーはいません。</li>}
