@@ -17,7 +17,11 @@ export default function apiForms() {
       body: JSON.stringify(data),
     });
     const responseData = await response.json();
-    alert(JSON.stringify(responseData));
+    if (response.status == 200) {
+      alert("登録に成功しました。");
+    } else if (response.status !== 200) {
+      alert("登録に失敗しました。\n" + responseData.error);
+    }
   }
 
   return (
