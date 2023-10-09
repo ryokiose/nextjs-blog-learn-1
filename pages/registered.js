@@ -1,9 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { useState } from "react";
 import Layout from '../components/layout';
 import styles from '../styles/utils.module.css';
 import Date from "../components/date";
 
-// 削除ボタン
 async function deleteApi(id) {
   const response = await fetch(`api/delete-post/${id}`, {
     method: "DELETE",
@@ -14,40 +14,54 @@ async function deleteApi(id) {
   const responseData = await response.json();
   if (response.status === 200) {
     alert("削除に成功しました。");
+    return true;
   } else {
     alert("削除に失敗しました。\n" + responseData.error);
+    return false;
   }
 }
 
-export default function registered({ userData }) {
+export default function Registered({ userData }) {
+  const [userList, setUserList] = useState(userData);
+
+  const handleDelete = async (id) => {
+    const deleted = await deleteApi(id);
+    if (deleted) {
+      setUserList((prevList) => prevList.filter((user) => user.id !== id));
+    }
+  };
+
   return (
     <Layout>
       <h1>Registered Users</h1>
       <ul>
-        {userData.length !== 0 && (
+        {userList.length !== 0 && (
           <>
-            {userData.map((user) => (
+            {userList.map((user) => (
               <li key={user.id} className={styles.box}>
-                ID：{user.id}
-                <br />
-                名前：{user.name}
-                <br />
-                Eメール：{user.email}
-                <br />
-                {/* 作成日：{user.createdAt} */}
-                作成日：<Date dateString={user.createdAt} />
-                <button
-                  className={styles.deleteButton}
-                  type="button"
-                  onClick={() => deleteApi(user.id)}
-                >
-                  削除
-                </button>
+                <div className={styles.postInfo}>
+                  <div>
+                    ID：{user.id}
+                    <br />
+                    名前：{user.name}
+                    <br />
+                    Eメール：{user.email}
+                    <br />
+                    作成日：<Date dateString={user.createdAt} />
+                  </div>
+                  <button
+                    className={styles.deleteButton}
+                    type="button"
+                    onClick={() => handleDelete(user.id)}
+                  >
+                    削除
+                  </button>
+                </div>
               </li>
             ))}
           </>
         )}
-        {userData.length === 0 && <li className={styles.list}>登録ユーザーはいません。</li>}
+        {userList.length === 0 && <li className={styles.list}>登録ユーザーはいません。</li>}
       </ul>
     </Layout>
   );
