@@ -5,20 +5,19 @@ import Date from "../components/date";
 
 // 削除ボタン
 async function deleteApi(id) {
-  const response = await fetch(`api/delete-post`, {
+  const response = await fetch(`api/delete-post/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
   });
   const responseData = await response.json();
-  if (response.status == 200) {
+  if (response.status === 200) {
     alert("削除に成功しました。");
-  } else if (response.status !== 200) {
+  } else {
     alert("削除に失敗しました。\n" + responseData.error);
   }
 }
-
 
 export default function registered({ userData }) {
   return (
@@ -37,11 +36,15 @@ export default function registered({ userData }) {
                 <br />
                 {/* 作成日：{user.createdAt} */}
                 作成日：<Date dateString={user.createdAt} />
+                <button
+                  className={styles.deleteButton}
+                  type="button"
+                  onClick={() => deleteApi(user.id)}
+                >
+                  削除
+                </button>
               </li>
             ))}
-            <button className={styles.delete-button} type="button" onClick={deleteApi(user.id)}>
-              削除
-            </button>
           </>
         )}
         {userData.length === 0 && <li className={styles.list}>登録ユーザーはいません。</li>}
