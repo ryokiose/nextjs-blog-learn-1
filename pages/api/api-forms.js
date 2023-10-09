@@ -1,4 +1,3 @@
-// api/api-forms.js
 import { PrismaClient } from "@prisma/client";
 
 let prisma; // グローバルなPrismaClientインスタンスを作成
@@ -15,7 +14,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // グローバルなPrismaClientインスタンスを作成（一度だけ）
     if (!prisma) {
       prisma = new PrismaClient();
     }
@@ -31,5 +29,7 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error("Error creating post:", error);
     res.status(500).json({ error: "An error occurred while creating the post" });
+  } finally {
+    prisma.$disconnect();
   }
 }

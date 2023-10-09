@@ -21,7 +21,7 @@ export default async function handler(req, res) {
     // データを削除
     const deletedPost = await prisma.post.delete({
       where: {
-        id: parseInt(postId), // idを整数に変換
+        id: parseInt(postId),
       },
     });
 
@@ -29,7 +29,6 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: "Post not found" });
     }
 
-    // 削除が成功した場合、成功レスポンスを返す
     res.status(200).json({ message: "Post deleted successfully" });
   } catch (error) {
     console.error("Error during delete post:", error);
