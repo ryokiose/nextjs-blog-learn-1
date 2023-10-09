@@ -37,11 +37,11 @@ export default function registered({ userData }) {
                 <br />
                 {/* 作成日：{user.createdAt} */}
                 作成日：<Date dateString={user.createdAt} />
-                <button className={styles.delete-button} type="button" onClick={deleteApi(user.id)}>
-                  削除
-                </button>
               </li>
             ))}
+            <button className={styles.delete-button} type="button" onClick={deleteApi(user.id)}>
+              削除
+            </button>
           </>
         )}
         {userData.length === 0 && <li className={styles.list}>登録ユーザーはいません。</li>}
