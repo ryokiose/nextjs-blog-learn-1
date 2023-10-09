@@ -116,3 +116,7 @@
   border-color: #000;
   margin-top: 1rem;
 }
+
+.postInfo {
+  position: relative;
+}
