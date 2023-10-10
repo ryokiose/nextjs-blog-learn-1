@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { useState } from "react";
-import Layout from '../components/layout';
-import styles from '../styles/utils.module.css';
+import Layout from "../components/layout";
+import styles from "../styles/utils.module.css";
 import Date from "../components/date";
 
 async function deleteApi(id) {

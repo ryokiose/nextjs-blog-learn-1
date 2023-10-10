@@ -1,6 +1,6 @@
 ---
-title: 'Next.jsチュートリアル 簡易まとめ'
-date: '2023-09-29'
+title: "Next.jsチュートリアル 簡易まとめ"
+date: "2023-09-29"
 ---
 
 # Next.jsチュートリアル 簡易まとめ  [Next.js](https://nextjs.org/learn/foundations/about-nextjs)
@@ -161,7 +161,7 @@ Next.jsではページを移動する際に、HTMLの\<a>タグではなく、Ne
 一番上の行に以下のようなimport文を追加してください。
 
 ```js
-import Link from 'next/link';
+import Link from "next/link";
 ```
 これは、Linkコンポーネントを使用するために必要なimport文です。
 
@@ -188,7 +188,7 @@ import Link from 'next/link';
 first-post.jsを以下のように変更してください。
 
 ```js
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function FirstPost() {
   return (
@@ -252,7 +252,7 @@ index.jsの中の\<Head>タグを探してください。これがメタデー�
 以下がその例です。
 
 ```js
-import Head from 'next/head';
+import Head from "next/head";
 ```
 ```html
 <Head>
@@ -268,7 +268,7 @@ import Head from 'next/head';
 
 メタデータを設定するための\<Head>タグを使用するには、import文を追加する必要があります。追加しましょう。
 ```js
-import Head from 'next/head';
+import Head from "next/head";
 ```
 
 次にメタデータを設定していきます。
@@ -308,7 +308,7 @@ First-post.jsを編集してみましょう。
 
 \<Script>タグを使用するにはimportをする必要があります。まずはimport文を追加しましょう。
 ```js
-import Script from 'next/script';
+import Script from "next/script";
 ```
 
 次に\<Script>タグを使用して外部Scriptを読み込んでみましょう。
@@ -375,7 +375,7 @@ First-post.jsにcssを適用させてみます。
 
 layout.js
 ```js
-import styles from './layout.module.css';
+import styles from "./layout.module.css";
 
 export default function Layout({ children }) {
   return <div className={styles.container}>{children}</div>;
@@ -392,10 +392,10 @@ layout.module.css
 ```
 /pages/posts/first-post.js
 ```js
-import Link from 'next/link';
-import Head from 'next/head';
-import Script from 'next/script';
-import Layout from '../../components/layout'; // 相対パスでlayout.jsをimportする
+import Link from "next/link";
+import Head from "next/head";
+import Script from "next/script";
+import Layout from "../../components/layout"; // 相対パスでlayout.jsをimportする
 
 export default function FirstPost() {
   return (
@@ -438,7 +438,7 @@ pages/_app.js
 ```
 _app.jsには、以下のように記述してください。
 ```js
-import '../styles/global.css';
+import "../styles/global.css";
 
 export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />;
@@ -564,14 +564,14 @@ styles/utils.module.css
 
 components/layout.js
 ```js
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from './layout.module.css';
-import utilStyles from '../styles/utils.module.css';
-import Link from 'next/link';
+import Head from "next/head";
+import Image from "next/image";
+import styles from "./layout.module.css";
+import utilStyles from "../styles/utils.module.css";
+import Link from "next/link";
 
-const name = 'Your Name'; // ここに自分の名前を入れてください
-export const siteTitle = 'Next.js Sample Website';
+const name = "Your Name"; // ここに自分の名前を入れてください
+export const siteTitle = "Next.js Sample Website";
 
 export default function Layout({ children, home }) {
   return (
@@ -649,8 +649,8 @@ utils.module.cssはglobalを含む全てのファイルから再利用できる�
 詳しく説明します。
 
 ```js
-const name = 'Manato Miura';
-export const siteTitle = 'Next.js Sample Website';
+const name = "Manato Miura";
+export const siteTitle = "Next.js Sample Website";
 ```
 ここでは、サイトのタイトルと名前を定義しています。
 
@@ -760,8 +760,8 @@ npm install gray-matter
 pre-rendering.md
 ```md
 ---
-title: 'Two Forms of Pre-rendering'
-date: '2020-01-01'
+title: "Two Forms of Pre-rendering"
+date: "2020-01-01"
 ---
 
 Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
@@ -775,8 +775,8 @@ Importantly, Next.js lets you **choose** which pre-rendering form to use for eac
 ssg-ssr.md
 ```md
 ---
-title: 'When to Use Static Generation v.s. Server-side Rendering'
-date: '2020-01-02'
+title: "When to Use Static Generation v.s. Server-side Rendering"
+date: "2020-01-02"
 ---
 
 We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
@@ -788,9 +788,9 @@ You can use Static Generation for many types of pages, including:
 - E-commerce product listings
 - Help and documentation
 
-You should ask yourself: "Can I pre-render this page **ahead** of a user's request?" If the answer is yes, then you should choose Static Generation.
+You should ask yourself: "Can I pre-render this page **ahead** of a user"s request?" If the answer is yes, then you should choose Static Generation.
 
-On the other hand, Static Generation is **not** a good idea if you cannot pre-render a page ahead of a user's request. Maybe your page shows frequently updated data, and the page content changes on every request.
+On the other hand, Static Generation is **not** a good idea if you cannot pre-render a page ahead of a user"s request. Maybe your page shows frequently updated data, and the page content changes on every request.
 
 In that case, you can use **Server-Side Rendering**. It will be slower, but the pre-rendered page will always be up-to-date. Or you can skip pre-rendering and use client-side JavaScript to populate data.
 ```
@@ -803,22 +803,22 @@ In that case, you can use **Server-Side Rendering**. It will be slower, but the 
 
 posts.jsには以下のように記述してください。
 ```js
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 
-const postsDirectory = path.join(process.cwd(), 'posts');
+const postsDirectory = path.join(process.cwd(), "posts");
 
 export function getSortedPostsData() {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map((fileName) => {
     // Remove ".md" from file name to get id
-    const id = fileName.replace(/\.md$/, '');
+    const id = fileName.replace(/\.md$/, "");
 
     // Read markdown file as string
     const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const fileContents = fs.readFileSync(fullPath, "utf8");
 
     // Use gray-matter to parse the post metadata section
     const matterResult = matter(fileContents);
@@ -843,7 +843,7 @@ export function getSortedPostsData() {
 posts.jsのフローを説明します。
 
 ```js
-const postsDirectory = path.join(process.cwd(), 'posts');
+const postsDirectory = path.join(process.cwd(), "posts");
 ```
 process.cwd()は現在のディレクトリを取得する関数です。ここでは、/nextjs-blogを取得しています。
 
@@ -859,11 +859,11 @@ const fileNames = fs.readdirSync(postsDirectory);
 ```js
 const allPostsData = fileNames.map((fileName) => {
   // Remove ".md" from file name to get id
-  const id = fileName.replace(/\.md$/, '');
+  const id = fileName.replace(/\.md$/, "");
 
   // Read markdown file as string
   const fullPath = path.join(postsDirectory, fileName);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
@@ -904,10 +904,10 @@ posts.jsの解説は以上です。
 
 次に、pages/index.jsを編集していきます。
 ```js
-import Head from 'next/head';
-import Layout, { name, siteTitle } from '../components/layout';
-import utilStyles from '../styles/utils.module.css';
-import { getSortedPostsData } from '../lib/posts';
+import Head from "next/head";
+import Layout, { name, siteTitle } from "../components/layout";
+import utilStyles from "../styles/utils.module.css";
+import { getSortedPostsData } from "../lib/posts";
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -946,7 +946,7 @@ export default function Home({ allPostsData }) {
 更新されたindex.jsのフローを説明します。
 
 ```js
-import { getSortedPostsData } from '../lib/posts';
+import { getSortedPostsData } from "../lib/posts";
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -1017,7 +1017,7 @@ pages/posts/[id].js
 ```
 [id].js
 ```js
-import Layout from '../../components/layout';
+import Layout from "../../components/layout";
 
 export default function Post() {
   return <Layout>...</Layout>;
@@ -1043,7 +1043,7 @@ export async function getStaticProps({ params }) {
 
 次に、getStaticPathsを実装していきます。コードを以下のように変更してください。
 ```js
-import { getAllPostIds } from '../../lib/posts';
+import { getAllPostIds } from "../../lib/posts";
 ```
 ```js
 export async function getStaticPaths() {
@@ -1080,7 +1080,7 @@ export function getAllPostIds() {
   return fileNames.map((fileName) => {
     return {
       params: {
-        id: fileName.replace(/\.md$/, ''),
+        id: fileName.replace(/\.md$/, ""),
       },
     };
   });
@@ -1098,12 +1098,12 @@ export function getAllPostIds() {
   // [
   //   {
   //     params: {
-  //       id: 'ssg-ssr'
+  //       id: "ssg-ssr"
   //     }
   //   },
   //   {
   //     params: {
-  //       id: 'pre-rendering'
+  //       id: "pre-rendering"
   //     }
   //   }
   // ]
@@ -1111,9 +1111,9 @@ export function getAllPostIds() {
 
 次に、getStaticPropsを実装します。以下のように記述してください。
 ```js
-// import { getAllPostIds } from '../../lib/posts';
+// import { getAllPostIds } from "../../lib/posts";
 // 編集 ↓
-import { getAllPostIds, getPostData } from '../../lib/posts';
+import { getAllPostIds, getPostData } from "../../lib/posts";
 ```
 ```js
 export async function getStaticProps({ params }) {
@@ -1131,7 +1131,7 @@ postDataはgetPostData()という関数を使用して取得しています。li
 ```js
 export function getPostData(id) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
@@ -1193,15 +1193,15 @@ remarkというライブラリでは、mdファイルを解析することがで
 
 次に、lib/posts.jsを編集します。importを追加してください。
 ```js
-import { remark } from 'remark';
-import html from 'remark-html';
+import { remark } from "remark";
+import html from "remark-html";
 ```
 
 次に、lib/posts.js内のgetPostData()を以下のように編集してください。
 ```js
 export async function getPostData(id) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fileContents = fs.readFileSync(fullPath, "utf8");
 
   // Use gray-matter to parse the post metadata section
   const matterResult = matter(fileContents);
@@ -1297,7 +1297,7 @@ export default function Post({ postData }) {
 
 pages/posts/[id].js
 ```js
-import Head from 'next/head';
+import Head from "next/head";
 ```
 ```js
 export default function Post({ postData }) {
@@ -1323,11 +1323,11 @@ npm install date-fns
 
 インストールが完了したら、components/date.jsを作成し、以下のようにしてください。
 ```js
-import { parseISO, format } from 'date-fns';
+import { parseISO, format } from "date-fns";
 
 export default function Date({ dateString }) {
   const date = parseISO(dateString);
-  return <time dateTime={dateString}>{format(date, 'LLLL d, yyyy')}</time>;
+  return <time dateTime={dateString}>{format(date, "LLLL d, yyyy")}</time>;
 }
 ```
 この関数では、日付を文字列で受け取り、parseISO()で日付型に変換しています。
@@ -1344,7 +1344,7 @@ pages/posts/[id].js
 
 次にCSSを追加します。utilをインポートしてください。
 ```js
-import utilStyles from '../../styles/utils.module.css';
+import utilStyles from "../../styles/utils.module.css";
 ```
 Layoutの中身を編集してください。
 ```js
@@ -1370,8 +1370,8 @@ Layoutの中身を編集してください。
 
 pages/index.js
 ```js
-import Link from 'next/link';
-import Date from '../components/date';
+import Link from "next/link";
+import Date from "../components/date";
 ```
 リストの部分を以下のように編集してください。
 ```js
@@ -1421,20 +1421,20 @@ pages/apiForms.jsを作成してください。
 
 apiForms.js
 ```js
-import Head from 'next/head';
-import Layout from '../components/layout';
+import Head from "next/head";
+import Layout from "../components/layout";
 
 export default function apiForms() {
   const data = {
-    name: '',
-    email: '',
+    name: "",
+    email: "",
   };
 
   async function sendApi() {
     const response = await fetch(`api/api-forms`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
@@ -1484,8 +1484,8 @@ export default function apiForms() {
 ```js
 export default function apiForms() {
   const data = {
-    name: '',
-    email: '',
+    name: "",
+    email: "",
   };
   // ...
 }
@@ -1532,7 +1532,7 @@ inputタグでは、onChangeを使用しています。onChangeは、入力さ�
 ```js
 onChange={(e) => {
   const email = e.target.value;
-  if (email === '') {
+  if (email === "") {
     // 空欄のときの処理
   } else if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
     // メールアドレスの形式が正しいときの処理
@@ -1546,9 +1546,9 @@ onChange={(e) => {
 ```js
 async function sendApi() {
   const response = await fetch(`api/api-forms`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   });
@@ -1634,21 +1634,21 @@ styles/utils.module.css
 
 pages/apiForms.js
 ```js
-import Head from 'next/head';
-import Layout from '../components/layout';
-import styles from '../styles/utils.module.css';
+import Head from "next/head";
+import Layout from "../components/layout";
+import styles from "../styles/utils.module.css";
 
 export default function apiForms() {
   const data = {
-    name: '',
-    email: '',
+    name: "",
+    email: "",
   };
 
   async function sendApi() {
     const response = await fetch(`api/api-forms`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });

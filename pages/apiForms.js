@@ -1,18 +1,18 @@
-import Head from 'next/head';
-import Layout from '../components/layout';
-import styles from '../styles/utils.module.css';
+import Head from "next/head";
+import Layout from "../components/layout";
+import styles from "../styles/utils.module.css";
 
 export default function apiForms() {
   const data = {
-    name: '',
-    email: '',
+    name: "",
+    email: "",
   };
 
   async function sendApi() {
     const response = await fetch(`api/api-forms`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
     });
