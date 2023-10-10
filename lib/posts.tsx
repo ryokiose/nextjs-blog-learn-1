@@ -4,7 +4,7 @@ import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 
-interface PostData {
+export interface PostData {
   id: string;
   [key: string]: any;
 }
