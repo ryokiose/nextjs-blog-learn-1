@@ -13,12 +13,14 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "remark": "^15.0.1",
-    "remark-html": "^16.0.1"
+    "remark-html": "^16.0.1",
+    "typescript": "^5.2.2"
   },
   "engines": {
     "node": ">=18"
   },
   "devDependencies": {
+    "@types/node": "20.8.4",
     "prisma": "^5.4.1"
   }
 }
