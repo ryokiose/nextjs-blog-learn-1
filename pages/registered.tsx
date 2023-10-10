@@ -4,7 +4,14 @@ import Layout from "../components/layout";
 import styles from "../styles/utils.module.css";
 import Date from "../components/date";
 
-async function deleteApi(id) {
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: string;
+}
+
+async function deleteApi(id: number): Promise<boolean> {
   const response = await fetch(`api/delete-post/${id}`, {
     method: "DELETE",
     headers: {
@@ -21,10 +28,10 @@ async function deleteApi(id) {
   }
 }
 
-export default function Registered({ userData }) {
-  const [userList, setUserList] = useState(userData);
+export default function Registered({ userData }: { userData: User[] }) {
+  const [userList, setUserList] = useState<User[]>(userData);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: number) => {
     const deleted = await deleteApi(id);
     if (deleted) {
       setUserList((prevList) => prevList.filter((user) => user.id !== id));
