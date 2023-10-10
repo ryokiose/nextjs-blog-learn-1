@@ -1,16 +1,24 @@
 import Layout from "../../components/layout";
-import { getAllPostIds, getPostData } from "../../lib/posts";
+import { getAllPostIds, getPostData, PostData } from "../../lib/posts";
 import Head from "next/head";
 import Date from "../../components/date";
 import utilStyles from "../../styles/utils.module.css";
 
-export default function Post({ postData }) {
+interface PostProps {
+  postData: PostData;
+}
+
+interface Params {
+  params: {
+    id: string;
+  };
+}
+
+export default function Post({ postData }: PostProps) {
   return (
     <Layout>
       <Head>
-        <title>
-          {postData.title}
-        </title>
+        <title>{postData.title}</title>
       </Head>
       <article>
         <h1 className={utilStyles.headingx1}>{postData.title}</h1>
@@ -32,12 +40,8 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
-  // Add the "await" keyword like this:
+export async function getStaticProps({ params }: Params) {
   const postData = await getPostData(params.id);
-  // old code
-  // const postData = getPostData(params.id);
-
   return {
     props: {
       postData,

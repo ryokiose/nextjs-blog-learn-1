@@ -1,8 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { NextApiRequest, NextApiResponse } from "next";
 
-let prisma; // グローバルなPrismaClientインスタンスを作成
+let prisma: PrismaClient | undefined;
 
-export default async function handler(req, res) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -18,7 +22,7 @@ export default async function handler(req, res) {
       prisma = new PrismaClient();
     }
 
-    const newPost = await prisma.Post.create({
+    const newPost = await prisma.post.create({
       data: {
         name: name,
         email: email,
@@ -28,8 +32,10 @@ export default async function handler(req, res) {
     res.status(200).json(newPost);
   } catch (error) {
     console.error("Error creating post:", error);
-    res.status(500).json({ error: "An error occurred while creating the post" });
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the post" });
   } finally {
-    prisma.$disconnect();
+    await prisma?.$disconnect();
   }
 }

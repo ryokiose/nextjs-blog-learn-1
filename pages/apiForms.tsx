@@ -1,12 +1,13 @@
 import Head from "next/head";
 import Layout from "../components/layout";
 import styles from "../styles/utils.module.css";
+import { useState } from "react"; // useStateをインポート
 
-export default function apiForms() {
-  const data = {
+export default function ApiForms() {
+  const [data, setData] = useState({
     name: "",
     email: "",
-  };
+  });
 
   async function sendApi() {
     const response = await fetch(`api/api-forms`, {
@@ -17,12 +18,20 @@ export default function apiForms() {
       body: JSON.stringify(data),
     });
     const responseData = await response.json();
-    if (response.status == 200) {
+    if (response.status === 200) {
       alert("登録に成功しました。");
     } else if (response.status !== 200) {
       alert("登録に失敗しました。\n" + responseData.error);
     }
   }
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({ ...data, name: e.target.value });
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData({ ...data, email: e.target.value });
+  };
 
   return (
     <Layout>
@@ -41,7 +50,8 @@ export default function apiForms() {
             type="text"
             autoComplete="name"
             required
-            onChange={(e) => (data.name = e.target.value)}
+            onChange={handleNameChange}
+            value={data.name}
           />
           <label className={styles.label} htmlFor="email">
             Email
@@ -53,7 +63,8 @@ export default function apiForms() {
             type="email"
             autoComplete="email"
             required
-            onChange={(e) => (data.email = e.target.value)}
+            onChange={handleEmailChange}
+            value={data.email}
           />
           <button className={styles.button} type="button" onClick={sendApi}>
             Submit
