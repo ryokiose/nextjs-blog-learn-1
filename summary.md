@@ -3,13 +3,14 @@ title: "Next.jsチュートリアル 簡易まとめ"
 date: "2023-09-29"
 ---
 
-# Next.jsチュートリアル 簡易まとめ  [Next.js](https://nextjs.org/learn/foundations/about-nextjs)
+# Next.js チュートリアル 簡易まとめ [Next.js](https://nextjs.org/learn/foundations/about-nextjs)
 
 ## 目次
+
 - [0 | はじめに](#0--はじめに)
-  - [0-1 | Next.jsとは](#0-1--nextjsとは)
+  - [0-1 | Next.js とは](#0-1--nextjsとは)
   - [0-2 | 環境構築](#0-2--環境構築)
-- [1 | Next.jsアプリを作成する](#1--nextjsアプリを作成する)
+- [1 | Next.js アプリを作成する](#1--nextjsアプリを作成する)
   - [1-1 | セットアップ](#1-1--セットアップ)
   - [1-2 | ページを編集する](#1-2--ページを編集する)
 - [2 | ページ間の移動・パス](#2--ページ間の移動・パス)
@@ -18,9 +19,9 @@ date: "2023-09-29"
 - [3 | アセット、メタデータ、css](#3--アセットメタデータcss)
   - [3-1 | アセット](#3-1--アセット)
   - [3-2 | メタデータ](#3-2--メタデータ)
-  - [3-3 | サードパーティーJavaScript](#3-3--サードパーティーjavascript)
+  - [3-3 | サードパーティー JavaScript](#3-3--サードパーティーjavascript)
   - [3-4 | CSS](#3-4--css)
-  - [3-5 | Layoutを進化させる](#3-5--layoutを進化させる)
+  - [3-5 | Layout を進化させる](#3-5--layoutを進化させる)
 - [4 | プリレンダリング・データフェッチ](#4--プリレンダリング・データフェッチ)
   - [4-1 | プリレンダリング](#4-1--プリレンダリング)
   - [4-2 | データあり、無しの静的生成](#4-2--データあり無しの静的生成)
@@ -28,33 +29,45 @@ date: "2023-09-29"
   - [5-1 | 外部データに依存するパス](#5-1--外部データに依存するパス)
   - [5-2 | マークダウンのレンダリング](#5-2--マークダウンのレンダリング)
   - [5-3 | ページの仕上げ](#5-3--ページの仕上げ)
-- [6 | APIルート](#6--apiルート)
-  - [6-1 | APIルートの作成・使用](#6-1--apiルートの作成・使用)
+- [6 | API ルート](#6--apiルート)
+
+  - [6-1 | API ルートの作成・使用](#6-1--apiルートの作成・使用)
+
+- [その他](#その他)
+  - [ESLint・Prettier](#eslint・prettier)
 
 # [0 | はじめに](#)
-## [0-1 | Next.jsとは](#)
-Next.js は、高速Web アプリケーションを作成するための構成要素を提供する柔軟なReact フレームワークです。
+
+## [0-1 | Next.js とは](#)
+
+Next.js は、高速 Web アプリケーションを作成するための構成要素を提供する柔軟な React フレームワークです。
 
 ## [0-2 | 環境構築](#)
-Next.jsはReactのライブラリです。
-そのため、Next.jsを利用するためにReactを利用する環境が必要です。
 
-Reactを利用するためには、Node.jsのバージョン18以降が必要になります。
-Node.jsの環境構築はPDFがあるため、そちらを参照してください。
+Next.js は React のライブラリです。
+そのため、Next.js を利用するために React を利用する環境が必要です。
 
-# [1 | Next.jsアプリを作成する](#)
+React を利用するためには、Node.js のバージョン 18 以降が必要になります。
+Node.js の環境構築は PDF があるため、そちらを参照してください。
+
+# [1 | Next.js アプリを作成する](#)
+
 ## [1-1 | セットアップ](https://nextjs.org/learn/basics/create-nextjs-app/setup)
-まずはNext.jsのアプリケーションを作成します。今回はexampleという用意されたものを使用します。
+
+まずは Next.js のアプリケーションを作成します。今回は example という用意されたものを使用します。
 
 まずはコマンドプロンプトを起動し、アプリケーションを作成したいディレクトリまで移動してください。
 
 次に、以下のコマンドを打ち込みます。
+
 ```cmd
 npx create-next-app@latest nextjs-blog-learning --use-npm --example "https://github.com/vercel/next-learn/tree/main/basics/learn-starter"
 ```
-このコマンドを使用すると、Nextのテンプレートアプリケーションがダウンロードされます。
+
+このコマンドを使用すると、Next のテンプレートアプリケーションがダウンロードされます。
 
 次に開発サーバーを実行します。以下のコマンドを実行してください。
+
 ```cmd
 cd nextjs-blog-learning
 npm run dev
@@ -62,27 +75,28 @@ npm run dev
 
 実行したコマンドを簡単に解説します。
 
-cd - カレントディレクトリを変更します。ここでは、ダウンロードしたnextjs-blog-learningというディレクトリに移動しています。
+cd - カレントディレクトリを変更します。ここでは、ダウンロードした nextjs-blog-learning というディレクトリに移動しています。
 
-npm run dev - Next.jsの開発サーバーをポート3000で起動しています。詳しくは後述します。
+npm run dev - Next.js の開発サーバーをポート 3000 で起動しています。詳しくは後述します。
 
-npm run devで開発サーバーを立ち上げたのでアクセスしてみましょう。
+npm run dev で開発サーバーを立ち上げたのでアクセスしてみましょう。
 [ここを押してアクセス](http://localhost:3000/)
 
 開発サーバーはコードが変更されると即時に処理が更新されます。
 そのため、開発中にサーバーを再起動する必要があまりなく、開発効率が上がります。
 
-これまでで、Webサイトを作成するための準備が整いました。次はページの編集を行っていきます。
+これまでで、Web サイトを作成するための準備が整いました。次はページの編集を行っていきます。
 
 ## [1-2 | ページを編集する](https://nextjs.org/learn/basics/create-nextjs-app/editing-the-page)
-次はnextjs-blog-learning配下のpagesディレクトリにあるindex.jsを編集していきます。
 
-まずはpages/index.jsを開いてください。
+次は nextjs-blog-learning 配下の pages ディレクトリにある index.js を編集していきます。
 
-index.jsの中から、以下のような\<h1>タグの部分を探してください。
+まずは pages/index.js を開いてください。
+
+index.js の中から、以下のような\<h1>タグの部分を探してください。
 
 ```html
-<h1 className={styles.title}>
+<h1 className="{styles.title}">
   Welcome to <a href="https://nextjs.org">Next.js!</a>
 </h1>
 ```
@@ -90,28 +104,32 @@ index.jsの中から、以下のような\<h1>タグの部分を探してくだ�
 この部分を以下のように変更してください。
 
 ```html
-<h1 className={styles.title}>
+<h1 className="{styles.title}">
   Learn <a href="https://nextjs.org">Next.js!</a>
 </h1>
 ```
-ここでは、Welcome toをLearnに変更しています。
+
+ここでは、Welcome to を Learn に変更しています。
 
 変更が完了したら、ブラウザ開きリロードしてください。文章が変更されているのを確認できます。
 
 # [2 | ページ間の移動・パス](#)
+
 ## [2-1 | ページを作成する](https://nextjs.org/learn/basics/navigate-between-pages/pages-in-nextjs)
+
 次はページ間を移動する方法を学びます。
 
-まず、pagesディレクトリにpostsディレクトリを作成してください。
+まず、pages ディレクトリに posts ディレクトリを作成してください。
 
-postsディレクトリにfirst-post.jsを作成してください。
+posts ディレクトリに first-post.js を作成してください。
 
 ディレクト構成は以下のようになります。
+
 ```
 pages/posts/first-post.js
 ```
 
-first-post.jsの中身は以下のようにしてください。
+first-post.js の中身は以下のようにしてください。
 
 ```js
 export default function FirstPost() {
@@ -122,9 +140,9 @@ export default function FirstPost() {
 保存したら、このページにアクセスしてみましょう！
 [ここを押してアクセス](http://localhost:3000/posts/first-post)
 
-URLを見ると、http://localhost:3000/posts/first-postとなっています。
+URL を見ると、http://localhost:3000/posts/first-post となっています。
 
-Next.jsでは、pagesディレクトリにあるファイルは、URLのパスとして認識されます。
+Next.js では、pages ディレクトリにあるファイルは、URL のパスとして認識されます。
 
 このようにして簡単にページを作成することができます。
 
@@ -133,46 +151,51 @@ Next.jsでは、pagesディレクトリにあるファイルは、URLのパス�
 ```js
 export default function FirstPost()
 ```
-export defaultは、このファイルを他のファイルからimportする際に、この関数をデフォルトで使用することを意味します。つまり、ページが開かれた際に、この関数が実行されます。
+
+export default は、このファイルを他のファイルから import する際に、この関数をデフォルトで使用することを意味します。つまり、ページが開かれた際に、この関数が実行されます。
 
 ```js
 return <h1>First Post</h1>;
 ```
-上のコードでexport defaultが起動したときに、returnでHTMLのコードが返却されます。
 
-HTMLをJavaScriptで先に読み込んで置くことで、ページの読み込みを高速化しています。
+上のコードで export default が起動したときに、return で HTML のコードが返却されます。
 
+HTML を JavaScript で先に読み込んで置くことで、ページの読み込みを高速化しています。
 
 ## [2-2 | ページを移動する](https://nextjs.org/learn/basics/navigate-between-pages/client-side)
+
 次はページを移動する方法を学びます。
 
-Next.jsではページを移動する際に、HTMLの\<a>タグではなく、Next.jsが提供するLinkコンポーネントを使用します。
+Next.js ではページを移動する際に、HTML の\<a>タグではなく、Next.js が提供する Link コンポーネントを使用します。
 
-\<a>タグとLinkコンポーネントの違いは、\<a>タグはページを移動する際に、ページをリロードしますが、Linkコンポーネントはページを移動する際に、ページをリロードしません。
+\<a>タグと Link コンポーネントの違いは、\<a>タグはページを移動する際に、ページをリロードしますが、Link コンポーネントはページを移動する際に、ページをリロードしません。
 
-なぜ再読み込みしないかというと、Next.jsではページを事前に読み込んでおくことで、ページの移動を高速化しているためです。詳しくは[公式ドキュメント(ENG)](https://nextjs.org/learn/basics/navigate-between-pages/client-side)を参照してください
+なぜ再読み込みしないかというと、Next.js ではページを事前に読み込んでおくことで、ページの移動を高速化しているためです。詳しくは[公式ドキュメント(ENG)](https://nextjs.org/learn/basics/navigate-between-pages/client-side)を参照してください
 
-### しかし、外部のページに移動する際にはLinkコンポーネントではなく、\<a>タグを使用する必要があるので注意してください。
+### しかし、外部のページに移動する際には Link コンポーネントではなく、\<a>タグを使用する必要があるので注意してください。
 
-実際にLinkコンポーネントを使用してみましょう。
+実際に Link コンポーネントを使用してみましょう。
 
-まずは、pages/index.jsを開いてください。
+まずは、pages/index.js を開いてください。
 
-一番上の行に以下のようなimport文を追加してください。
+一番上の行に以下のような import 文を追加してください。
 
 ```js
 import Link from "next/link";
 ```
-これは、Linkコンポーネントを使用するために必要なimport文です。
 
-次に、index.jsの中から、以下のような\<h1>タグの部分を探してください。
+これは、Link コンポーネントを使用するために必要な import 文です。
+
+次に、index.js の中から、以下のような\<h1>タグの部分を探してください。
 
 ```html
-<h1 className={styles.title}>
+<h1 className="{styles.title}">
   Learn <a href="https://nextjs.org">Next.js!</a>
 </h1>
 ```
+
 この部分を以下のように変更してください。
+
 ```html
 <h1 className={styles.title}>
   Read <Link href="/posts/first-post">this page!</Link>
@@ -181,11 +204,11 @@ import Link from "next/link";
 
 変更が完了したら、[http://localhost:3000](http://localhost:3000)にアクセスしてください。
 
-ページの一番上にあるthis page!という文字をクリックすると、/posts/first-postのリンクに飛べるはずです。
+ページの一番上にある this page!という文字をクリックすると、/posts/first-post のリンクに飛べるはずです。
 
-次に、pages/posts/first-post.jsを開いてください。
+次に、pages/posts/first-post.js を開いてください。
 
-first-post.jsを以下のように変更してください。
+first-post.js を以下のように変更してください。
 
 ```js
 import Link from "next/link";
@@ -204,115 +227,124 @@ export default function FirstPost() {
 
 変更が完了したら、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
 
-ページの一番上にあるBack to homeという文字をクリックすると、/のリンクに飛べるはずです。
+ページの一番上にある Back to home という文字をクリックすると、/のリンクに飛べるはずです。
 
-これで、ページ間を相互に移動できるようになりました。Webサイトではこの機能を使用してページ間を移動していきます。必ず使うのでしっかり覚えておきましょう！
+これで、ページ間を相互に移動できるようになりました。Web サイトではこの機能を使用してページ間を移動していきます。必ず使うのでしっかり覚えておきましょう！
 
 次にコードの解説をします。
+
 ```js
-return(
-  <>
-    // any code
-  </>
-);
+return <>// any code</>;
 ```
-以前のコードでは、returnの中に\<h1>タグのみがありましたが、今回は\<h1>タグと\<h2>タグがあります。
-このようにreturnに複数行記述する場合は、return()の中に\<>と\</>で囲んでから記述します。
+
+以前のコードでは、return の中に\<h1>タグのみがありましたが、今回は\<h1>タグと\<h2>タグがあります。
+このように return に複数行記述する場合は、return()の中に\<>と\</>で囲んでから記述します。
 
 こうすることで、return()の中に複数行記述することができます。
 
 # [3 | アセット、メタデータ、css](https://nextjs.org/learn/basics/assets-metadata-css/assets)
+
 ## [3-1 | アセット](https://nextjs.org/learn/basics/assets-metadata-css/assets)
 
-まずは[このリンクにアクセス](https://github.com/vercel/next-learn/blob/main/basics/basics-final/public/images/profile.jpg)してprofile.jpgをダウンロードし、/public/images/にprofile.jpgを配置してください。
+まずは[このリンクにアクセス](https://github.com/vercel/next-learn/blob/main/basics/basics-final/public/images/profile.jpg)して profile.jpg をダウンロードし、/public/images/に profile.jpg を配置してください。
 
-次に、pages/index.jsを開いてください。
+次に、pages/index.js を開いてください。
 
-index.jsの中から<footer>を探し、以下のように変更してください。
+index.js の中から<footer>を探し、以下のように変更してください。
 
 ```html
-<img src="/images/profile.jpg" alt="Vercel" className={styles.logo} />
+<img src="/images/profile.jpg" alt="Vercel" className="{styles.logo}" />
 ```
+
 このようにすることで静的ファイルを読み込むことができます。(ただし、これは最適化されていないので、後ほど最適化する方法を学びます。)
 
 変更が完了したら、[http://localhost:3000](http://localhost:3000)にアクセスしてください。
 
-ページの一番下にあるVercelのロゴが変更されているはずです。
+ページの一番下にある Vercel のロゴが変更されているはずです。
 
 ## [3-2 | メタデータ](https://nextjs.org/learn/basics/assets-metadata-css/metadata)
+
 次はメタデータを変更していきます。
 
-まずはpages/index.jsを開いてください。
+まずは pages/index.js を開いてください。
 
-index.jsの中の\<Head>タグを探してください。これがメタデータを設定するためのタグです。
-\<Head>タグを使うためには、import文を追加する必要があります。
+index.js の中の\<Head>タグを探してください。これがメタデータを設定するためのタグです。
+\<Head>タグを使うためには、import 文を追加する必要があります。
 
-**HTMLにある\<head>タグとNext.jsで使用される\<Head>は別のものです。*H*の大文字と小文字に注意しましょう！**
+**HTML にある\<head>タグと Next.js で使用される\<Head>は別のものです。*H*の大文字と小文字に注意しましょう！**
 
 以下がその例です。
 
 ```js
 import Head from "next/head";
 ```
+
 ```html
-<Head>
+<head>
   <title>Create Next App</title>
   <link rel="icon" href="/favicon.ico" />
-</Head>
+</head>
 ```
-ここでは、タイトルをCreate Next Appに設定し、アイコンをfavicon.icoに設定しています。
+
+ここでは、タイトルを Create Next App に設定し、アイコンを favicon.ico に設定しています。
 
 実際にメタデータを設定してみましょう。
 
-まずは、pages/posts/first-post.jsを開いてください。
+まずは、pages/posts/first-post.js を開いてください。
 
-メタデータを設定するための\<Head>タグを使用するには、import文を追加する必要があります。追加しましょう。
+メタデータを設定するための\<Head>タグを使用するには、import 文を追加する必要があります。追加しましょう。
+
 ```js
 import Head from "next/head";
 ```
 
 次にメタデータを設定していきます。
+
 ```html
-<Head>
+<head>
   <title>First Post</title>
-</Head>
+</head>
 ```
 
 変更が完了したら、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
 
 ページのタイトルが変更されているのを確認できます。
 
-## [3-3 | サードパーティーJavaScript](https://nextjs.org/learn/basics/assets-metadata-css/third-party-javascript)
+## [3-3 | サードパーティー JavaScript](https://nextjs.org/learn/basics/assets-metadata-css/third-party-javascript)
 
-通常のアプリケーションでは以下のように\<head>タグの中に記述して外部Scriptを読み込みます。
+通常のアプリケーションでは以下のように\<head>タグの中に記述して外部 Script を読み込みます。
+
 ```html
 <head>
   <script src="https://www.sample.api/"></script>
 </head>
 ```
 
-Next.jsでは、タイトルなどと同様に\<Head>タグを使用して外部Scriptを読み込みむことができます。
+Next.js では、タイトルなどと同様に\<Head>タグを使用して外部 Script を読み込みむことができます。
+
 ```html
 <!-- 非推奨 -->
-<Head>
+<head>
   <script src="https://www.sample.api/"></script>
-</Head>
+</head>
 ```
-しかし、この方法では、外部Scriptが読み込まれるまでページが表示されないため、パフォーマンスが低下します。
 
-したがって、\<Head>タグにScriptを記述することは<u>**推奨されていません。**</u>
+しかし、この方法では、外部 Script が読み込まれるまでページが表示されないため、パフォーマンスが低下します。
 
-そこで、Next.jsでは\<Script>タグというものが用意されています。
+したがって、\<Head>タグに Script を記述することは<u>**推奨されていません。**</u>
 
-First-post.jsを編集してみましょう。
+そこで、Next.js では\<Script>タグというものが用意されています。
 
-\<Script>タグを使用するにはimportをする必要があります。まずはimport文を追加しましょう。
+First-post.js を編集してみましょう。
+
+\<Script>タグを使用するには import をする必要があります。まずは import 文を追加しましょう。
+
 ```js
 import Script from "next/script";
 ```
 
-次に\<Script>タグを使用して外部Scriptを読み込んでみましょう。
-ここでは、FacebookのSDKを読み込んでみます。
+次に\<Script>タグを使用して外部 Script を読み込んでみましょう。
+ここでは、Facebook の SDK を読み込んでみます。
 
 ```js
 export default function FirstPost() {
@@ -340,40 +372,45 @@ export default function FirstPost() {
 \<Script>タグとそのプロパティについて解説します。詳しく知りたい方は[公式ドキュメント](https://nextjs.org/docs/pages/api-reference/components/script)を参照してください。
 
 ### src(必須)
-読み込む外部ScriptのURLを指定します。
+
+読み込む外部 Script の URL を指定します。
 
 ### strategy(任意)
-srcで指定した外部Scriptを読み込むタイミングを指定します。
-ここではよく使用される2つを紹介します。
+
+src で指定した外部 Script を読み込むタイミングを指定します。
+ここではよく使用される 2 つを紹介します。
 
 **・ afterInteractive(デフォルト)** - ページが開かれ、ある程度ページが読み込まれた後に。
 
 **・ lazyOnload** - ページが読み込まれた後に読み込みます。
 
 ### onLoad(任意)
-外部Scriptの読み込みが完了した際に実行する関数を指定します。
 
-今回は"script loaded correctly, window.FB has been populated"というメッセージをコンソールに表示し、外部Scriptの読み込みが完了したことを確認できるようにしています。
+外部 Script の読み込みが完了した際に実行する関数を指定します。
 
+今回は"script loaded correctly, window.FB has been populated"というメッセージをコンソールに表示し、外部 Script の読み込みが完了したことを確認できるようにしています。
 
 変更が完了したらコードを保存し、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
 
-開発者コンソールを開き、consoleにメッセージが表示されているのを確認できます。
+開発者コンソールを開き、console にメッセージが表示されているのを確認できます。
 
 ## [3-4 | CSS](https://nextjs.org/learn/basics/assets-metadata-css/css-styling)
-Next.jsでは通常の.cssファイルの他、cssモジュールやTailwand CSSのようなライブラリを使用することができます。
 
+Next.js では通常の.css ファイルの他、css モジュールや Tailwand CSS のようなライブラリを使用することができます。
 
-### コンポーネントにCSSを適用する
-First-post.jsにcssを適用させてみます。
+### コンポーネントに CSS を適用する
+
+First-post.js に css を適用させてみます。
 
 まずは以下のフォルダとファイルを作成してください。
+
 ```
 /components/layout.js
 /components/layout.module.css
 ```
 
 layout.js
+
 ```js
 import styles from "./layout.module.css";
 
@@ -383,6 +420,7 @@ export default function Layout({ children }) {
 ```
 
 layout.module.css
+
 ```css
 .container {
   max-width: 36rem;
@@ -390,7 +428,9 @@ layout.module.css
   margin: 3rem auto 6rem;
 }
 ```
+
 /pages/posts/first-post.js
+
 ```js
 import Link from "next/link";
 import Head from "next/head";
@@ -423,20 +463,24 @@ export default function FirstPost() {
 
 ここではどのような動作をしているかを説明します。
 
-まず、layout.jsをimportしています。これは、\<Layout>タグを使用するために必要なimport文です。
+まず、layout.js を import しています。これは、\<Layout>タグを使用するために必要な import 文です。
 
 次に、\<Layout>で囲んだ理由を説明します。
 
-\<Layout>タグで囲うと、layout.jsで指定されたlayout.module.cssの.containerのスタイルが適用されます。
+\<Layout>タグで囲うと、layout.js で指定された layout.module.css の.container のスタイルが適用されます。
 
-この方法はコンポーネントごとにcssを適用するのに役立ちます
+この方法はコンポーネントごとに css を適用するのに役立ちます
 
-### グローバルCSSを作成する
-グローバルCSSを作成するには、pages/_app.jsを作成します。
+### グローバル CSS を作成する
+
+グローバル CSS を作成するには、pages/\_app.js を作成します。
+
 ```
 pages/_app.js
 ```
-_app.jsには、以下のように記述してください。
+
+\_app.js には、以下のように記述してください。
+
 ```js
 import "../styles/global.css";
 
@@ -444,7 +488,9 @@ export default function App({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }
 ```
-次にここでimportしているglobal.cssを作成します。最初からあるglobals.cssでは無いので注意してください。
+
+次にここで import している global.css を作成します。最初からある globals.css では無いので注意してください。
+
 ```css
 html,
 body {
@@ -476,17 +522,18 @@ img {
 ```
 
 **[重要]**
-_app.jsは、pagesディレクトリにある全てのページで使用されるコンポーネントです。このファイルを作成したときには、Ctrl + cを押してサーバーを停止し、再度サーバーを起動してください。
+\_app.js は、pages ディレクトリにある全てのページで使用されるコンポーネントです。このファイルを作成したときには、Ctrl + c を押してサーバーを停止し、再度サーバーを起動してください。
 
-グローバルCSSは全てのファイルに影響を及ぼします。そのため、外にimport出来ません。そのため、グローバルCSSを作成するには、pagesディレクトリにある_app.jsを使用します。
-
+グローバル CSS は全てのファイルに影響を及ぼします。そのため、外に import 出来ません。そのため、グローバル CSS を作成するには、pages ディレクトリにある\_app.js を使用します。
 
 ここまで出来たら、サーバーを再起動し、[http://localhost:3000/posts/first-post](http://localhost:3000/posts/first-post)にアクセスしてください。
 
-## [3-5 | Layoutを進化させる](https://nextjs.org/learn/basics/assets-metadata-css/polishing-layout)
-これまでは最小限のReactとCSSのコードでした。次のステップに進む前にページを少し改善します。それぞれのファイルを以下のものに書き換えてください。
+## [3-5 | Layout を進化させる](https://nextjs.org/learn/basics/assets-metadata-css/polishing-layout)
+
+これまでは最小限の React と CSS のコードでした。次のステップに進む前にページを少し改善します。それぞれのファイルを以下のものに書き換えてください。
 
 components/layout.module.css
+
 ```css
 .container {
   max-width: 36rem;
@@ -504,9 +551,11 @@ components/layout.module.css
   margin: 3rem 0 0;
 }
 ```
-次に新しいファイルを作成します。stylesにutils.module.cssというファイルを作成し、以下のように記述してください。
+
+次に新しいファイルを作成します。styles に utils.module.css というファイルを作成し、以下のように記述してください。
 
 styles/utils.module.css
+
 ```css
 .heading2Xl {
   font-size: 2.5rem;
@@ -563,6 +612,7 @@ styles/utils.module.css
 ```
 
 components/layout.js
+
 ```js
 import Head from "next/head";
 import Image from "next/image";
@@ -576,75 +626,79 @@ export const siteTitle = "Next.js Sample Website";
 export default function Layout({ children, home }) {
   return (
     <div className={styles.container}>
-    <Head>
-      <link rel="icon" href="/favicon.ico" />
-      <meta
-        name="description"
-        content="Learn how to build a personal website using Next.js"
-      />
-      <meta
-        property="og:image"
-        content={`https://og-image.vercel.app/${encodeURI(
-          siteTitle,
-        )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-      />
-      <meta name="og:title" content={siteTitle} />
-      <meta name="twitter:card" content="summary_large_image" />
-    </Head>
-    <header className={styles.header}>
-    {home ? (
-      <>
-        <Image
-          priority
-          src="/images/profile.jpg"
-          className={utilStyles.borderCircle}
-          height={144}
-          width={144}
-          alt=""
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="description"
+          content="Learn how to build a personal website using Next.js"
         />
-      <h1 className={utilStyles.heading2Xl}>{name}</h1>
-      </>
-    ) : (
-      <>
-        <Link href="/">
-          <Image
-            priority
-            src="/images/profile.jpg"
-            className={utilStyles.borderCircle}
-            height={108}
-            width={108}
-            alt=""
-          />
-        </Link>
-        <h2 className={utilStyles.headingLg}>
-          <Link href="/" className={utilStyles.colorInherit}>
-            {name}
-          </Link>
-          </h2>
-        </>
+        <meta
+          property="og:image"
+          content={`https://og-image.vercel.app/${encodeURI(
+            siteTitle
+          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
+        />
+        <meta name="og:title" content={siteTitle} />
+        <meta name="twitter:card" content="summary_large_image" />
+      </Head>
+      <header className={styles.header}>
+        {home ? (
+          <>
+            <Image
+              priority
+              src="/images/profile.jpg"
+              className={utilStyles.borderCircle}
+              height={144}
+              width={144}
+              alt=""
+            />
+            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+          </>
+        ) : (
+          <>
+            <Link href="/">
+              <Image
+                priority
+                src="/images/profile.jpg"
+                className={utilStyles.borderCircle}
+                height={108}
+                width={108}
+                alt=""
+              />
+            </Link>
+            <h2 className={utilStyles.headingLg}>
+              <Link href="/" className={utilStyles.colorInherit}>
+                {name}
+              </Link>
+            </h2>
+          </>
+        )}
+      </header>
+      <main>{children}</main>
+      {!home && (
+        <div className={styles.backToHome}>
+          <Link href="/">← Back to home</Link>
+        </div>
       )}
-    </header>
-    <main>{children}</main>
-    {!home && (
-      <div className={styles.backToHome}>
-        <Link href="/">← Back to home</Link>
-      </div>
-    )}
     </div>
   );
 }
 ```
+
 それぞれの変更点などを説明します。
 
 ### components/layout.module.css
-ここでは後ほど使用するheaderとbackToHomeのスタイルを定義しています。
-cssの内容については省略します。
+
+ここでは後ほど使用する header と backToHome のスタイルを定義しています。
+css の内容については省略します。
 
 ### styles/utils.module.css
-utils.module.cssはglobalを含む全てのファイルから再利用できるスタイルを定義しています。
+
+utils.module.css は global を含む全てのファイルから再利用できるスタイルを定義しています。
 
 ### components/layout.js
-ここではheaderや戻るボタンなどのコンポーネントを定義しています。
+
+ここでは header や戻るボタンなどのコンポーネントを定義しています。
 
 詳しく説明します。
 
@@ -652,11 +706,13 @@ utils.module.cssはglobalを含む全てのファイルから再利用できる�
 const name = "Manato Miura";
 export const siteTitle = "Next.js Sample Website";
 ```
+
 ここでは、サイトのタイトルと名前を定義しています。
 
-exportが付かない場合は、このファイル内でしか使用できませんが、exportを付けることで、他のファイルから使用することができます。
+export が付かない場合は、このファイル内でしか使用できませんが、export を付けることで、他のファイルから使用することができます。
 
 次に\<header>タグの記述について説明します。
+
 ```js
 export default function Layout({ children, home }) {
   // ...省略
@@ -686,17 +742,18 @@ export default function Layout({ children, home }) {
           />
         </Link>
         <h2 className={utilStyles.headingLg}>
-        <Link href="/" className={utilStyles.colorInherit}>
-          {name}
-        </Link>
-      </h2>
+          <Link href="/" className={utilStyles.colorInherit}>
+            {name}
+          </Link>
+        </h2>
       </>
     )}
-  </header>
+  </header>;
 }
 ```
 
-ここでは、homeかどうかを判断して表示を変えています。
+ここでは、home かどうかを判断して表示を変えています。
+
 ```js
 {home ? (
   // homeが開かれているときの処理
@@ -705,51 +762,58 @@ export default function Layout({ children, home }) {
 )}
 ```
 
-\<main>タグの中にchildrenを表示しています。childrenは、呼び出し元のコンポーネントの中身を表示するためのものです。
+\<main>タグの中に children を表示しています。children は、呼び出し元のコンポーネントの中身を表示するためのものです。
 
 ```js
 <main>{children}</main>
 ```
 
-ここでは、home以外のページが開かれている時に表示する戻るボタンを定義しています。
+ここでは、home 以外のページが開かれている時に表示する戻るボタンを定義しています。
+
 ```js
-{!home && (
-  <div className={styles.backToHome}>
-    <Link href="/">← Back to home</Link>
-  </div>
-)}
+{
+  !home && (
+    <div className={styles.backToHome}>
+      <Link href="/">← Back to home</Link>
+    </div>
+  );
+}
 ```
 
 これらのものを簡潔にまとめると、\<header>、\<main>(呼び出し元)、戻るボタンを表示できます。
 
-これらを使用することでheaderやfooter、など複数の場所で使用することができるコンポーネントを作成、使用することができます。
+これらを使用することで header や footer、など複数の場所で使用することができるコンポーネントを作成、使用することができます。
 
 # [4 | プリレンダリング・データフェッチ](https://nextjs.org/learn/basics/data-fetching)
 
 ## [4-1 | プリレンダリング](https://nextjs.org/learn/basics/data-fetching/pre-rendering)
 
-Next.jsでは、ページをプリレンダリング(事前にHTMLを生成)することができます。
+Next.js では、ページをプリレンダリング(事前に HTML を生成)することができます。
 
 日本語で詳しく解説しているものがあるので[こちら](https://zenn.dev/luvmini511/articles/1523113e0dec58)をご覧ください。
 
-簡単にまとめると、ページごとにSSRとSSGの2つを使い分けて高速化しよう！ということです。
+簡単にまとめると、ページごとに SSR と SSG の 2 つを使い分けて高速化しよう！ということです。
 
 ## [4-2 | データあり、無しの静的生成](https://nextjs.org/learn/basics/data-fetching/with-data)
+
 ここからは実際のアプリケーションのようにデータを取得していきます。
 
-まずは、mdファイルの解析で使う**gray-matter**というライブラリをインストールします。
+まずは、md ファイルの解析で使う**gray-matter**というライブラリをインストールします。
 
 ../nextjs-blog>まで移動して以下のコマンドを実行してください。
+
 ```cmd
 npm install gray-matter
 ```
-これでgray-matterがインストールされました。
+
+これで gray-matter がインストールされました。
 
 他のライブラリのインストールも同じ方法で行います。
 
-次に、ルートディレクトリにpostsというディレクトリを作成してください。(/pages/postsとは別です)
+次に、ルートディレクトリに posts というディレクトリを作成してください。(/pages/posts とは別です)
 
-次に以下2つのファイルを作成してください。
+次に以下 2 つのファイルを作成してください。
+
 ```cmd
 /posts/pre-rendering.md
 /posts/ssg-ssr.md
@@ -758,6 +822,7 @@ npm install gray-matter
 それぞれ以下のように記述してください。
 
 pre-rendering.md
+
 ```md
 ---
 title: "Two Forms of Pre-rendering"
@@ -773,6 +838,7 @@ Importantly, Next.js lets you **choose** which pre-rendering form to use for eac
 ```
 
 ssg-ssr.md
+
 ```md
 ---
 title: "When to Use Static Generation v.s. Server-side Rendering"
@@ -795,13 +861,14 @@ On the other hand, Static Generation is **not** a good idea if you cannot pre-re
 In that case, you can use **Server-Side Rendering**. It will be slower, but the pre-rendered page will always be up-to-date. Or you can skip pre-rendering and use client-side JavaScript to populate data.
 ```
 
-これらのmarkdownファイルは、ブログの記事としています。
+これらの markdown ファイルは、ブログの記事としています。
 
 実際のアプリケーションでは、これらがデータベースなどから取得したデータになります。
 
-次に、ルートディレクトリにlibディレクトリ、その下にposts.jsを作成してください。
+次に、ルートディレクトリに lib ディレクトリ、その下に posts.js を作成してください。
 
-posts.jsには以下のように記述してください。
+posts.js には以下のように記述してください。
+
 ```js
 import fs from "fs";
 import path from "path";
@@ -840,21 +907,23 @@ export function getSortedPostsData() {
 }
 ```
 
-posts.jsのフローを説明します。
+posts.js のフローを説明します。
 
 ```js
 const postsDirectory = path.join(process.cwd(), "posts");
 ```
-process.cwd()は現在のディレクトリを取得する関数です。ここでは、/nextjs-blogを取得しています。
 
-path.join()は、引数に指定した文字列を結合する関数です。ここでは、/nextjs-blog/postsを取得しています。
+process.cwd()は現在のディレクトリを取得する関数です。ここでは、/nextjs-blog を取得しています。
+
+path.join()は、引数に指定した文字列を結合する関数です。ここでは、/nextjs-blog/posts を取得しています。
 
 ```js
 const fileNames = fs.readdirSync(postsDirectory);
 ```
+
 上記で取得したパス(/nextjs-blog/posts/)にあるファイル名を配列で取得しています。
 
-ここでは、pre-rendering.mdとssg-ssr.mdを取得しています。
+ここでは、pre-rendering.md と ssg-ssr.md を取得しています。
 
 ```js
 const allPostsData = fileNames.map((fileName) => {
@@ -873,36 +942,37 @@ const allPostsData = fileNames.map((fileName) => {
     id,
     ...matterResult.data,
   };
-  });
-  // Sort posts by date
-  return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
-  }}
-);
+});
+// Sort posts by date
+return allPostsData.sort((a, b) => {
+  if (a.date < b.date) {
+    return 1;
+  } else {
+    return -1;
+  }
+});
 ```
-map()は、配列の要素を順番に処理する関数です。ここではfileNamesの要素を順番に処理しています。
 
-mapでは以下のことをしています。
+map()は、配列の要素を順番に処理する関数です。ここでは fileNames の要素を順番に処理しています。
 
-1. ファイル名から.mdを削除
+map では以下のことをしています。
+
+1. ファイル名から.md を削除
 2. これまでのパスとファイル名を結合しフルパスを取得
 3. フルパスからファイルの中身を取得
-4. gray-matterを使用してファイルのメタデータを取得
-5. idをファイル名、メタデータをデータとし、一つのオブジェクトとして返す
+4. gray-matter を使用してファイルのメタデータを取得
+5. id をファイル名、メタデータをデータとし、一つのオブジェクトとして返す
 
-これらのことを全てのファイル(ここではpre-rendering.mdとssg-ssr.md)に対して行っています。
+これらのことを全てのファイル(ここでは pre-rendering.md と ssg-ssr.md)に対して行っています。
 
 最後に、日付順に並び替えて呼び出し元に値を返却しています。
 
 今回のシステムではファイルからデータを取得していますが、実際のアプリケーションではデータベースからデータを取得します。その際にはこのファイルにデータベースからデータを取得する処理を記述することができます。
 
-posts.jsの解説は以上です。
+posts.js の解説は以上です。
 
+次に、pages/index.js を編集していきます。
 
-次に、pages/index.jsを編集していきます。
 ```js
 import Head from "next/head";
 import Layout, { name, siteTitle } from "../components/layout";
@@ -943,7 +1013,7 @@ export default function Home({ allPostsData }) {
 }
 ```
 
-更新されたindex.jsのフローを説明します。
+更新された index.js のフローを説明します。
 
 ```js
 import { getSortedPostsData } from "../lib/posts";
@@ -957,53 +1027,60 @@ export async function getStaticProps() {
   };
 }
 ```
-ここで先ほど作成したposts.jsを使用します。
+
+ここで先ほど作成した posts.js を使用します。
 
 getStaticProps()は、ページをプリレンダリングするために使用される関数です。
 
-このgetStaticProps()は、同じファイル内の使用するコンポーネントより上に記述する必要があります。
+この getStaticProps()は、同じファイル内の使用するコンポーネントより上に記述する必要があります。
 
 この関数が行っている処理は単純です。
 
-先ほど作成したposts.jsのgetSortedPostsData()を呼び出し、その値をpropsとして返却しています。
-
-
+先ほど作成した posts.js の getSortedPostsData()を呼び出し、その値を props として返却しています。
 
 ```js
 export default function Home({ allPostsData }) {
 ```
-ここでpropsから受け取る値を指定しています。
+
+ここで props から受け取る値を指定しています。
 
 ```js
-{allPostsData.map(({ id, date, title }) => (
-  <li className={utilStyles.listItem} key={id}>
-    {title}
-    <br />
-    {id}
-    <br />
-    {date}
-  </li>
-))}
+{
+  allPostsData.map(({ id, date, title }) => (
+    <li className={utilStyles.listItem} key={id}>
+      {title}
+      <br />
+      {id}
+      <br />
+      {date}
+    </li>
+  ));
+}
 ```
-ここでは、allPostsDataの要素を順番に処理しています。
 
-idをkeyとして、title、id、dateを表示しています。
+ここでは、allPostsData の要素を順番に処理しています。
+
+id を key として、title、id、date を表示しています。
 
 変更が完了したら、サーバーを再起動し、[http://localhost:3000](http://localhost:3000)にアクセスしてください。
 
 # [5 | 動的ルーティング](https://nextjs.org/learn/basics/dynamic-routes)
 
 ## [5-1 | 外部データに依存するパス](https://nextjs.org/learn/basics/dynamic-routes/page-path-external-data)
+
 ここからは、動的ルーティングを使用していきます。
 
 ### そもそも動的ルーティングとは？
-動的ルーティングとは、URLのパスを動的に変更することです。
 
-例えば、とあるブログサイトで、記事のURLが以下のようになっているとします。
+動的ルーティングとは、URL のパスを動的に変更することです。
+
+例えば、とあるブログサイトで、記事の URL が以下のようになっているとします。
+
 ```
 https://example.com/posts/first-post
 ```
-このURLのfirst-postの部分をプログラムに書いておくのではなく、記事のタイトルなどを使用して自動的にパスにすることを動的ルーティングと言います。Next.jsでは、"["で始まり、"]"で終わるものが動的ルートとなります。
+
+この URL の first-post の部分をプログラムに書いておくのではなく、記事のタイトルなどを使用して自動的にパスにすることを動的ルーティングと言います。Next.js では、"["で始まり、"]"で終わるものが動的ルートとなります。
 
 では、実際に動的ルーティングを使用していきます。
 
@@ -1011,11 +1088,14 @@ https://example.com/posts/first-post
 
 今回は、記事のタイトルをクリックすると、その記事の内容が表示されるようにします。
 
-まずは、pages/posts/の配下に[id].jsを作成してください。(ファイル名に[]が含まれているので違和感があるかもしれませんが慣れてください)
+まずは、pages/posts/の配下に[id].js を作成してください。(ファイル名に[]が含まれているので違和感があるかもしれませんが慣れてください)
+
 ```
 pages/posts/[id].js
 ```
+
 [id].js
+
 ```js
 import Layout from "../../components/layout";
 
@@ -1023,28 +1103,35 @@ export default function Post() {
   return <Layout>...</Layout>;
 }
 ```
+
 今は\<Layout>の中身が空ですが、後ほど変更します。
 
-[id].jsの下に以下のコードを追加してください。
+[id].js の下に以下のコードを追加してください。
+
 ```js
 export async function getStaticPaths() {
   // Return a list of possible value for id
 }
 ```
-このgetStaticPathsという関数では、idに指定できる値のリストを返す必要があります。
+
+この getStaticPaths という関数では、id に指定できる値のリストを返す必要があります。
 
 さらに下に追加していきます。
+
 ```js
 export async function getStaticProps({ params }) {
   // Fetch necessary data for the blog post using params.id
 }
 ```
-次に、getStaticPropsという関数を作成しています。詳しくは後ほど解説しますが、この関数では、getStaticPathsで返した値を使用して、記事の内容を取得します。
 
-次に、getStaticPathsを実装していきます。コードを以下のように変更してください。
+次に、getStaticProps という関数を作成しています。詳しくは後ほど解説しますが、この関数では、getStaticPaths で返した値を使用して、記事の内容を取得します。
+
+次に、getStaticPaths を実装していきます。コードを以下のように変更してください。
+
 ```js
 import { getAllPostIds } from "../../lib/posts";
 ```
+
 ```js
 export async function getStaticPaths() {
   const paths = getAllPostIds();
@@ -1054,11 +1141,14 @@ export async function getStaticPaths() {
   };
 }
 ```
-getStaticPathsの中身を説明します。
+
+getStaticPaths の中身を説明します。
+
 ```js
 const paths = getAllPostIds();
 ```
-ここでは、getAllPostIds()という関数を呼び出しています。この関数は、先ほど作成したposts.jsに記述しています。(後ほど作成します)
+
+ここでは、getAllPostIds()という関数を呼び出しています。この関数は、先ほど作成した posts.js に記述しています。(後ほど作成します)
 
 ```js
 return {
@@ -1066,14 +1156,16 @@ return {
   fallback: false,
 };
 ```
-returnで返している値について説明します。
-pathsは、先ほど作成したgetAllPostIds()の返り値を指定しています。つまり、idのリストを返却しています。
 
-fallbackは、falseを指定しています。これは、getStaticPathsで指定したid以外のパスにアクセスした場合、404ページを表示するという意味です。
+return で返している値について説明します。
+paths は、先ほど作成した getAllPostIds()の返り値を指定しています。つまり、id のリストを返却しています。
 
-次に、getStaticPathsの中で使用しているgetAllPostIds()を作成します。
+fallback は、false を指定しています。これは、getStaticPaths で指定した id 以外のパスにアクセスした場合、404 ページを表示するという意味です。
 
-lib/posts.jsに記述してください
+次に、getStaticPaths の中で使用している getAllPostIds()を作成します。
+
+lib/posts.js に記述してください
+
 ```js
 export function getAllPostIds() {
   const fileNames = fs.readdirSync(postsDirectory);
@@ -1086,35 +1178,39 @@ export function getAllPostIds() {
   });
 }
 ```
+
 この関数では以下のことをしています。
 
-1. mdファイルがあるディレクトリのファイル名をリストで取得
-2. mapを使い、リストの要素を順番に処理
-3. ファイル名から拡張子(.md)を削除し、idとして返却
+1. md ファイルがあるディレクトリのファイル名をリストで取得
+2. map を使い、リストの要素を順番に処理
+3. ファイル名から拡張子(.md)を削除し、id として返却
 
 結果の例を以下に示します。
+
 ```js
-  // getAllPostIdsの返却値は以下のようになります
-  // [
-  //   {
-  //     params: {
-  //       id: "ssg-ssr"
-  //     }
-  //   },
-  //   {
-  //     params: {
-  //       id: "pre-rendering"
-  //     }
-  //   }
-  // ]
+// getAllPostIdsの返却値は以下のようになります
+// [
+//   {
+//     params: {
+//       id: "ssg-ssr"
+//     }
+//   },
+//   {
+//     params: {
+//       id: "pre-rendering"
+//     }
+//   }
+// ]
 ```
 
-次に、getStaticPropsを実装します。以下のように記述してください。
+次に、getStaticProps を実装します。以下のように記述してください。
+
 ```js
 // import { getAllPostIds } from "../../lib/posts";
 // 編集 ↓
 import { getAllPostIds, getPostData } from "../../lib/posts";
 ```
+
 ```js
 export async function getStaticProps({ params }) {
   const postData = getPostData(params.id);
@@ -1125,9 +1221,11 @@ export async function getStaticProps({ params }) {
   };
 }
 ```
-getStaticProps()という関数ではpostDataという値を返却しています。
 
-postDataはgetPostData()という関数を使用して取得しています。lib/posts.jsに記述してください。
+getStaticProps()という関数では postData という値を返却しています。
+
+postData は getPostData()という関数を使用して取得しています。lib/posts.js に記述してください。
+
 ```js
 export function getPostData(id) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
@@ -1143,18 +1241,20 @@ export function getPostData(id) {
   };
 }
 ```
+
 getPostData()の流れを解説します。
 
 1. id(ファイル)を使用してファイルのフルパスを取得
 2. フルパスからファイルの中身を取得
-3. gray-matterを使用してファイルのメタデータを取得
-4. idをファイル名、メタデータをデータとし、一つのオブジェクトとして返す
+3. gray-matter を使用してファイルのメタデータを取得
+4. id をファイル名、メタデータをデータとし、一つのオブジェクトとして返す
 
-getStaticPropsはここで返却された値をpropsとして返却します。
+getStaticProps はここで返却された値を props として返却します。
 
-最後に、[id].jsの中身を作成します。
+最後に、[id].js の中身を作成します。
 
-[id].jsのPost関数を以下のように編集してください。
+[id].js の Post 関数を以下のように編集してください。
+
 ```js
 export default function Post({ postData }) {
   return (
@@ -1169,9 +1269,10 @@ export default function Post({ postData }) {
 }
 ```
 
-ここではPropsから受け取ったpostDataを表示しています。
+ここでは Props から受け取った postData を表示しています。
 
-変更が完了したら、サーバーを再起動し以下のURLにアクセスしてみてください。
+変更が完了したら、サーバーを再起動し以下の URL にアクセスしてみてください。
+
 1. [http://localhost:3000/posts/ssg-ssr](http://localhost:3000/posts/ssg-ssr)
 2. [http://localhost:3000/posts/pre-rendering](http://localhost:3000/posts/pre-rendering)
 
@@ -1183,21 +1284,25 @@ export default function Post({ postData }) {
 
 次は、記事の内容を表示していきます。
 
-mdの内容を表示するにはライブラリを使用するのでインストールします。
+md の内容を表示するにはライブラリを使用するのでインストールします。
+
 ```cmd
 npm install remark remark-html
 ```
-ここでは、remark,remark-htmlという2つのライブラリをインストールしています。
 
-remarkというライブラリでは、mdファイルを解析することができ、remark-htmlというライブラリでは、解析したmdファイルをHTMLに変換することができます。
+ここでは、remark,remark-html という 2 つのライブラリをインストールしています。
 
-次に、lib/posts.jsを編集します。importを追加してください。
+remark というライブラリでは、md ファイルを解析することができ、remark-html というライブラリでは、解析した md ファイルを HTML に変換することができます。
+
+次に、lib/posts.js を編集します。import を追加してください。
+
 ```js
 import { remark } from "remark";
 import html from "remark-html";
 ```
 
-次に、lib/posts.js内のgetPostData()を以下のように編集してください。
+次に、lib/posts.js 内の getPostData()を以下のように編集してください。
+
 ```js
 export async function getPostData(id) {
   const fullPath = path.join(postsDirectory, `${id}.md`);
@@ -1220,33 +1325,35 @@ export async function getPostData(id) {
   };
 }
 ```
-追加されたのは以下の部分です。
-```js
-  // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content);
-  const contentHtml = processedContent.toString();
 
-  return {
-    id, // Not changed
-    contentHtml,
-    ...matterResult.data, // Not changed
-  };
+追加されたのは以下の部分です。
+
+```js
+// Use remark to convert markdown into HTML string
+const processedContent = await remark().use(html).process(matterResult.content);
+const contentHtml = processedContent.toString();
+
+return {
+  id, // Not changed
+  contentHtml,
+  ...matterResult.data, // Not changed
+};
 ```
 
-ここでは、remarkを使用してmdファイルを解析し、HTMLに変換しています。
+ここでは、remark を使用して md ファイルを解析し、HTML に変換しています。
 更新部分の流れを簡単に説明します。
-1. await remark()でmdファイルを解析するための関数を呼び出しインスタンスを作成ています。
-2. .use(html)は、remark-htmlのプラグインで、mdファイルをHTMLに変換するために使用します。
-3. .process(matterResult.content)は、mdファイルを解析するための関数にmdファイルの内容を渡しています。
-4. processedContent.toString()は、解析されたHTMLを文字列に変換しています。
 
-また、1.で使用されているawaitは、非同期処理を行うものです。awaitを使用することで、非同期処理が完了するまで次の処理に移らないようにすることができます。
+1. await remark()で md ファイルを解析するための関数を呼び出しインスタンスを作成ています。
+2. .use(html)は、remark-html のプラグインで、md ファイルを HTML に変換するために使用します。
+3. .process(matterResult.content)は、md ファイルを解析するための関数に md ファイルの内容を渡しています。
+4. processedContent.toString()は、解析された HTML を文字列に変換しています。
+
+また、1.で使用されている await は、非同期処理を行うものです。await を使用することで、非同期処理が完了するまで次の処理に移らないようにすることができます。
 
 次に受け取り部分を編集します。
 
-pages/posts/[id].jsのgetStaticPropsを以下のように編集してください。
+pages/posts/[id].js の getStaticProps を以下のように編集してください。
+
 ```js
 export async function getStaticProps({ params }) {
   // Add the "await" keyword like this:
@@ -1259,13 +1366,15 @@ export async function getStaticProps({ params }) {
   };
 }
 ```
-一見変更点がないように見えますが、getPostData()の前にawaitを追加しています。
 
-先ほど編集したgetPostData()は処理の中でawaitを使用しています。処理内でawaitを使用している場合、呼び出し元の関数にもawaitを追加する必要があります。
+一見変更点がないように見えますが、getPostData()の前に await を追加しています。
+
+先ほど編集した getPostData()は処理の中で await を使用しています。処理内で await を使用している場合、呼び出し元の関数にも await を追加する必要があります。
 
 ここまでの変更で、コンテンツを含む記事を取得することが出来ました。
 
 次は表示される部分を編集します。
+
 ```js
 export default function Post({ postData }) {
   return (
@@ -1281,24 +1390,30 @@ export default function Post({ postData }) {
   );
 }
 ```
-以下の関数ではReactでHTMLをレンダリングしています。
+
+以下の関数では React で HTML をレンダリングしています。
+
 ```js
 <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
 ```
 
-変更が完了したら、サーバーを再起動し以下のURLに再度アクセスしてみてください。
+変更が完了したら、サーバーを再起動し以下の URL に再度アクセスしてみてください。
+
 1. [http://localhost:3000/posts/ssg-ssr](http://localhost:3000/posts/ssg-ssr)
 2. [http://localhost:3000/posts/pre-rendering](http://localhost:3000/posts/pre-rendering)
 
 ここまでで、記事の内容を表示することができました。次はページを仕上げていきます。
 
 ## [5-3 | ページの仕上げ](https://nextjs.org/learn/basics/dynamic-routes/polishing-post-page)
+
 まずは、それぞれの投稿ページを編集していきます。
 
 pages/posts/[id].js
+
 ```js
 import Head from "next/head";
 ```
+
 ```js
 export default function Post({ postData }) {
   return (
@@ -1312,16 +1427,19 @@ export default function Post({ postData }) {
   );
 }
 ```
+
 タイトルタグを追加しています。
 
 次に日付の表示を変更します。
 
 日付の変更はライブラリを使用します。インストールしてください
+
 ```cmd
 npm install date-fns
 ```
 
-インストールが完了したら、components/date.jsを作成し、以下のようにしてください。
+インストールが完了したら、components/date.js を作成し、以下のようにしてください。
+
 ```js
 import { parseISO, format } from "date-fns";
 
@@ -1330,23 +1448,28 @@ export default function Date({ dateString }) {
   return <time dateTime={dateString}>{format(date, "LLLL d, yyyy")}</time>;
 }
 ```
+
 この関数では、日付を文字列で受け取り、parseISO()で日付型に変換しています。
 
-このcomponentを作成することで、\<Date dateString="日付" />で呼び出すことにより日付を表示することができます。
+この component を作成することで、\<Date dateString="日付" />で呼び出すことにより日付を表示することができます。
 
 早速使用します。日付を表示している部分を変更します。
 
 pages/posts/[id].js
+
 ```js
 // {postData.date}　置き換え
 <Date dateString={postData.date} />
 ```
 
-次にCSSを追加します。utilをインポートしてください。
+次に CSS を追加します。util をインポートしてください。
+
 ```js
 import utilStyles from "../../styles/utils.module.css";
 ```
-Layoutの中身を編集してください。
+
+Layout の中身を編集してください。
+
 ```js
 <Layout>
   <Head>
@@ -1369,11 +1492,14 @@ Layoutの中身を編集してください。
 まずは必要なものをインポートします。
 
 pages/index.js
+
 ```js
 import Link from "next/link";
 import Date from "../components/date";
 ```
+
 リストの部分を以下のように編集してください。
+
 ```js
 <li className={utilStyles.listItem} key={id}>
   <Link href={`/posts/${id}`}>{title}</Link>
@@ -1386,40 +1512,44 @@ import Date from "../components/date";
 
 これにて、動的ルーティングの説明は終了です。
 
-# [6 | APIルート](https://nextjs.org/learn/basics/api-routes)
+# [6 | API ルート](https://nextjs.org/learn/basics/api-routes)
 
-## [6-1 | APIルートの作成・使用](https://nextjs.org/learn/basics/api-routes/creating-api-routes)
+## [6-1 | API ルートの作成・使用](https://nextjs.org/learn/basics/api-routes/creating-api-routes)
 
-ここからは、APIルートを作成していきます。APIに関しては、公式のチュートリアルには詳しく乗っていなかったので自作で作成したフォームをサンプルとして作成します。
+ここからは、API ルートを作成していきます。API に関しては、公式のチュートリアルには詳しく乗っていなかったので自作で作成したフォームをサンプルとして作成します。
 
-まずは、公式チュートリアルに載っているAPIルートを作成していきます。
+まずは、公式チュートリアルに載っている API ルートを作成していきます。
 
-pages/api/hello.jsを作成してください。
+pages/api/hello.js を作成してください。
 
 hello.js
+
 ```js
 export default function handler(req, res) {
-  res.status(200).json({ text: "Hello" })
+  res.status(200).json({ text: "Hello" });
 }
 ```
-この関数は、/api/helloにアクセスすると、{ text: "Hello" }を返却します。
 
-今回作成したAPIルートは、サーバーサイドで実行される関数です。
+この関数は、/api/hello にアクセスすると、{ text: "Hello" }を返却します。
 
-reqは、HTTPのリクエストオブジェクトで、resは、HTTPのレスポンスオブジェクトです。
+今回作成した API ルートは、サーバーサイドで実行される関数です。
 
-この関数は、サーバーサイドで実行されるため、クライアント側からはアクセスできません。したがって、APIルートは、DBへのアクセスや、認証などの処理を行うのに適しています。
+req は、HTTP のリクエストオブジェクトで、res は、HTTP のレスポンスオブジェクトです。
+
+この関数は、サーバーサイドで実行されるため、クライアント側からはアクセスできません。したがって、API ルートは、DB へのアクセスや、認証などの処理を行うのに適しています。
 
 試しに、サーバーを再起動し、[http://localhost:3000/api/hello](http://localhost:3000/api/hello)にアクセスしてみてください。
 
-### ここからは、自作のAPIルートを作成していきます。
+### ここからは、自作の API ルートを作成していきます。
+
 今回作成するのは、フォームに入力した値をサーバーに送信し、サーバー側で受け取った値を表示するというものです。
 
 まずは情報を入力するためのフォームを作成します。
 
-pages/apiForms.jsを作成してください。
+pages/apiForms.js を作成してください。
 
 apiForms.js
+
 ```js
 import Head from "next/head";
 import Layout from "../components/layout";
@@ -1449,9 +1579,7 @@ export default function apiForms() {
       </Head>
       <section>
         <form>
-          <label htmlFor="name">
-            Name
-          </label>
+          <label htmlFor="name">Name</label>
           <input
             id="name"
             name="name"
@@ -1460,9 +1588,7 @@ export default function apiForms() {
             required
             onChange={(e) => (data.name = e.target.value)}
           />
-          <label>
-            Email
-          </label>
+          <label>Email</label>
           <input
             id="email"
             name="email"
@@ -1480,7 +1606,9 @@ export default function apiForms() {
   );
 }
 ```
+
 コードを分割して説明します。
+
 ```js
 export default function apiForms() {
   const data = {
@@ -1490,14 +1618,13 @@ export default function apiForms() {
   // ...
 }
 ```
+
 ここでは、フォームに入力された値を格納するためのオブジェクトを作成しています。
-今回は、nameとemailの2つを定義しています。
+今回は、name と email の 2 つを定義しています。
 
 ```js
 <form>
-  <label htmlFor="name">
-    Name
-  </label>
+  <label htmlFor="name">Name</label>
   <input
     id="name"
     name="name"
@@ -1506,9 +1633,7 @@ export default function apiForms() {
     required
     onChange={(e) => (data.name = e.target.value)}
   />
-  <label>
-    Email
-  </label>
+  <label>Email</label>
   <input
     id="email"
     name="email"
@@ -1522,13 +1647,15 @@ export default function apiForms() {
   </button>
 </form>
 ```
-ここではフォームを作成しています。(フォームで送っているわけではないのでformタグを使う必要はないけど)
 
-labelではhtmlForを使用しています。htmlForをつけることで、idで紐づけられたinputタグなどにフォーカスを当てることができます。
+ここではフォームを作成しています。(フォームで送っているわけではないので form タグを使う必要はないけど)
 
-inputタグでは、onChangeを使用しています。onChangeは、入力された値が変更された時に呼び出される関数です。ここでは、入力された値をdataに格納しています。
+label では htmlFor を使用しています。htmlFor をつけることで、id で紐づけられた input タグなどにフォーカスを当てることができます。
+
+input タグでは、onChange を使用しています。onChange は、入力された値が変更された時に呼び出される関数です。ここでは、入力された値を data に格納しています。
 
 ここでは処理をしていませんが、バリデーションチェックなどをしたいときは以下のようにすることで、入力された値をチェックすることができます。
+
 ```js
 onChange={(e) => {
   const email = e.target.value;
@@ -1541,6 +1668,7 @@ onChange={(e) => {
   }
 }}
 ```
+
 このようにして、値ごとの入力に対した処理を行うことができます。
 
 ```js
@@ -1557,38 +1685,41 @@ async function sendApi() {
 }
 ```
 
-ここではfetchを使用しています。fetchは、サーバーにリクエストを送信するための関数です。
+ここでは fetch を使用しています。fetch は、サーバーにリクエストを送信するための関数です。
 
-fetchの第一引数には、リクエストを送信するURLを指定します。ここでは、pages/api/api-forms.jsにリクエストを送信するので、api/api-formsを指定しています。
+fetch の第一引数には、リクエストを送信する URL を指定します。ここでは、pages/api/api-forms.js にリクエストを送信するので、api/api-forms を指定しています。
 
-
-次にpages/api/api-forms.jsを作成してください。
+次に pages/api/api-forms.js を作成してください。
 
 api-forms.js
+
 ```js
 export default function handler(req, res) {
   const userName = req.body.name;
   const userEmail = req.body.email;
   console.log(userName, userEmail);
-  res.status(200).json({ name: userName, email: userEmail })
+  res.status(200).json({ name: userName, email: userEmail });
 }
 ```
-ここでは、値をreq.bodyから名前、Eメールを取得しています。
 
-次にconsole.logを使用し、コンソールに値を表示しています。apiはサーバーサイドで実行されるため、ユーザー側のコンソールには表示されず、サーバー側のコンソールに表示されます。
+ここでは、値を req.body から名前、E メールを取得しています。
 
-最後に、ステータスコードと値をjsonで返却しています。
+次に console.log を使用し、コンソールに値を表示しています。api はサーバーサイドで実行されるため、ユーザー側のコンソールには表示されず、サーバー側のコンソールに表示されます。
+
+最後に、ステータスコードと値を json で返却しています。
 
 データベースなどへ値を保存する場合は、ここに処理を記述することで、値を保存することができます。
 
 ここまで出来たら、コードを保存し、[http://localhost:3000/apiForms](http://localhost:3000/apiForms)にアクセスしてみてください。
 
-名前とEメールを入力し、Submitボタンを押すと、コンソール(サーバー側)に値が表示されます。
+名前と E メールを入力し、Submit ボタンを押すと、コンソール(サーバー側)に値が表示されます。
 
 ### 画面の仕上げ
-最後にCSSを追加します。
+
+最後に CSS を追加します。
 
 styles/utils.module.css
+
 ```css
 .section {
   display: flex;
@@ -1630,9 +1761,10 @@ styles/utils.module.css
 }
 ```
 
-作成したCSSを使用して、フォームを仕上げます。
+作成した CSS を使用して、フォームを仕上げます。
 
 pages/apiForms.js
+
 ```js
 import Head from "next/head";
 import Layout from "../components/layout";
@@ -1698,3 +1830,20 @@ export default function apiForms() {
 ```
 
 これでフォームは完成です。
+
+# [その他](#)
+
+## [ESLint・Prettier](#)
+
+[リポジトリの用意](https://zenn.dev/lou/articles/a999ea8270a2f9)(やらなくていい)
+
+コマンドを実行する
+
+```
+npm add --dev @typescript-eslint/eslint-plugin
+npm add --dev --exact prettier eslint-config-prettier
+```
+
+.prettierrc.json を作る
+
+[やる](https://zenn.dev/keisukemiura/articles/format-source-code-automatically-in-vscode)
