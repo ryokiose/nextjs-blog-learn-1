@@ -104,6 +104,19 @@
   right: 1rem;
 }
 
+.updateButton {
+  padding: 0.5rem 1rem;
+  background-color: #0070f3;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  /* 右上に配置する */
+  top: 1rem;
+  right: 1rem;
+  margin: 0.5rem;
+}
+
 .button:hover {
   background-color: #0060df;
 }
