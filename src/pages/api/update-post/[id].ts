@@ -31,7 +31,6 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         email: email,
       },
     });
-    console.log(name, email);
     if (!updatedPost) {
       return res.status(404).json({ error: "Post not found" });
     }
