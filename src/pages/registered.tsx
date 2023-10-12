@@ -22,8 +22,8 @@ async function deletePost(id: number): Promise<boolean> {
   }
 }
 
-const Posts = ({ userData }: { userData: User[] }) => {
-  const [userList, setUserList] = useState<User[]>(userData);
+const Posts = ({ userData }: { userData: Post[] }) => {
+  const [userList, setUserList] = useState<Post[]>(userData);
 
   const handleDelete = async (id: number) => {
     const deleted = await deletePost(id);

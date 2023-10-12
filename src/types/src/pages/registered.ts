@@ -1,4 +1,4 @@
-interface User {
+interface Post {
   id: number;
   name: string;
   email: string;
