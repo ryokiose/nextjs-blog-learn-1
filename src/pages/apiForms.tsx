@@ -1,15 +1,15 @@
 import Head from "next/head";
-import Layout from "../components/layout";
+import Layout from "src/components/layout";
 import styles from "../styles/utils.module.css";
 import { useState } from "react"; // useStateをインポート
 
-export default function ApiForms() {
+const postForm = () => {
   const [data, setData] = useState({
     name: "",
     email: "",
   });
 
-  async function sendApi() {
+  async function postData() {
     const response = await fetch(`api/api-forms`, {
       method: "POST",
       headers: {
@@ -66,7 +66,7 @@ export default function ApiForms() {
             onChange={handleEmailChange}
             value={data.email}
           />
-          <button className={styles.button} type="button" onClick={sendApi}>
+          <button className={styles.button} type="button" onClick={postData}>
             Submit
           </button>
         </form>
@@ -74,3 +74,5 @@ export default function ApiForms() {
     </Layout>
   );
 }
+
+export default postForm;

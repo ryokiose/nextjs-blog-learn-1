@@ -3,11 +3,8 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
-
-export interface PostData {
-  id: string;
-  [key: string]: any;
-}
+import { PostData } from "../types/src/lib/posts";
+export type { PostData };
 
 const postsDirectory = path.join(process.cwd(), "posts");
 

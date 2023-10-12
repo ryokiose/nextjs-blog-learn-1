@@ -3,10 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 let prisma: PrismaClient | undefined;
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "DELETE") {
     return res.status(405).json({ error: "Method not allowed" });
   }
@@ -41,3 +38,5 @@ export default async function handler(
     await prisma?.$disconnect(); // Prismaクライアントを切断
   }
 }
+
+export default handler;

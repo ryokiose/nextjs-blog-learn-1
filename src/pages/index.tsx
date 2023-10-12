@@ -1,13 +1,10 @@
 import Head from "next/head";
-import Layout from "../components/layout";
+import Layout from "src/components/layout";
 import utilStyles from "../styles/utils.module.css";
-import { getSortedPostsData, PostData } from "../lib/posts";
+import { getSortedPostsData, PostData } from "@/src/lib/posts";
 import Link from "next/link";
-import Date from "../components/date";
-
-interface HomeProps {
-  allPostsData: PostData[];
-}
+import Date from "src/components/date";
+import { HomeProps } from "@/src/types/src/pages/index";
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -18,7 +15,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ allPostsData }: HomeProps) {
+const Home = ({ allPostsData }: HomeProps) => {
   return (
     <Layout home>
       <Head>
@@ -49,3 +46,5 @@ export default function Home({ allPostsData }: HomeProps) {
 }
 
 const siteTitle = "Next.js Sample Website";
+
+export default Home;

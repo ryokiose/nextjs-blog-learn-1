@@ -1,20 +1,11 @@
-import Layout from "../../components/layout";
-import { getAllPostIds, getPostData, PostData } from "../../lib/posts";
+import Layout from "src/components/layout";
+import { getAllPostIds, getPostData, PostData } from "@/src/lib/posts";
 import Head from "next/head";
-import Date from "../../components/date";
+import Date from "src/components/date";
 import utilStyles from "../../styles/utils.module.css";
+import { Params, PostProps } from "@/src/types/src/posts/[id]";
 
-interface PostProps {
-  postData: PostData;
-}
-
-interface Params {
-  params: {
-    id: string;
-  };
-}
-
-export default function Post({ postData }: PostProps) {
+const Post = ({ postData }: PostProps) => {
   return (
     <Layout>
       <Head>
@@ -48,3 +39,5 @@ export async function getStaticProps({ params }: Params) {
     },
   };
 }
+
+export default Post;

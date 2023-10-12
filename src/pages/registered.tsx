@@ -1,23 +1,17 @@
 import { PrismaClient } from "@prisma/client";
 import { useState } from "react";
-import Layout from "../components/layout";
+import Layout from "../../src/components/layout";
 import styles from "../styles/utils.module.css";
-import Date from "../components/date";
+import Date from "src/components/date";
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  createdAt: string;
-}
-
-async function deleteApi(id: number): Promise<boolean> {
+async function deletePost(id: number): Promise<boolean> {
   const response = await fetch(`api/delete-post/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
   });
+
   const responseData = await response.json();
   if (response.status === 200) {
     alert("削除に成功しました。");
@@ -28,11 +22,11 @@ async function deleteApi(id: number): Promise<boolean> {
   }
 }
 
-export default function Registered({ userData }: { userData: User[] }) {
+const Posts = ({ userData }: { userData: User[] }) => {
   const [userList, setUserList] = useState<User[]>(userData);
 
   const handleDelete = async (id: number) => {
-    const deleted = await deleteApi(id);
+    const deleted = await deletePost(id);
     if (deleted) {
       setUserList((prevList) => prevList.filter((user) => user.id !== id));
     }
@@ -94,3 +88,5 @@ export async function getServerSideProps() {
     },
   };
 }
+
+export default Posts;
