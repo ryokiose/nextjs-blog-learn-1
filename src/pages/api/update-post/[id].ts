@@ -31,11 +31,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         email: email,
       },
     });
+    console.log(name, email);
     if (!updatedPost) {
       return res.status(404).json({ error: "Post not found" });
     }
 
-    res.status(200).json({ message: "Post deleted successfully" });
+    res.status(200).json({ message: "Post updated successfully" });
   } catch (error) {
     console.error("Error during delete post:", error);
     res.status(500).json({ error: "An error occurred while deleting the post" });

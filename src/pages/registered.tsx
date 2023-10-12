@@ -62,7 +62,7 @@ const Posts = ({ userData }: { userData: Post[] }) => {
   };
 
   const handleUpdate = async (id: number, name: string, email: string) => {
-    const updated = await updatePost(id, name, email);
+    const updated = await updatePost(id, nameInput, emailInput);
     if (updated) {
       setUserList((prevList) =>
         prevList.map((user) => {
