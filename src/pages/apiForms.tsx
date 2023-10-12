@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Layout from "src/components/layout";
 import styles from "../styles/utils.module.css";
-import { useState } from "react"; // useStateをインポート
+import { useState } from "react";
 
 const postForm = () => {
   const [data, setData] = useState({

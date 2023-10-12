@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Layout from "src/components/layout";
 import utilStyles from "../styles/utils.module.css";
-import { getSortedPostsData, PostData } from "@/src/lib/posts";
+import { getSortedPostsData } from "@/src/lib/posts";
 import Link from "next/link";
 import Date from "src/components/date";
 import { HomeProps } from "@/src/types/src/pages/index";

@@ -3,7 +3,6 @@ import { useState } from "react";
 import Layout from "../../src/components/layout";
 import styles from "../styles/utils.module.css";
 import Date from "src/components/date";
-import { set } from "date-fns";
 
 async function deletePost(id: number): Promise<boolean> {
   const response = await fetch(`api/delete-post/${id}`, {
