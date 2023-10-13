@@ -175,6 +175,8 @@ export async function getServerSideProps() {
     },
   });
 
+  userData.sort((a, b) => a.id - b.id);
+
   return {
     props: {
       userData: userData.map((user) => ({
