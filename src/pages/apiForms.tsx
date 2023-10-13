@@ -4,10 +4,8 @@ import styles from "../styles/utils.module.css";
 import { useState } from "react";
 
 const postForm = () => {
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-  });
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
 
   async function postData() {
     const response = await fetch(`api/api-forms`, {
@@ -15,7 +13,7 @@ const postForm = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ name, email }),
     });
     const responseData = await response.json();
     if (response.status === 200) {
@@ -25,14 +23,6 @@ const postForm = () => {
     }
   }
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData({ ...data, name: e.target.value });
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData({ ...data, email: e.target.value });
-  };
-
   return (
     <Layout>
       <Head>
@@ -41,7 +31,7 @@ const postForm = () => {
       <section className={styles.section}>
         <form className={styles.form}>
           <label className={styles.label} htmlFor="name">
-            Name
+            名前
           </label>
           <input
             className={styles.input}
@@ -50,11 +40,10 @@ const postForm = () => {
             type="text"
             autoComplete="name"
             required
-            onChange={handleNameChange}
-            value={data.name}
+            onChange={(e) => setName(e.target.value)}
           />
           <label className={styles.label} htmlFor="email">
-            Email
+            Eメール
           </label>
           <input
             className={styles.input}
@@ -63,10 +52,19 @@ const postForm = () => {
             type="email"
             autoComplete="email"
             required
-            onChange={handleEmailChange}
-            value={data.email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <button className={styles.button} type="button" onClick={postData}>
+          <button
+            className={styles.button}
+            type="button"
+            onClick={() => {
+              if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+                postData();
+              } else {
+                alert("メールアドレスの形式が正しくありません。");
+              }
+            }}
+          >
             Submit
           </button>
         </form>
