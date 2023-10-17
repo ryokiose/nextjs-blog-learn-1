@@ -1,3 +1,3 @@
 interface DateProps {
-  dateString: string;
+	dateString: string;
 }

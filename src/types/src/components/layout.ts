@@ -1,4 +1,4 @@
 interface LayoutProps {
-  children: React.ReactNode;
-  home?: boolean;
+	children: React.ReactNode;
+	home?: boolean;
 }

@@ -1,4 +1,4 @@
 export interface PostData {
-  id: string;
-  [key: string]: any;
+	id: string;
+	[key: string]: any;
 }
