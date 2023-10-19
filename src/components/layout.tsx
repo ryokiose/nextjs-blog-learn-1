@@ -6,6 +6,7 @@ import Link from "next/link";
 
 export const name = "Manato Miura";
 export const siteTitle = "Next.js Sample Website";
+import BackButton from "@/components/Elements/BackButton/BackButton";
 
 const Layout = ({ children, home }: LayoutProps) => {
 	return (
@@ -59,11 +60,7 @@ const Layout = ({ children, home }: LayoutProps) => {
 				)}
 			</header>
 			<main>{children}</main>
-			{!home && (
-				<div className={styles.backToHome}>
-					<Link href="/">← Back to home</Link>
-				</div>
-			)}
+			{!home && <BackButton />}
 		</div>
 	);
 };
