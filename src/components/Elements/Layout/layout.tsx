@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export const name = "Manato Miura";
 export const siteTitle = "Next.js Sample Website";
-import BackButton from "@/components/Elements/BackButton/BackButton";
+import { BackButton } from "@/components/Elements/BackButton/backButton";
 
 const Layout = ({ children, home }: LayoutProps) => {
 	return (

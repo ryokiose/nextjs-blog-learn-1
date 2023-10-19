@@ -1,4 +1,4 @@
-import Layout from "@/src/components/layout";
+import Layout from "@/src/components/Elements/Layout/layout";
 import { getAllPostIds, getPostData } from "@/src/lib/posts";
 import Head from "next/head";
 import Date from "@/src/components/Elements/Date/date";
