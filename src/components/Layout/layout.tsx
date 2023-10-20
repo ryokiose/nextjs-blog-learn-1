@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import styles from "@/src/components/layout.module.css";
+import styles from "@/src/components/Layout/layout.module.css";
 import utilStyles from "@/src/styles/utils.module.css";
 import Link from "next/link";
 

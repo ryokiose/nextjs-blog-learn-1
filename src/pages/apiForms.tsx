@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Layout from "@/src/components/Elements/Layout/layout";
+import Layout from "@/src/components/Layout/layout";
 import styles from "@/src/styles/utils.module.css";
 import { useState } from "react";
 

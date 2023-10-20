@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { useState } from "react";
-import Layout from "@/src/components/Elements/Layout/layout";
+import Layout from "@/src/components/Layout/layout";
 import styles from "@/src/styles/utils.module.css";
 import Date from "@/src/components/Elements/Date/date";
 
