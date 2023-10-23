@@ -25,6 +25,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 				email: email,
 			},
 		});
+		// SQL : INSERT INTO posts (name, email) VALUES (name, email)
 
 		res.status(200).json(newPost);
 	} catch (error) {

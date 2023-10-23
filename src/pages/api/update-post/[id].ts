@@ -31,6 +31,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 				email: email,
 			},
 		});
+
+		// SQL : UPDATE post SET name = name, email = email WHERE id = postId
+
 		if (!updatedPost) {
 			return res.status(404).json({ error: "Post not found" });
 		}

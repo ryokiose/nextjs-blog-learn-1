@@ -186,6 +186,8 @@ export async function getServerSideProps() {
 			createdAt: true,
 		},
 	});
+  // userData = await prism.post.findMany({})と等価
+  // SQL : SELECT id, name, email, createdAt FROM post;
 
 	userData.sort((a, b) => a.id - b.id);
 

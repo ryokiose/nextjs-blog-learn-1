@@ -26,6 +26,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 			},
 		});
 
+		// SQL : DELETE FROM post WHERE id = postId
+
 		if (!deletedPost) {
 			return res.status(404).json({ error: "Post not found" });
 		}
