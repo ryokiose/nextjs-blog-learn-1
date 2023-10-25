@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@prisma/client": "^5.4.1",
+    "@types/firebase": "^3.2.1",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "date-fns": "^2.30.0",
     "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
+    "firebase": "^10.5.0",
     "gray-matter": "^4.0.3",
     "next": "latest",
     "nprogress": "^0.2.0",
