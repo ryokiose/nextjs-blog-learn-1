@@ -20,12 +20,12 @@ const Header = () => {
 
 	const [currentUser, setCurrentUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-    return unsubscribe;
-  }, [])
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged((user) => {
+			setCurrentUser(user);
+		});
+		return unsubscribe;
+	}, []);
 
 	return (
 		<>
