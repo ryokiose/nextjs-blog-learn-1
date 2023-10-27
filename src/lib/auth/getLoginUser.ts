@@ -1,3 +1,4 @@
+// Not using
 import { User, onAuthStateChanged } from "firebase/auth"
 import { auth } from "../firebase/firebaseConfig"
 

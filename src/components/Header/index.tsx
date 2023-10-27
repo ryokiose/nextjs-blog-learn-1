@@ -4,7 +4,7 @@ import { User, signOut } from "firebase/auth";
 
 import { auth } from "@/src/lib/firebase/firebaseConfig";
 
-import { getLoginUser } from "@/src/lib/auth/getLoginUser";
+// import { getLoginUser } from "@/src/lib/auth/getLoginUser";
 import { useEffect, useState } from "react";
 
 const Header = () => {
@@ -21,11 +21,10 @@ const Header = () => {
 	const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const user = await getLoginUser();
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-    }
-    fetchUser();
+    });
+    return unsubscribe;
   }, [])
 
 	return (
