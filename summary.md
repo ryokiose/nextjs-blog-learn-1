@@ -1706,17 +1706,9 @@ export default function apiForms() {
 
 # [その他](#)
 
-## [ESLint・Prettier](#)
-
-[リポジトリの用意](https://zenn.dev/lou/articles/a999ea8270a2f9)(やらなくていい)
-
-コマンドを実行する
-
+## yarnのインストール
+今回はformatを使用するためにyarnを使用します。
+以下のコマンドを打ってください。
+```cmd
+npm install -g yarn
 ```
-npm add --dev @typescript-eslint/eslint-plugin
-npm add --dev --exact prettier eslint-config-prettier
-```
-
-.prettierrc.json を作る
-
-[やる](https://zenn.dev/keisukemiura/articles/format-source-code-automatically-in-vscode)
