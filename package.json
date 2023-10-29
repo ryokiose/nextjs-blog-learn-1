@@ -10,7 +10,7 @@
     "test-all": "yarn lint && yarn format && yarn lint:fix"
   },
   "dependencies": {
-    "@prisma/client": "^5.4.1",
+    "@prisma/client": "^5.5.2",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "date-fns": "^2.30.0",
     "eslint": "^8.51.0",
@@ -33,6 +33,10 @@
     "@types/node": "20.8.4",
     "@types/nprogress": "^0.2.1",
     "@types/react": "^18.2.27",
-    "prisma": "^5.4.1"
-  }
+    "eslint": "^8.51.0",
+    "eslint-config-next": "13.5.4",
+    "prisma": "^5.4.1",
+    "typescript": "^5.2.2"
+  },
+  "packageManager": "yarn@3.6.4"
 }
