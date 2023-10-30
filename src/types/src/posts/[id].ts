@@ -9,3 +9,4 @@ export interface Params {
 		id: string;
 	};
 }
+export type { PostData };

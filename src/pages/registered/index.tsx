@@ -1,8 +1,10 @@
 import { PrismaClient } from "@prisma/client";
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import styles from "@/src/styles/utils.module.css";
+import styles from "@/styles/utils.module.css";
 import Date from "@/components/Elements/Date/date";
+import { Post } from "@/types/pages/registered";
+import { responseData } from "@/types/pages/registered";
 
 async function deletePost(id: number): Promise<boolean> {
 	const response = await fetch(`api/delete-post/${id}`, {
@@ -12,7 +14,7 @@ async function deletePost(id: number): Promise<boolean> {
 		},
 	});
 
-	const responseData = await response.json();
+	const responseData: responseData = (await response.json()) as responseData;
 	if (response.status === 200) {
 		alert("削除に成功しました。");
 		return true;
@@ -35,9 +37,9 @@ async function updatePost(
 		body: JSON.stringify({ name, email }),
 	});
 
-	const responseData = await response.json();
+	const responseData: responseData = (await response.json()) as responseData;
 	if (response.status === 200) {
-		alert("更新に成功しました。");
+		alert("更新に成功しました.");
 		return true;
 	} else {
 		alert("更新に失敗しました。\n" + responseData.error);
@@ -57,31 +59,49 @@ const Posts = ({ userData }: { userData: Post[] }) => {
 		setEmailInput(email);
 	};
 
-	const handleDelete = async (id: number) => {
-		const deleted = await deletePost(id);
-		if (deleted) {
-			setUserList((prevList) => prevList.filter((user) => user.id !== id));
-		}
+	const handleDelete = (id: number) => {
+		deletePost(id)
+			.then((deleted) => {
+				if (deleted) {
+					setUserList((prevList) => prevList.filter((user) => user.id !== id));
+				}
+			})
+			.catch((error) => {
+				console.error(error);
+				alert(
+					"削除に失敗しました。\n" +
+						(error instanceof Error ? error.message : "エラーが発生しました"),
+				);
+			});
 	};
 
-	const handleUpdate = async (id: number, name: string, email: string) => {
-		const updated = await updatePost(id, nameInput, emailInput);
-		if (updated) {
-			setUserList((prevList) =>
-				prevList.map((user) => {
-					if (user.id === id) {
-						return {
-							...user,
-							name: nameInput,
-							email: emailInput,
-						};
-					} else {
-						return user;
-					}
-				}),
-			);
-		}
-		setIsEdit([false, 0]);
+	const handleUpdate = (id: number) => {
+		updatePost(id, nameInput, emailInput)
+			.then((updated) => {
+				if (updated) {
+					setUserList((prevList) =>
+						prevList.map((user) => {
+							if (user.id === id) {
+								return {
+									...user,
+									name: nameInput,
+									email: emailInput,
+								};
+							} else {
+								return user;
+							}
+						}),
+					);
+				}
+				setIsEdit([false, 0]);
+			})
+			.catch((error) => {
+				console.error(error);
+				alert(
+					"更新に失敗しました。\n" +
+						(error instanceof Error ? error.message : "エラーが発生しました"),
+				);
+			});
 	};
 
 	return (
@@ -118,9 +138,7 @@ const Posts = ({ userData }: { userData: Post[] }) => {
 											<button
 												className={styles.updateButton}
 												type="button"
-												onClick={() =>
-													handleUpdate(user.id, user.name, user.email)
-												}
+												onClick={() => handleUpdate(user.id)}
 											>
 												保存
 											</button>
@@ -186,17 +204,17 @@ export async function getServerSideProps() {
 			createdAt: true,
 		},
 	});
-	// userData = await prism.post.findMany({})と等価
-	// SQL : SELECT id, name, email, createdAt FROM post;
 
-	userData.sort((a: { id: number; }, b: { id: number; }) => a.id - b.id);
+	userData.sort((a: { id: number }, b: { id: number }) => a.id - b.id);
 
 	return {
 		props: {
-			userData: userData.map((user: { createdAt: { toISOString: () => string; }; }) => ({
-				...user,
-				createdAt: user.createdAt.toISOString(),
-			})),
+			userData: userData.map(
+				(user: { createdAt: { toISOString: () => string } }) => ({
+					...user,
+					createdAt: user.createdAt.toISOString(),
+				}),
+			),
 		},
 	};
 }

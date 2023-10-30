@@ -17,33 +17,39 @@ const Register = () => {
 		setPassword(e.target.value);
 	};
 
-	const validEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const email = e.target.value;
+	const validEmail = (email: string) => {
 		if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
 			handleSetEmail(email);
+			return true;
 		} else {
 			alert("メールアドレスの形式が正しくありません。");
-			return;
+			return false;
 		}
 	};
 
-	const submit = () => {
+	const submit = async (email: string, password: string) => {
 		if (!email || !password) {
 			alert("未入力の項目があります。");
 			return;
 		}
-		validEmail;
+		if (validEmail(email) === false) {
+			return;
+		}
 		const auth = getAuth(firebaseApp);
-		createUserWithEmailAndPassword(auth, email, password)
-			.then((userCredential) => {
-				const user = userCredential.user;
-				alert("登録完了");
-				console.log(user);
-				Router.push("/");
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		try {
+			const userCredential = await createUserWithEmailAndPassword(
+				auth,
+				email,
+				password,
+			);
+			const user = userCredential.user;
+			console.log(user);
+			Router.push("/");
+			alert("登録完了");
+		} catch (error) {
+			console.log(error);
+			alert("登録に失敗しました。");
+		}
 	};
 
 	return (
@@ -62,7 +68,7 @@ const Register = () => {
 					value={password}
 					onChange={(e) => handleSetPassword(e)}
 				/>
-				<button onClick={submit}>登録</button>
+				<button onClick={() => submit(email, password)}>登録</button>
 			</div>
 		</>
 	);

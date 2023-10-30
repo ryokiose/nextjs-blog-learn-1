@@ -4,3 +4,7 @@ export interface Post {
 	email: string;
 	createdAt: string;
 }
+
+export interface responseData {
+	error?: string;
+}
