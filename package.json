@@ -4,8 +4,6 @@
     "build": "prisma generate && next build",
     "dev": "next dev",
     "start": "next start",
-    "lint": "next lint --dir src",
-    "lint:fix": "eslint \"src/**/*.{ts,tsx,js,jsx}\" --fix",
     "format": "prettier --write --ignore-path .gitignore \"src/**/*.{ts,tsx,js,jsx,json,css,scss}\""
   },
   "dependencies": {
