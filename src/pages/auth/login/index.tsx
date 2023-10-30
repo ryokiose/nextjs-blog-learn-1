@@ -2,7 +2,6 @@ import styles from "./index.module.css";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import Router from "next/router";
-import Link from "next/link";
 
 import { firebaseApp } from "@/src/lib/firebase/firebaseConfig";
 
