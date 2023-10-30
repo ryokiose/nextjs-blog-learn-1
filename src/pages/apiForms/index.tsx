@@ -1,25 +1,30 @@
 import Head from "next/head";
 import Layout from "@/components/Layout";
 import styles from "@/styles/utils.module.css";
-import { useState } from "react";
+import React, { useState } from "react";
+import { responseData } from "@/types/pages/registered";
 
-const postForm = () => {
+const PostForm = () => {
 	const [name, setName] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
 
-	async function postData() {
-		const response = await fetch(`api/api-forms`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({ name, email }),
-		});
-		const responseData = await response.json();
-		if (response.status === 200) {
-			alert("登録に成功しました。");
-		} else if (response.status !== 200) {
-			alert("登録に失敗しました。\n" + responseData.error);
+	async function PostData() {
+		try {
+			const response = await fetch(`api/api-forms`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ name, email }),
+			});
+			const responseData = (await response.json()) as responseData;
+			if (response.status === 200) {
+				alert("登録に成功しました。");
+			} else {
+				alert("登録に失敗しました。\n" + responseData.error);
+			}
+		} catch (error) {
+			console.error("エラー:", error);
 		}
 	}
 
@@ -59,7 +64,14 @@ const postForm = () => {
 						type="button"
 						onClick={() => {
 							if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-								postData();
+								PostData()
+									.then(() => {
+										setName("");
+										setEmail("");
+									})
+									.catch((error) => {
+										console.error("エラー:", error);
+									});
 							} else {
 								alert("メールアドレスの形式が正しくありません。");
 							}
@@ -73,4 +85,4 @@ const postForm = () => {
 	);
 };
 
-export default postForm;
+export default PostForm;

@@ -1,9 +1,10 @@
 import { PrismaClient } from "@prisma/client";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
+import { ApiFormNextApiRequest } from "@/types/pages/api/api-forms";
 
 let prisma: PrismaClient | undefined;
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: ApiFormNextApiRequest, res: NextApiResponse) => {
 	if (req.method !== "POST") {
 		return res.status(405).json({ error: "Method not allowed" });
 	}

@@ -17,20 +17,23 @@ const Login = () => {
 		setPassword(e.target.value);
 	};
 
-	const submit = () => {
+	const submit = async () => {
 		const auth = getAuth(firebaseApp);
 
-		signInWithEmailAndPassword(auth, email, password)
-			.then((userCredential) => {
-				const user = userCredential.user;
-				alert("ログイン完了");
-				console.log(user);
-				Router.push("/");
-			})
-			.catch((error) => {
-				console.log(error);
-				alert("メールアドレス、またはパスワードが間違っています。");
-			});
+		try {
+			const userCredential = await signInWithEmailAndPassword(
+				auth,
+				email,
+				password,
+			);
+			const user = userCredential.user;
+			alert("ログイン完了");
+			console.log(user);
+			Router.push("/");
+		} catch (error) {
+			console.log(error);
+			alert("メールアドレス、またはパスワードが間違っています。");
+		}
 	};
 
 	return (
