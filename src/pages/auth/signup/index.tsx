@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Router from "next/router";
 import styles from "./index.module.css";
 
-import { firebaseApp } from "@/src/lib/firebase/firebaseConfig";
+import { firebaseApp } from "@/utils/firebase/firebaseConfig";
 
 const Register = () => {
 	const [email, setEmail] = useState("");

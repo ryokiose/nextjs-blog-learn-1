@@ -2,7 +2,7 @@ import Link from "next/link";
 import styles from "./index.module.css";
 import { User, signOut } from "firebase/auth";
 
-import { auth } from "@/src/lib/firebase/firebaseConfig";
+import { auth } from "@/utils/firebase/firebaseConfig";
 
 // import { getLoginUser } from "@/src/lib/auth/getLoginUser";
 import { useEffect, useState } from "react";

@@ -1,4 +1,4 @@
-import { PostData } from "@/src/lib/posts";
+import { PostData } from "@/utils/posts";
 
 export interface PostProps {
 	postData: PostData;

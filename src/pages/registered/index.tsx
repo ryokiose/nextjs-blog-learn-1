@@ -1,8 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import { useState } from "react";
-import Layout from "@/src/components/Layout/layout";
+import Layout from "@/components/Layout";
 import styles from "@/src/styles/utils.module.css";
-import Date from "@/src/components/Elements/Date/date";
+import Date from "@/components/Elements/Date/date";
 
 async function deletePost(id: number): Promise<boolean> {
 	const response = await fetch(`api/delete-post/${id}`, {

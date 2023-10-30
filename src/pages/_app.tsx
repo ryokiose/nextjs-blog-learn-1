@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import "@/src/styles/global.css";
+import "@/styles/global.css";
 import { AppProps } from "next/app";
 import nprogress from "nprogress";
 import "nprogress/nprogress.css";

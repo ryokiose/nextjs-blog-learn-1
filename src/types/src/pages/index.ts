@@ -1,4 +1,4 @@
-import { PostData } from "../../../lib/posts";
+import { PostData } from "@/utils/posts";
 
 export interface HomeProps {
 	allPostsData: PostData[];

@@ -1,3 +1,3 @@
-interface DateProps {
+export interface DateProps {
 	dateString: string;
 }

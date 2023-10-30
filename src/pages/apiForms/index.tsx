@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Layout from "@/src/components/Layout/layout";
-import styles from "@/src/styles/utils.module.css";
+import Layout from "@/components/Layout";
+import styles from "@/styles/utils.module.css";
 import { useState } from "react";
 
 const postForm = () => {
