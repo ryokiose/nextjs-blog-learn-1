@@ -30,6 +30,7 @@ const Login = () => {
 			})
 			.catch((error) => {
 				console.log(error);
+				alert("メールアドレス、またはパスワードが間違っています。");
 			});
 	};
 
