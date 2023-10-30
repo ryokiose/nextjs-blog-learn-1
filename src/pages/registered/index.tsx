@@ -189,11 +189,11 @@ export async function getServerSideProps() {
 	// userData = await prism.post.findMany({})と等価
 	// SQL : SELECT id, name, email, createdAt FROM post;
 
-	userData.sort((a, b) => a.id - b.id);
+	userData.sort((a: { id: number; }, b: { id: number; }) => a.id - b.id);
 
 	return {
 		props: {
-			userData: userData.map((user) => ({
+			userData: userData.map((user: { createdAt: { toISOString: () => string; }; }) => ({
 				...user,
 				createdAt: user.createdAt.toISOString(),
 			})),

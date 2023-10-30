@@ -4,7 +4,6 @@ import styles from "@/src/components/Layout/layout.module.css";
 import utilStyles from "@/src/styles/utils.module.css";
 import Link from "next/link";
 
-export const name = "Manato Miura";
 export const siteTitle = "Next.js Sample Website";
 import { BackButton } from "@/components/Elements/BackButton/backButton";
 
@@ -37,7 +36,7 @@ const Layout = ({ children, home }: LayoutProps) => {
 							width={144}
 							alt=""
 						/>
-						<h1 className={utilStyles.heading2Xl}>{name}</h1>
+						<h1 className={utilStyles.heading2Xl}>{siteTitle}</h1>
 					</>
 				) : (
 					<>
@@ -53,7 +52,7 @@ const Layout = ({ children, home }: LayoutProps) => {
 						</Link>
 						<h2 className={utilStyles.headingLg}>
 							<Link href="/" className={utilStyles.colorInherit}>
-								{name}
+								{siteTitle}
 							</Link>
 						</h2>
 					</>
