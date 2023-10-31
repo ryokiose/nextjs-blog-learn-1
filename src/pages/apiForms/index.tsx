@@ -2,7 +2,7 @@ import Head from "next/head";
 import Layout from "@/components/Layout";
 import styles from "@/styles/utils.module.css";
 import React, { useState } from "react";
-import { responseData } from "@/types/pages/registered";
+import { responseData } from "@/types/src/pages/registered";
 
 const PostForm = () => {
 	const [name, setName] = useState<string>("");
