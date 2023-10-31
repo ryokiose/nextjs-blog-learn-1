@@ -3,8 +3,8 @@ import { useState } from "react";
 import Layout from "@/components/Layout";
 import styles from "@/styles/utils.module.css";
 import Date from "@/components/Elements/Date/date";
-import { Post } from "@/types/pages/registered";
-import { responseData } from "@/types/pages/registered";
+import { Post } from "@/types/src/pages/registered";
+import { responseData } from "@/types/src/pages/registered";
 
 async function deletePost(id: number): Promise<boolean> {
 	const response = await fetch(`api/delete-post/${id}`, {

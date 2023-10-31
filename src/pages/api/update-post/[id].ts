@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiResponse } from "next";
-import { UpdatePostNextApiRequest } from "@/types/pages/api/update-post/[id]";
+import { UpdatePostNextApiRequest } from "@/types/src/pages/api/update-post/[id]";
 
 let prisma: PrismaClient | undefined;
 

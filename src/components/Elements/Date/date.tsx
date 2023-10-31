@@ -1,4 +1,4 @@
-import { DateProps } from "@/types/components/date";
+import { DateProps } from "@/types/src/components/date";
 import { parseISO, format } from "date-fns";
 import React from "react";
 

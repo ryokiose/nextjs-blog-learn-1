@@ -4,7 +4,7 @@ import utilStyles from "@/styles/utils.module.css";
 import { getSortedPostsData } from "@/utils/posts";
 import Link from "next/link";
 import Date from "@/components/Elements/Date/date";
-import { HomeProps } from "@/types/pages/index";
+import { HomeProps } from "@/types/src/pages/index";
 
 export async function getStaticProps() {
 	const allPostsData = getSortedPostsData();

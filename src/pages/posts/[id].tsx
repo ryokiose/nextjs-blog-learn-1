@@ -3,7 +3,7 @@ import { getAllPostIds, getPostData } from "@/utils/posts";
 import Head from "next/head";
 import Date from "@/components/Elements/Date/date";
 import utilStyles from "@/styles/utils.module.css";
-import { Params, PostData } from "@/types/posts/[id]";
+import { Params, PostData } from "@/types/src/posts/[id]";
 
 const Post = ({ postData }: { postData: PostData }) => {
 	return (
