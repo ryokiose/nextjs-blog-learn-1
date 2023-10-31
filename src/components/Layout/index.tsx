@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export const siteTitle = "Next.js Sample Website";
 import { BackButton } from "@/components/Elements/BackButton/backButton";
-import { LayoutProps } from "@/types/src/components/layout";
+import { LayoutProps } from "./type";
 
 const Layout = ({ children, home }: LayoutProps) => {
 	return (

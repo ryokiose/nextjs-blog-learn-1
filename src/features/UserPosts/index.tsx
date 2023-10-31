@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import styles from "@/styles/utils.module.css";
-import Date from "@/components/Elements/Date/date";
+import Date from "@/components/Elements/Date";
 import { Post } from "./index.type";
 import { ResponseData } from "@/types/response";
 

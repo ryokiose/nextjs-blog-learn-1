@@ -1,4 +1,4 @@
-import { Params, PostData } from "@/types/src/posts/[id]";
+import { Params, PostData } from "@/features/Posts/type";
 import { getAllPostIds, getPostData } from "@/utils/posts";
 import { Post } from "@/features/Posts";
 

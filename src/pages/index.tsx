@@ -1,6 +1,6 @@
 import { getSortedPostsData } from "@/utils/posts";
 import { Home } from "@/features/Home";
-import { HomeProps } from "@/types/src/pages";
+import { HomeProps } from "@/features/Home/type";
 
 export default function HomeIndex({ allPostsData }: HomeProps) {
 	return <Home allPostsData={allPostsData} />;

@@ -2,8 +2,8 @@ import Head from "next/head";
 import Layout from "@/components/Layout/";
 import utilStyles from "@/styles/utils.module.css";
 import Link from "next/link";
-import Date from "@/components/Elements/Date/date";
-import { HomeProps } from "@/types/src/pages/index";
+import Date from "@/components/Elements/Date";
+import { HomeProps } from "./type";
 import { siteTitle } from "@/components/Layout";
 
 export const Home = ({ allPostsData }: HomeProps) => {
