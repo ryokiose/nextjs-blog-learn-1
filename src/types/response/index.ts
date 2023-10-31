@@ -1,3 +1,3 @@
 export type ResponseData = {
-  error?: string;
-}
+	error?: string;
+};
