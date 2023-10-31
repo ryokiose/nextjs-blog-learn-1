@@ -34,7 +34,7 @@ const Home = ({ allPostsData }: HomeProps) => {
 						</li>
 					))}
 					<li className={utilStyles.listItem}>
-						<Link href={`/apiForms`}>API Forms</Link>
+						<Link href={`/api-forms`}>API Forms</Link>
 					</li>
 					<li className={utilStyles.listItem}>
 						<Link href={`/registered`}>Registered Users</Link>
