@@ -2,8 +2,8 @@ import { UserPosts } from "@/features/UserPosts";
 import { Post } from "@/features/UserPosts/index.type";
 import { PrismaClient } from "@prisma/client";
 
-export default function UserPostsPage({userData}:{userData: Post[]}) {
-  return <UserPosts userData={userData}/>;
+export default function UserPostsPage({ userData }: { userData: Post[] }) {
+	return <UserPosts userData={userData} />;
 }
 
 export async function getServerSideProps() {
