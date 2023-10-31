@@ -37,7 +37,7 @@ const Home = ({ allPostsData }: HomeProps) => {
 						<Link href={`/api-forms`}>API Forms</Link>
 					</li>
 					<li className={utilStyles.listItem}>
-						<Link href={`/registered`}>Registered Users</Link>
+						<Link href={`/user-posts`}>Registered Users</Link>
 					</li>
 				</ul>
 			</section>
