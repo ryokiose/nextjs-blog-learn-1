@@ -1,9 +1,8 @@
 import Layout from "@/components/Layout";
-import { getAllPostIds, getPostData } from "@/utils/posts";
 import Head from "next/head";
 import Date from "@/components/Elements/Date/date";
 import utilStyles from "@/styles/utils.module.css";
-import { Params, PostData } from "@/types/src/posts/[id]";
+import { PostData } from "@/types/src/posts/[id]";
 
 export const Post = ({ postData }: { postData: PostData }) => {
 	return (

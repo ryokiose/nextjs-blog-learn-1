@@ -1,6 +1,6 @@
 import { Params, PostData } from "@/types/src/posts/[id]";
 import { getAllPostIds, getPostData } from "@/utils/posts";
-import { Post } from "@/features/Posts"
+import { Post } from "@/features/Posts";
 
 export default function PostPage({ postData }: { postData: PostData }) {
 	return <Post postData={postData} />;
