@@ -1,10 +1,10 @@
-import Head from "next/head";
-import Layout from "@/components/Layout/";
-import utilStyles from "@/styles/utils.module.css";
 import { getSortedPostsData } from "@/utils/posts";
-import Link from "next/link";
-import Date from "@/components/Elements/Date/date";
-import { HomeProps } from "@/types/pages/index";
+import { Home } from "@/features/Home";
+import { HomeProps } from "@/features/Home/type";
+
+export default function HomeIndex({ allPostsData }: HomeProps) {
+	return <Home allPostsData={allPostsData} />;
+}
 
 export async function getStaticProps() {
 	const allPostsData = getSortedPostsData();
@@ -14,37 +14,3 @@ export async function getStaticProps() {
 		},
 	};
 }
-
-const Home = ({ allPostsData }: HomeProps) => {
-	return (
-		<Layout home>
-			<Head>
-				<title>{siteTitle}</title>
-			</Head>
-			<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-				<h2 className={utilStyles.headingLg}>Blog</h2>
-				<ul className={utilStyles.list}>
-					{allPostsData.map(({ id, date, title }) => (
-						<li className={utilStyles.listItem} key={id}>
-							<Link href={`/posts/${id}`}>{title}</Link>
-							<br />
-							<small className={utilStyles.lightText}>
-								<Date dateString={date} />
-							</small>
-						</li>
-					))}
-					<li className={utilStyles.listItem}>
-						<Link href={`/apiForms`}>API Forms</Link>
-					</li>
-					<li className={utilStyles.listItem}>
-						<Link href={`/registered`}>Registered Users</Link>
-					</li>
-				</ul>
-			</section>
-		</Layout>
-	);
-};
-
-const siteTitle = "Next.js Sample Website";
-
-export default Home;

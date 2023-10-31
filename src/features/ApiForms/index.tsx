@@ -2,9 +2,9 @@ import Head from "next/head";
 import Layout from "@/components/Layout";
 import styles from "@/styles/utils.module.css";
 import React, { useState } from "react";
-import { responseData } from "@/types/pages/registered";
+import { ResponseData } from "@/types/response";
 
-const PostForm = () => {
+export const ApiForms = () => {
 	const [name, setName] = useState<string>("");
 	const [email, setEmail] = useState<string>("");
 
@@ -17,7 +17,7 @@ const PostForm = () => {
 				},
 				body: JSON.stringify({ name, email }),
 			});
-			const responseData = (await response.json()) as responseData;
+			const responseData = (await response.json()) as ResponseData;
 			if (response.status === 200) {
 				alert("登録に成功しました。");
 			} else {
@@ -84,5 +84,3 @@ const PostForm = () => {
 		</Layout>
 	);
 };
-
-export default PostForm;

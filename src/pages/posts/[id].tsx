@@ -1,27 +1,10 @@
-import Layout from "@/components/Layout";
+import { Params, PostData } from "@/features/Posts/type";
 import { getAllPostIds, getPostData } from "@/utils/posts";
-import Head from "next/head";
-import Date from "@/components/Elements/Date/date";
-import utilStyles from "@/styles/utils.module.css";
-import { Params, PostData } from "@/types/posts/[id]";
+import { Post } from "@/features/Posts";
 
-const Post = ({ postData }: { postData: PostData }) => {
-	return (
-		<Layout>
-			<Head>
-				<title>{postData.title}</title>
-			</Head>
-			<article>
-				<h1 className={utilStyles.headingx1}>{postData.title}</h1>
-				<div className={utilStyles.lightText}>
-					<Date dateString={postData.date} />
-				</div>
-				<br />
-				<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-			</article>
-		</Layout>
-	);
-};
+export default function PostPage({ postData }: { postData: PostData }) {
+	return <Post postData={postData} />;
+}
 
 export async function getStaticPaths() {
 	const paths = getAllPostIds();
@@ -39,5 +22,3 @@ export async function getStaticProps({ params }: Params) {
 		},
 	};
 }
-
-export default Post;

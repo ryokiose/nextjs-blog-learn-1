@@ -1,10 +1,9 @@
-import { PrismaClient } from "@prisma/client";
 import { useState } from "react";
 import Layout from "@/components/Layout";
 import styles from "@/styles/utils.module.css";
-import Date from "@/components/Elements/Date/date";
-import { Post } from "@/types/pages/registered";
-import { responseData } from "@/types/pages/registered";
+import Date from "@/components/Elements/Date";
+import { Post } from "./index.type";
+import { ResponseData } from "@/types/response";
 
 async function deletePost(id: number): Promise<boolean> {
 	const response = await fetch(`api/delete-post/${id}`, {
@@ -14,7 +13,7 @@ async function deletePost(id: number): Promise<boolean> {
 		},
 	});
 
-	const responseData: responseData = (await response.json()) as responseData;
+	const responseData = (await response.json()) as ResponseData;
 	if (response.status === 200) {
 		alert("削除に成功しました。");
 		return true;
@@ -37,7 +36,7 @@ async function updatePost(
 		body: JSON.stringify({ name, email }),
 	});
 
-	const responseData: responseData = (await response.json()) as responseData;
+	const responseData = (await response.json()) as ResponseData;
 	if (response.status === 200) {
 		alert("更新に成功しました.");
 		return true;
@@ -47,7 +46,7 @@ async function updatePost(
 	}
 }
 
-const Posts = ({ userData }: { userData: Post[] }) => {
+export const UserPosts = ({ userData }: { userData: Post[] }) => {
 	const [userList, setUserList] = useState<Post[]>(userData);
 	const [isEdit, setIsEdit] = useState<[boolean, number]>([false, 0]);
 
@@ -193,30 +192,3 @@ const Posts = ({ userData }: { userData: Post[] }) => {
 		</Layout>
 	);
 };
-
-export async function getServerSideProps() {
-	const prisma = new PrismaClient();
-	const userData = await prisma.post.findMany({
-		select: {
-			id: true,
-			name: true,
-			email: true,
-			createdAt: true,
-		},
-	});
-
-	userData.sort((a: { id: number }, b: { id: number }) => a.id - b.id);
-
-	return {
-		props: {
-			userData: userData.map(
-				(user: { createdAt: { toISOString: () => string } }) => ({
-					...user,
-					createdAt: user.createdAt.toISOString(),
-				}),
-			),
-		},
-	};
-}
-
-export default Posts;

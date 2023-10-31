@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { NextApiResponse } from "next";
-import { ApiFormNextApiRequest } from "@/types/pages/api/api-forms";
+import { ApiFormNextApiRequest } from "@/types/api/api-forms";
 
 let prisma: PrismaClient | undefined;
 
