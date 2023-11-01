@@ -8,3 +8,14 @@ export interface Post {
 export interface responseData {
 	error?: string;
 }
+
+export interface newPost {
+	id: number;
+	name: string;
+	email: string;
+	created_at: string;
+}
+
+export interface payload {
+	new: newPost;
+}
