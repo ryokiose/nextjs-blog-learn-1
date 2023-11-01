@@ -1,5 +1,5 @@
 import { UserPosts } from "@/features/UserPosts";
-import { Post } from "@/features/UserPosts/index.type";
+import { Post } from "@/features/UserPosts/type";
 import { PrismaClient } from "@prisma/client";
 
 export default function UserPostsPage({ userData }: { userData: Post[] }) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import styles from "@/styles/utils.module.css";
 import Date from "@/components/Elements/Date";
-import { Post, newPost, payload } from "./index.type";
+import { Post, newPost, payload } from "./type";
 import { ResponseData } from "@/types/response";
 import { supabase } from "@/utils/supabase";
 import { convert } from "@/utils/convertDate";
