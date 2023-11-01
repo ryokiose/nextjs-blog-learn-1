@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import styles from "@/styles/utils.module.css";
 import Date from "@/components/Elements/Date";
-import { Post } from "./index.type";
+import { Post, newPost, payload } from "./index.type";
 import { ResponseData } from "@/types/response";
+import { supabase } from "@/utils/supabase";
+import { convert } from "@/utils/convertDate";
 
 async function deletePost(id: number): Promise<boolean> {
 	const response = await fetch(`api/delete-post/${id}`, {
@@ -102,6 +104,36 @@ export const UserPosts = ({ userData }: { userData: Post[] }) => {
 				);
 			});
 	};
+
+	const handleInserts = (payload: payload) => {
+		const newPost: newPost = payload.new;
+		// newPostを整形する
+		const formattedNewPost: Post = {
+			id: newPost.id,
+			name: newPost.name,
+			email: newPost.email,
+			createdAt: convert(newPost.created_at),
+		};
+		setUserList((prevList) => [...prevList, formattedNewPost]);
+	};
+
+	useEffect(() => {
+		const posts_supabase = supabase;
+
+		posts_supabase
+			.channel("next-prisma-supabase-learn")
+			.on(
+				"postgres_changes",
+				{
+					event: "INSERT",
+					schema: "public",
+					table: "posts",
+				},
+				handleInserts,
+			)
+			.subscribe();
+		return () => {};
+	}, []);
 
 	return (
 		<Layout>
