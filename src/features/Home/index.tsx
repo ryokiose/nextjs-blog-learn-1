@@ -13,7 +13,7 @@ export const Home = ({ allPostsData }: HomeProps) => {
 
 	const handleClick = () => {
 		setIsLoading(true);
-	}
+	};
 
 	return (
 		<Layout home>
@@ -21,28 +21,30 @@ export const Home = ({ allPostsData }: HomeProps) => {
 				<title>{siteTitle}</title>
 			</Head>
 			{isLoading ? (
-          <Loading />
-        ) : (
-			<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-				<h2 className={utilStyles.headingLg}>Blog</h2>
-				<ul className={utilStyles.list}>
-					{allPostsData.map(({ id, date, title }) => (
-						<li className={utilStyles.listItem} key={id}>
-							<Link href={`/posts/${id}`}>{title}</Link>
-							<br />
-							<small className={utilStyles.lightText}>
-								<Date dateString={date} />
-							</small>
+				<Loading />
+			) : (
+				<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+					<h2 className={utilStyles.headingLg}>Blog</h2>
+					<ul className={utilStyles.list}>
+						{allPostsData.map(({ id, date, title }) => (
+							<li className={utilStyles.listItem} key={id}>
+								<Link href={`/posts/${id}`}>{title}</Link>
+								<br />
+								<small className={utilStyles.lightText}>
+									<Date dateString={date} />
+								</small>
+							</li>
+						))}
+						<li className={utilStyles.listItem}>
+							<Link href={`/api-forms`}>API Forms</Link>
 						</li>
-					))}
-					<li className={utilStyles.listItem}>
-						<Link href={`/api-forms`}>API Forms</Link>
-					</li>
-					<li className={utilStyles.listItem}>
-						<Link href={`/user-posts`} onClick={handleClick}>Registered Users</Link>
-					</li>
-				</ul>
-			</section>
+						<li className={utilStyles.listItem}>
+							<Link href={`/user-posts`} onClick={handleClick}>
+								Registered Users
+							</Link>
+						</li>
+					</ul>
+				</section>
 			)}
 		</Layout>
 	);
