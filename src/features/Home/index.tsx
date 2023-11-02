@@ -5,13 +5,24 @@ import Link from "next/link";
 import Date from "@/components/Elements/Date";
 import { HomeProps } from "./type";
 import { siteTitle } from "@/components/Layout";
+import { useState } from "react";
+import { Loading } from "@/components/Loading";
 
 export const Home = ({ allPostsData }: HomeProps) => {
+	const [isLoading, setIsLoading] = useState(false);
+
+	const handleClick = () => {
+		setIsLoading(true);
+	}
+
 	return (
 		<Layout home>
 			<Head>
 				<title>{siteTitle}</title>
 			</Head>
+			{isLoading ? (
+          <Loading />
+        ) : (
 			<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
 				<h2 className={utilStyles.headingLg}>Blog</h2>
 				<ul className={utilStyles.list}>
@@ -28,10 +39,11 @@ export const Home = ({ allPostsData }: HomeProps) => {
 						<Link href={`/api-forms`}>API Forms</Link>
 					</li>
 					<li className={utilStyles.listItem}>
-						<Link href={`/user-posts`}>Registered Users</Link>
+						<Link href={`/user-posts`} onClick={handleClick}>Registered Users</Link>
 					</li>
 				</ul>
 			</section>
+			)}
 		</Layout>
 	);
 };
