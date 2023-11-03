@@ -2,19 +2,15 @@
 
 ## 目次
 - [Learn Next.js-TypeScript](#learn-nextjs-typescript)
-  - [目次](#目次)
-  - [セットアップ](#セットアップ)
-    - [Node.jsのインストール](#nodejsのインストール)
-    - [パッケージマネージャーのインストール](#パッケージマネージャーのインストール)
-  - [1 | プロジェクトの作成](#1--プロジェクトの作成)
-  - [2 | プロジェクトの開発](#2--プロジェクトの開発)
-  - [2.1 | ページの作成](#21--ページの作成)
-  - [2.2 | リンクの作成](#22--リンクの作成)
-  - [2.3 | アセット、メタデータ、CSSの追加](#23--アセットメタデータcssの追加)
-  - [3.1 | データの取得](#31--データの取得)
-
-
-
+	- [目次](#目次)
+	- [セットアップ](#セットアップ)
+		- [Node.jsのインストール](#nodejsのインストール)
+		- [パッケージマネージャーのインストール](#パッケージマネージャーのインストール)
+	- [1 | プロジェクトの作成](#1--プロジェクトの作成)
+	- [2 | プロジェクトの開発](#2--プロジェクトの開発)
+	- [2.1 | ページの作成](#21--ページの作成)
+	- [2.2 | リンクの作成](#22--リンクの作成)
+	- [2.3 | アセット、メタデータ、CSSの追加](#23--アセットメタデータcssの追加)
 
 ## [セットアップ](#セットアップ)
 まずはNext.jsを使用する環境を作成します。
@@ -371,7 +367,7 @@ import Image from "next/image";
 import styles from "./index.module.css";
 import utilStyles from "@/styles/utils.module.css";
 import Link from "next/link";
-import { LayoutProps } from "@/types/components/Layout";
+import { LayoutProps } from "./type";
 
 export const siteTitle = "Next.js Sample Website";
 
@@ -446,10 +442,11 @@ export default Layout;
 今回は、/public/images/profile.jpgを指定しているため、任意の画像を配置してください。
 
 ない場合は、以下の画像を使用してください。
+
 ![profile.jpg](https://i.imgur.com/cam3Dnx.jpg)
 
 ```tsx
-// src/types/src/components/Layout/index.ts
+// src/components/Layout/type.tsx
 import { ReactNode } from "react";
 
 export interface LayoutProps {
@@ -508,14 +505,9 @@ yarn test-all
 │   │   ├── index.tsx
 │   │   ├── posts
 │   │   │   └── first-post.tsx
-│   ├── styles
-│   │   ├── utils.module.css
-│   │   └── globals.css
-│   └── types
-│       └── src
-│           └── components
-│               └── Layout
-│                   └── index.ts
+│   └── styles
+│       ├── utils.module.css
+│       └── globals.css
 ```
 
 
@@ -527,6 +519,3 @@ yarn test-all
 | import | モジュールを読み込む | |
 | export | モジュールをエクスポートする | つけることで、importができるようになる |
 | default | モジュールのデフォルトエクスポートを指定する | 読み込まれたときに、実行される |
-
-
-## [3.1 | データの取得](#データの取得)
