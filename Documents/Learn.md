@@ -11,6 +11,8 @@
 	- [2.1 | ページの作成](#21--ページの作成)
 	- [2.2 | リンクの作成](#22--リンクの作成)
 	- [2.3 | アセット、メタデータ、CSSの追加](#23--アセットメタデータcssの追加)
+		- [3 | データの取得](#3--データの取得)
+
 
 ## [セットアップ](#セットアップ)
 まずはNext.jsを使用する環境を作成します。
@@ -455,10 +457,10 @@ export interface LayoutProps {
 }
 ```
 
-新しいLayoutをWebサイトのルートに適用します。
+新しいLayoutをWebサイトのルートに適用します。また、featuresディレクトリを作成し、ページの実体は以降そこに作成していきます。
 
 ```tsx
-// src/pages/index.tsx
+// src/features/Home/index.tsx
 import Head from "next/head";
 import Layout, { siteTitle } from "@/components/Layout";
 import utilStyles from "@/styles/utils.module.css";
@@ -479,8 +481,17 @@ const Home = () => {
 		</Layout>
 	);
 };
+```
 
-export default Home;
+```tsx
+// src/pages/index.tsx
+import { Home } from "@/features/Home";
+
+const HomePage = () => {
+	return <Home />;
+};
+
+export default HomePage;
 ```
 
 最後に、以下のコマンドを使用してください。
@@ -501,6 +512,9 @@ yarn test-all
 │   │   └── Layout
 │   │       ├── index.module.css
 │   │       └── index.tsx
+│   ├── features
+│   │   └── Home
+│   │       └── index.tsx
 │   ├── pages
 │   │   ├── index.tsx
 │   │   ├── posts
@@ -519,3 +533,245 @@ yarn test-all
 | import | モジュールを読み込む | |
 | export | モジュールをエクスポートする | つけることで、importができるようになる |
 | default | モジュールのデフォルトエクスポートを指定する | 読み込まれたときに、実行される |
+
+### [3 | データの取得](#データの取得)
+次は、データの取得について学びます。
+
+今回は、ローカルにmarkdownファイルを作成し、そのファイルを読み込んで表示するようにします。
+
+まずは、表示するmarkdownファイルを作成します。
+
+1つめ
+```md
+// src/posts/pre-rendering.md
+---
+title: 'Two Forms of Pre-rendering'
+date: '2020-01-01'
+---
+
+Next.js has two forms of pre-rendering: **Static Generation** and **Server-side Rendering**. The difference is in **when** it generates the HTML for a page.
+
+- **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then _reused_ on each request.
+- **Server-side Rendering** is the pre-rendering method that generates the HTML on **each request**.
+
+Importantly, Next.js lets you **choose** which pre-rendering form to use for each page. You can create a "hybrid" Next.js app by using Static Generation for most pages and using Server-side Rendering for others.
+```
+
+2つめ
+```md
+---
+title: 'When to Use Static Generation v.s. Server-side Rendering'
+date: '2020-01-02'
+---
+
+We recommend using **Static Generation** (with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
+
+You can use Static Generation for many types of pages, including:
+
+- Marketing pages
+- Blog posts
+- E-commerce product listings
+- Help and documentation
+
+You should ask yourself: "Can I pre-render this page **ahead** of a user's request?" If the answer is yes, then you should choose Static Generation.
+
+On the other hand, Static Generation is **not** a good idea if you cannot pre-render a page ahead of a user's request. Maybe your page shows frequently updated data, and the page content changes on every request.
+
+In that case, y	ou can use **Server-Side Rendering**. It will be slower, but the pre-rendered page will always be up-to-date. Or you can skip pre-rendering and use client-side JavaScript to populate data.
+```
+
+markdownファイルを作成したので、それを読み込んで表示するようにします。
+また、必要なモジュールをインストールします。
+
+```bash
+npm install gray-matter remark remark-html
+```
+```tsx
+// src/utils/posts/index.ts
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
+import { PostData } from "./type";
+export type { PostData };
+
+const postsDirectory = path.join(process.cwd(), "src", "posts");
+
+export function getSortedPostsData(): PostData[] {
+	const fileNames = fs.readdirSync(postsDirectory);
+	const allPostsData = fileNames.map((fileName) => {
+		const id = fileName.replace(/\.md$/, "");
+		const fullPath = path.join(postsDirectory, fileName);
+		const fileContents = fs.readFileSync(fullPath, "utf8");
+		const matterResult = matter(fileContents);
+		return {
+			id,
+			...matterResult.data,
+		} as PostData;
+	});
+	return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1));
+}
+
+export function getAllPostIds(): { params: { id: string } }[] {
+	const fileNames = fs.readdirSync(postsDirectory);
+	return fileNames.map((fileName) => ({
+		params: {
+			id: fileName.replace(/\.md$/, ""),
+		},
+	}));
+}
+
+export async function getPostData(id: string): Promise<PostData> {
+	const fullPath = path.join(postsDirectory, `${id}.md`);
+	const fileContents = fs.readFileSync(fullPath, "utf8");
+	const matterResult = matter(fileContents);
+	const processedContent = await remark()
+		.use(html)
+		.process(matterResult.content);
+	const contentHtml = processedContent.toString();
+	return {
+		id,
+		contentHtml,
+		...matterResult.data,
+	} as PostData;
+}
+```
+
+このままでは、型の情報がないので型定義ファイルを作成し、それをimportします。
+
+```ts
+// src/utils/posts/type.ts
+import { PostData } from "@/utils/posts";
+
+export interface PostProps {
+	postData: PostData;
+}
+
+export interface Params {
+	params: {
+		id: string;
+	};
+}
+export type { PostData };
+```
+
+次に、このデータを使用してページを作成します。
+
+```tsx
+// src/pages/index.tsx
+import { getSortedPostsData } from "@/utils/posts";
+import { Home } from "@/features/Home";
+import { HomeProps } from "@/features/Home/type";
+
+const HomePage = ({ allPostsData }: HomeProps) => {
+	return <Home allPostsData={allPostsData} />;
+}
+
+export async function getStaticProps() {
+	const allPostsData = getSortedPostsData();
+	return {
+		props: {
+			allPostsData,
+		},
+	};
+}
+
+export default HomePage;	
+```
+ここでは、getStaticPropsを使用しています。これは、ビルド時に実行され、その結果がpropsとして渡されます。getStaticPropsは、ビルド時にしか実行されないため、リアルタイムのデータを取得することはできません。
+
+よってあまり使いません。
+
+allPostDataは、先ほど作成したgetSortedPostsDataを使用して取得しています。
+
+allPostDataをpropsとして渡すことで、Homeコンポーネントで使用することができます。
+
+↓ここのallPostsData
+```tsx
+// src/features/Home/index.tsx
+const HomePage = ({ allPostsData }: HomeProps) => {
+```
+
+次に不足している型を作成します。
+
+```ts
+// src/features/Home/type.ts
+import { PostData } from "@/utils/posts";
+
+export interface HomeProps {
+	allPostsData: PostData[];
+}
+```
+
+この型はPostDataの配列、つまり、PostDataの要素を複数持つ配列であることを表しています。
+
+```tsx
+// src/features/Home/index.tsx
+import Head from "next/head";
+import Layout from "@/components/Layout/";
+import utilStyles from "@/styles/utils.module.css";
+import Link from "next/link";
+import Date from "@/components/Elements/Date";
+import { HomeProps } from "./type";
+import { siteTitle } from "@/components/Layout";
+
+export const Home = ({ allPostsData }: HomeProps) => {
+	return (
+		<Layout home>
+			<Head>
+				<title>{siteTitle}</title>
+			</Head>
+			<section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+				<h2 className={utilStyles.headingLg}>Blog</h2>
+				<ul className={utilStyles.list}>
+					{allPostsData.map(({ id, date, title }) => (
+						<li className={utilStyles.listItem} key={id}>
+							<Link href={`/posts/${id}`}>{title}</Link>
+							<br />
+							<small className={utilStyles.lightText}>
+								<Date dateString={date} />
+							</small>
+						</li>
+					))}
+				</ul>
+			</section>
+		</Layout>
+	);
+};
+```
+
+ここでは、allPostsDataを使用して、ブログの一覧を表示しています。
+
+.mapは、配列の要素を1つずつ取り出し、配列の要素の数だけ処理を行います。
+
+
+次に日付の表示を整えます。
+
+表示を整えるには、date-fnsというライブラリを使用します。以下のコマンドでインストールしてください。
+
+```bash
+npm install date-fns
+```
+
+```tsx
+// src/components/Elements/Date/index.tsx
+import { DateProps } from "./type";
+import { parseISO, format } from "date-fns";
+import React from "react";
+
+const Date: React.FC<DateProps> = ({ dateString }) => {
+	const date = parseISO(dateString);
+	return <time dateTime={dateString}>{format(date, "yyyy/MM/dd")}</time>;
+};
+
+export default Date;
+```
+
+```ts
+// src/components/Elements/Date/type.ts
+export interface DateProps {
+	dateString: string;
+}
+```
+これは日付の表示形式を整えるために使用します。
