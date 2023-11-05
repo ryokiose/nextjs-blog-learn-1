@@ -1,18 +1,13 @@
-import { getSortedPostsData } from "@/utils/posts";
-import { Home } from "@/features/Home";
-import { HomeProps } from "@/features/Home/type";
+import styles from "../styles/Home.module.css";
 
-const HomePage = ({ allPostsData }: HomeProps) => {
-	return <Home allPostsData={allPostsData} />;
-}
+const Home = () => {
+	return (
+		<>
+			<div className={styles.template}>
+				<h1>Hello Next.js</h1>
+			</div>
+		</>
+	);
+};
 
-export async function getStaticProps() {
-	const allPostsData = getSortedPostsData();
-	return {
-		props: {
-			allPostsData,
-		},
-	};
-}
-
-export default HomePage;
+export default Home;
