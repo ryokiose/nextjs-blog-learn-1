@@ -669,7 +669,7 @@ const HomePage = ({ allPostsData }: HomeProps) => {
 }
 
 export async function getStaticProps() {
-	const allPostsData = getSortedPostsData();
+	const allPostsData = await getSortedPostsData();
 	return {
 		props: {
 			allPostsData,
@@ -775,3 +775,98 @@ export interface DateProps {
 }
 ```
 これは日付の表示形式を整えるために使用します。
+
+これで、postsディレクトリにあるmarkdownファイルを読み込み、タイトルと日付を表示することができました。
+
+しかし、まだ記事の内容を表示することができていません。
+次に、記事の内容を表示するようにします。
+
+```tsx
+// src/pages/posts/[id].tsx
+import { Params, PostData } from "@/features/Posts/type";
+import { getAllPostIds, getPostData } from "@/utils/posts";
+import { Post } from "@/features/Posts";
+
+export default function PostPage({ postData }: { postData: PostData }) {
+	return <Post postData={postData} />;
+}
+
+export async function getStaticPaths() {
+	const paths = getAllPostIds();
+	return {
+		paths,
+		fallback: false,
+	};
+}
+
+export async function getStaticProps({ params }: Params) {
+	const postData = await getPostData(params.id);
+	return {
+		props: {
+			postData,
+		},
+	};
+}
+```
+
+ここでは、getStaticPathsとgetStaticPropsを使用しています。
+getStaticPathsは、ファイル名を取得しています。この記述はダイナミックルーティングを使用する際に必要になります。
+
+getStaticPropsは、getStaticPathsで取得したファイル名をpramasとして受け取り、そのファイル名を使用して、記事の内容を取得し、propsとしてデータを渡しています。
+
+詳しくは、[公式ドキュメント](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths)や、[この記事](https://teno-hira.com/media/?p=1741)
+
+```tsx
+// src/features/Posts/index.tsx
+import Layout from "@/components/Layout";
+import Head from "next/head";
+import Date from "@/components/Elements/Date";
+import utilStyles from "@/styles/utils.module.css";
+import { PostData } from "./type";
+
+export const Post = ({ postData }: { postData: PostData }) => {
+	return (
+		<Layout>
+			<Head>
+				<title>{postData.title}</title>
+			</Head>
+			<article>
+				<h1 className={utilStyles.headingx1}>{postData.title}</h1>
+				<div className={utilStyles.lightText}>
+					<Date dateString={postData.date} />
+				</div>
+				<br />
+				<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+			</article>
+		</Layout>
+	);
+};
+```
+
+ここでは受け取ったデータを使用して、markdownファイルの内容を表示しています。
+
+```ts
+// src/features/Posts/type.ts
+import { PostData } from "@/utils/posts";
+
+export interface PostProps {
+	postData: PostData;
+}
+
+export interface Params {
+	params: {
+		id: string;
+	};
+}
+export type { PostData };
+```
+
+ここでは、不足している型を定義しています。
+
+これで、記事の内容を表示することができました。
+
+かなり省略しながらでしたが、これで公式チュートリアルの内容をTypeScriptで実装することができました。
+
+ここからは、今回のプロジェクトで使用する技術について学んでいきます。
+
+続きが無かったら察してください。
