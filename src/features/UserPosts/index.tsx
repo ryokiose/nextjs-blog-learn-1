@@ -104,36 +104,35 @@ export const UserPosts = ({ userData }: { userData: Post[] }) => {
 				);
 			});
 	};
-
 	const handleInserts = (payload: payload) => {
-		const newPost: newPost = payload.new;
-		// newPostを整形する
-		const formattedNewPost: Post = {
-			id: newPost.id,
-			name: newPost.name,
-			email: newPost.email,
-			createdAt: convert(newPost.created_at),
-		};
-		setUserList((prevList) => [...prevList, formattedNewPost]);
-	};
+        const newPost: newPost = payload.new;
+        // newPostを整形する
+        const formattedNewPost: Post = {
+            id: newPost.id,
+            name: newPost.name,
+            email: newPost.email,
+            createdAt: convert(newPost.created_at),
+        };
+        setUserList((prevList) => [...prevList, formattedNewPost]);
+    };
 
-	useEffect(() => {
-		const posts_supabase = supabase;
+    useEffect(() => {
+        const posts_supabase = supabase;
 
-		posts_supabase
-			.channel("next-prisma-supabase-learn")
-			.on(
-				"postgres_changes",
-				{
-					event: "INSERT",
-					schema: "public",
-					table: "posts",
-				},
-				handleInserts,
-			)
-			.subscribe();
-		return () => {};
-	}, []);
+        posts_supabase
+            .channel("next-prisma-supabase-learn")
+            .on(
+                "postgres_changes",
+                {
+                    event: "INSERT",
+                    schema: "public",
+                    table: "posts",
+                },
+                handleInserts,
+            )
+            .subscribe();
+        return () => {};
+    }, []);
 
 	return (
 		<Layout>
