@@ -43,6 +43,16 @@ export const Home = ({ allPostsData }: HomeProps) => {
 								Registered Users
 							</Link>
 						</li>
+						<li className={utilStyles.listItem}>
+							<Link href={`/create-user`} onClick={handleClick}>
+								Create User
+							</Link>
+						</li>
+						<li className={utilStyles.listItem}>
+							<Link href={`/user-list`} onClick={handleClick}>
+								User list
+							</Link>
+						</li>
 					</ul>
 				</section>
 			)}
